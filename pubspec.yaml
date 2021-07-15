@@ -1,0 +1,28 @@
+name: lifehq
+description: Design your life.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+  emojis: ^0.9.3
+  sqflite: ^2.0.0+3
+  provider: ^5.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/loading.gif
+  uses-material-design: true
