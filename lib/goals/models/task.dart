@@ -22,16 +22,17 @@ class Task {
       'text': text,
       'done': done ? 1 : 0,
       'date': date.millisecondsSinceEpoch,
+      'goalId': goal.goalId
     };
   }
 
   factory Task.fromMap(Map<String, dynamic> map) {
     return Task(
-      taskId: map['taskId'],
-      text: map['text'],
-      done: map['done'] == 1,
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
-    );
+        taskId: map['taskId'],
+        text: map['text'],
+        done: map['done'] == 1,
+        date: DateTime.fromMillisecondsSinceEpoch(map['date']),
+        goal: Goal(goalId: map['goalId']));
   }
 
   String toJson() => json.encode(toMap());

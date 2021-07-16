@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lifehq/journal/models/journal_entry.dart';
 import 'package:lifehq/routine/models/routine.dart';
+import 'package:lifehq/routine/routine_details.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
+import 'package:lifehq/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class RoutineHome extends StatefulWidget {
@@ -57,8 +60,9 @@ class _RoutineHomeState extends State<RoutineHome> {
                     child: Icon(Icons.bar_chart, color: Colors.black))),
             Spacer()
           ]),
-          Consumer<RoutineService>(
-            builder: (context, provider, child) => Expanded(
+          Consumer<RoutineService>(builder: (context, provider, child) {
+            print(provider.routines[0].routineType);
+            return Expanded(
                 child: SingleChildScrollView(
               child: Column(
                 children: provider.routines
@@ -67,8 +71,8 @@ class _RoutineHomeState extends State<RoutineHome> {
                     .map((e) => RoutineCard(routine: e))
                     .toList(),
               ),
-            )),
-          )
+            ));
+          })
         ]))));
   }
 }
@@ -83,7 +87,22 @@ class RoutineCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card();
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (ctx) => RoutineDetails(
+                    routine: routine,
+                    tasks: [],
+                    journalEntry: JournalEntry(title: "hey"))));
+      },
+      child: Card(
+        child: Column(
+          children: [Text(Utilities.formatedDate(routine.dateTime))],
+        ),
+      ),
+    );
   }
 }
 

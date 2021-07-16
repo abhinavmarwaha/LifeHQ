@@ -1,9 +1,9 @@
-import 'package:emojis/emoji.dart';
-import 'package:emojis/emojis.dart';
 import 'package:flutter/material.dart';
-import 'package:lifehq/home.dart';
-import 'package:lifehq/routine/models/routine.dart';
-import 'package:lifehq/routine/routine_details.dart';
+import 'package:lifehq/goals/services/goals_service.dart';
+import 'package:lifehq/journal/services/journal_service.dart';
+import 'package:lifehq/knowledge/services/knowledge_service.dart';
+import 'package:lifehq/loading.dart';
+import 'package:lifehq/momento_mori.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/utils/removed_glow_behavior.dart';
 import 'package:provider/provider.dart';
@@ -20,28 +20,38 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (ctx) => RoutineService(),
           ),
+          ChangeNotifierProvider(
+            create: (ctx) => GoalsService(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => JournalService(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => KnowledgeService(),
+          ),
         ],
         child: Builder(builder: (context) {
-          return MaterialApp(
-            title: 'LifeHQ',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData.dark(),
-            builder: (context, child) {
-              return ScrollConfiguration(
-                behavior: RemovedGlowBehavior(),
-                child: child,
-              );
+          return Consumer4<RoutineService, GoalsService, JournalService,
+              KnowledgeService>(
+            builder: (context, routineService, goalsService, journalService,
+                knowledgeService, child) {
+              return MaterialApp(
+                  title: 'LifeHQ',
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData.dark(),
+                  builder: (context, child) {
+                    return ScrollConfiguration(
+                      behavior: RemovedGlowBehavior(),
+                      child: child,
+                    );
+                  },
+                  home: (routineService.initilised &&
+                          goalsService.initilised &&
+                          journalService.initilised &&
+                          knowledgeService.initilised)
+                      ? MomentoMori()
+                      : Loading());
             },
-            home: RoutineDetails(
-              routine: Routine(
-                  routineId: 1,
-                  routineType: 0,
-                  dateTime: DateTime.now(),
-                  feel: Emoji.byChar(Emojis.grinningCat),
-                  rested: 0,
-                  restedString: "Good night's sleep",
-                  treasures: ["Home", "Family"]),
-            ),
           );
         }));
   }

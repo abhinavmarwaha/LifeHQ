@@ -1,5 +1,6 @@
-import 'package:lifehq/routine/constants/strings.dart';
-import 'package:lifehq/routine/models/routine.dart';
+import 'package:lifehq/goals/constants/strings.dart';
+import 'package:lifehq/goals/models/goal.dart';
+import 'package:lifehq/goals/models/task.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -51,69 +52,57 @@ class GoalsDB {
     return dbClient.close();
   }
 
-  Future<int> insertRoutine(Routine routine) async {
+  Future<int> insertTask(Task task) async {
     final Database db = await getdb;
 
-    int id = await db.insert(
-      RoutineConstants.ROUTINES,
-      routine.toMap(),
+    return await db.insert(
+      GoalsConstants.TASKS,
+      task.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-    for (String treasure in routine.treasures) {
-      await db.insert(
-        RoutineConstants.ROUTINETREASURES,
-        {
-          "treasure": treasure,
-          "routineId": id,
-        },
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-    return id;
   }
 
-  Future<List<Routine>> getRoutines() async {
+  Future<List<Goal>> getGoals() async {
     final Database db = await getdb;
-    List<Map<String, dynamic>> maps = await db.query(RoutineConstants.ROUTINES);
-    List<Routine> routines = maps.map((map) => Routine.fromMap(map)).toList();
-    for (Routine routine in routines) {
-      routine.treasures = [];
-      List<String> treasures = (await db.query(
-        RoutineConstants.ROUTINETREASURES,
-        columns: ["treasure"],
-        where: "routineId = ?",
-        whereArgs: [routine.routineId],
-      ))
-          .map<String>((e) => e["treasure"]);
-      routine.treasures.addAll(treasures);
-    }
-    return routines;
+    return (await db.query(GoalsConstants.GOALS))
+        .map((e) => Goal.fromMap(e))
+        .toList();
   }
 
-  // Future<void> editRoutine(Routine routine) async {
-  //   final db = await getdb;
+  Future<List<Task>> getTasksByDate(DateTime dateTime) async {
+    final Database db = await getdb;
+    List<Map<String, dynamic>> maps =
+        await db.rawQuery('SELECT * FROM tasks WHERE date >= ? AND date <= ?', [
+      '${DateTime(dateTime.year, dateTime.month, dateTime.day).millisecondsSinceEpoch}',
+      '${DateTime(dateTime.year, dateTime.month, dateTime.day + 1).millisecondsSinceEpoch}'
+    ]);
+    return maps.map((e) => Task.fromMap(e)).toList();
+  }
 
-  //   await db.update(
-  //     RoutineConstants.ROUTINES,
-  //     routine.toMap(),
-  //     where: "routineId = ?",
-  //     whereArgs: [routine.routineId],
-  //     conflictAlgorithm: ConflictAlgorithm.replace,
-  //   );
-  // }
+  Future<void> editTask(Task task) async {
+    final db = await getdb;
 
-  Future<void> deleteRoutine(int id) async {
+    await db.update(
+      GoalsConstants.TASKS,
+      task.toMap(),
+      where: "taskId = ?",
+      whereArgs: [task.taskId],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> deleteGoal(int id) async {
     final db = await getdb;
 
     await db.delete(
-      RoutineConstants.ROUTINES,
-      where: "routineId = ?",
+      GoalsConstants.GOALS,
+      where: "goalId = ?",
       whereArgs: [id],
     );
 
     await db.delete(
-      RoutineConstants.ROUTINETREASURES,
-      where: "routineId = ?",
+      GoalsConstants.TASKS,
+      where: "goalId = ?",
       whereArgs: [id],
     );
   }

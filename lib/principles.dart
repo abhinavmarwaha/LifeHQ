@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lifehq/home.dart';
+import 'package:lifehq/routine/feel.dart';
+import 'package:lifehq/routine/services/routine_service.dart';
+import 'package:provider/provider.dart';
 
 class Principles extends StatefulWidget {
   Principles({Key key}) : super(key: key);
@@ -43,8 +47,27 @@ class _PrinciplesState extends State<Principles> {
                   opacity: nextOpacity,
                   child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (ctx) => Principles()));
+                        RoutineService routineService =
+                            Provider.of<RoutineService>(context, listen: false);
+                        int routineCheck = routineService.checkIfRoutined();
+                        switch (routineCheck) {
+                          case -1:
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (ctx) => Home()));
+                            break;
+                          case 0:
+                            routineService.startRoutine(0);
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (ctx) => Feel()));
+                            break;
+                          case 1:
+                            routineService.startRoutine(1);
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (ctx) => Feel()));
+                            break;
+                          case -2:
+                            throw Error();
+                        }
                       },
                       child: Icon(Icons.arrow_forward_ios)),
                 )

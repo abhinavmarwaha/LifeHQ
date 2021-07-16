@@ -1,43 +1,37 @@
-import 'package:emojis/emoji.dart';
 import 'package:flutter/material.dart';
-import 'package:lifehq/routine/rested.dart';
+import 'package:lifehq/routine/goal_sheet.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:provider/provider.dart';
 
-class Feel extends StatefulWidget {
-  Feel({Key key}) : super(key: key);
+class SingleWord extends StatelessWidget {
+  const SingleWord({
+    Key key,
+    @required this.title,
+  }) : super(key: key);
 
-  @override
-  _FeelState createState() => _FeelState();
-}
-
-class _FeelState extends State<Feel> {
-  final List<Emoji> allEmojis = Emoji.all();
-  List<Emoji> selectedEmojis = [];
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        backgroundColor: Colors.black,
+        body: SafeArea(
+            child: Column(
           children: [
             Text(
-              "How do you feel?",
+              title,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 26,
               ),
             ),
-            SizedBox(height: 12),
             TextFormField(
-              onChanged: (value) {
-                setState(() {
-                  selectedEmojis = allEmojis
-                      .where((element) => element.name.contains(value))
-                      .toList();
-                });
+              onFieldSubmitted: (value) {
+                Provider.of<RoutineService>(context, listen: false)
+                    .goingOnRoutine
+                    .restedString = value;
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (ctx) => GoalSheet()));
               },
               cursorColor: Colors.white,
               decoration: InputDecoration(
@@ -73,26 +67,8 @@ class _FeelState extends State<Feel> {
                     borderRadius: BorderRadius.circular(25.0),
                   ),
                   hintText: "Type"),
-            ),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 10,
-                children: selectedEmojis
-                    .map((e) => GestureDetector(
-                        onTap: () {
-                          Provider.of<RoutineService>(context, listen: false)
-                              .goingOnRoutine
-                              .feel = e;
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (ctx) => Rested()));
-                        },
-                        child: Text(e.char)))
-                    .toList(),
-              ),
             )
           ],
-        ),
-      ),
-    );
+        )));
   }
 }

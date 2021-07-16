@@ -1,6 +1,7 @@
-import 'package:emojis/emoji.dart';
 import 'package:flutter/material.dart';
-import 'package:lifehq/routine/goal_sheet.dart';
+import 'package:lifehq/routine/services/routine_service.dart';
+import 'package:lifehq/routine/single_word.dart';
+import 'package:provider/provider.dart';
 
 class Rested extends StatelessWidget {
   const Rested({Key key}) : super(key: key);
@@ -23,15 +24,29 @@ class Rested extends StatelessWidget {
             Choice(
               text: "Yes",
               onTap: () {
+                Provider.of<RoutineService>(context, listen: false)
+                    .goingOnRoutine
+                    .rested = 0;
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => GoalSheet()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (ctx) => SingleWord(
+                              title: "What Worked?",
+                            )));
               },
             ),
             Choice(
               text: "No",
               onTap: () {
+                Provider.of<RoutineService>(context, listen: false)
+                    .goingOnRoutine
+                    .rested = 1;
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => GoalSheet()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (ctx) => SingleWord(
+                              title: "Whats Wrong?",
+                            )));
               },
             ),
             Choice(

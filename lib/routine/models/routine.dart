@@ -8,6 +8,7 @@ class Routine {
   Emoji feel;
   int rested;
   String restedString;
+  String quote;
   DateTime dateTime;
   List<String> treasures;
 
@@ -17,6 +18,7 @@ class Routine {
     this.feel,
     this.rested,
     this.restedString,
+    this.quote,
     this.dateTime,
     this.treasures,
   });
@@ -27,6 +29,7 @@ class Routine {
       'routineType': routineType,
       'feel': feel.char,
       'rested': rested,
+      'quote': quote,
       'dateTime': dateTime.millisecondsSinceEpoch,
       'restedString': restedString,
     };
@@ -38,6 +41,7 @@ class Routine {
       routineType: map['routineType'],
       feel: Emoji.byChar(map['feel']),
       rested: map['rested'],
+      quote: map['quote'],
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime']),
       restedString: map['restedString'],
     );
@@ -47,4 +51,13 @@ class Routine {
 
   factory Routine.fromJson(String source) =>
       Routine.fromMap(json.decode(source));
+
+  String getRestedText() {
+    switch (rested) {
+      case 0:
+        return "Well Rested";
+      default:
+        return null;
+    }
+  }
 }

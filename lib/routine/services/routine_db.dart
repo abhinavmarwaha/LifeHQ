@@ -19,13 +19,14 @@ class RoutineDB {
               routineType INTEGER,
               feel TEXT,
               rested INTEGER,
+              quote TEXT,
               dateTime INTEGER,
               restedString TEXT);
             """);
         db.execute("""
             CREATE TABLE routineTreasures(
               treasureId INTEGER PRIMARY KEY AUTOINCREMENT,
-              treaure TEXT,
+              treasure TEXT,
               routineId INTEGER NOT NULL,
               FOREIGN KEY (routineId) REFERENCES routines (routineId) );
             """);
@@ -82,7 +83,8 @@ class RoutineDB {
         where: "routineId = ?",
         whereArgs: [routine.routineId],
       ))
-          .map<String>((e) => e["treasure"]);
+          .map<String>((e) => e["treasure"])
+          .toList();
       routine.treasures.addAll(treasures);
     }
     return routines;
