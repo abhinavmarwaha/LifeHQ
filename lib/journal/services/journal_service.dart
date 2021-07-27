@@ -22,6 +22,7 @@ class JournalService with ChangeNotifier {
     if (!initilised) {
       _db = JournalDB();
       _entries = await _db.getEntries();
+      _tags.add("All");
       _tags = await _db.getTags();
       initilised = true;
       notifyListeners();
@@ -34,6 +35,12 @@ class JournalService with ChangeNotifier {
     _entries.add(entry);
     notifyListeners();
     return index;
+  }
+
+  Future deleteJournalEntry(JournalEntry journalEntry) async {
+    await _db.deleteJournalEntry(journalEntry.entryId);
+    _entries.remove(journalEntry);
+    notifyListeners();
   }
 
   Future insertTag(String tag) async {

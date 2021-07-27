@@ -83,6 +83,16 @@ class JournalDB {
     );
   }
 
+  Future<void> deleteJournalEntry(int id) async {
+    final db = await getdb;
+
+    await db.delete(
+      JournalConstants.JOURNALENTRIES,
+      where: "entryId = ?",
+      whereArgs: [id],
+    );
+  }
+
   // Tags
 
   Future<void> insertTag(String tag) async {

@@ -5,68 +5,56 @@ import 'package:lifehq/journal/widgets/entry_card.dart';
 import 'package:lifehq/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class Journal extends StatelessWidget {
+class Journal extends StatefulWidget {
   const Journal({Key key}) : super(key: key);
 
-  showTagAddDialog(
-    BuildContext context,
-    JournalService provider,
-  ) {
-    final tagText = TextEditingController();
+  @override
+  _JournalState createState() => _JournalState();
+}
 
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return StatefulBuilder(builder: (context, setState) {
-            return Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Container(
-                    height: 120,
-                    child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          children: [
-                            TextField(
-                              controller: tagText,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none, hintText: 'tag'),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                if (tagText.text.isNotEmpty) {
-                                  provider
-                                      .insertTag(tagText.text)
-                                      .then((value) => Navigator.pop(context));
-                                } else {
-                                  Utilities.showToast("Can't be empty");
-                                }
-                              },
-                              child: Card(
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Add",
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  )),
-                            )
-                          ],
-                        ))));
-          });
-        });
-  }
+class _JournalState extends State<Journal> {
+  final GlobalKey<ScaffoldState> _scaffold = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Consumer<JournalService>(
         builder: (context, journalService, child) => Scaffold(
-            endDrawer: Column(
-              children:
-                  journalService.tags.map<Widget>((e) => Text(e)).toList(),
-            ),
+            key: _scaffold,
+            drawerScrimColor: Colors.grey.withOpacity(0),
             backgroundColor: Colors.black,
+            endDrawer: SafeArea(
+              child: Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: journalService.tags
+                          .map<Widget>((e) => Card(
+                              color: Colors.black,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  e,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )))
+                          .toList() +
+                      [
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () =>
+                              showTagAddDialog(context, journalService),
+                          child: Card(
+                            color: Colors.black,
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      ],
+                ),
+              ),
+            ),
             body: SafeArea(
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,10 +68,10 @@ class Journal extends StatelessWidget {
                     ),
                     Spacer(),
                     GestureDetector(
-                      onTap: () => showTagAddDialog(context, journalService),
+                      onTap: () => _scaffold.currentState.openEndDrawer(),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("Add Tag"),
+                        child: Text("Tags"),
                       ),
                     ),
                   ],
@@ -128,5 +116,52 @@ class Journal extends StatelessWidget {
                 )
               ],
             ))));
+  }
+
+  showTagAddDialog(BuildContext context, JournalService provider) {
+    final tagText = TextEditingController();
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(builder: (context, setState) {
+            return Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Container(
+                    height: 120,
+                    child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          children: [
+                            TextField(
+                              controller: tagText,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none, hintText: 'tag'),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                if (tagText.text.isNotEmpty) {
+                                  provider
+                                      .insertTag(tagText.text)
+                                      .then((value) => Navigator.pop(context));
+                                } else {
+                                  Utilities.showToast("Can't be empty");
+                                }
+                              },
+                              child: Card(
+                                  color: Colors.white,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Add",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  )),
+                            )
+                          ],
+                        ))));
+          });
+        });
   }
 }

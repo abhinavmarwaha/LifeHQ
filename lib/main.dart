@@ -5,6 +5,7 @@ import 'package:lifehq/journal/services/journal_service.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/loading.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
+import 'package:lifehq/services/notifications_provider.dart';
 import 'package:lifehq/utils/removed_glow_behavior.dart';
 import 'package:provider/provider.dart';
 
@@ -29,12 +30,15 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (ctx) => KnowledgeService(),
           ),
+          ChangeNotifierProvider(
+            create: (ctx) => NotificationsProvider(),
+          ),
         ],
         child: Builder(builder: (context) {
-          return Consumer4<RoutineService, GoalsService, JournalService,
-              KnowledgeService>(
+          return Consumer5<RoutineService, GoalsService, JournalService,
+              KnowledgeService, NotificationsProvider>(
             builder: (context, routineService, goalsService, journalService,
-                knowledgeService, child) {
+                knowledgeService, notificationsService, child) {
               return MaterialApp(
                   title: 'LifeHQ',
                   debugShowCheckedModeBanner: false,
@@ -48,9 +52,10 @@ class MyApp extends StatelessWidget {
                   home: (routineService.initilised &&
                           goalsService.initilised &&
                           journalService.initilised &&
-                          knowledgeService.initilised)
+                          knowledgeService.initilised &&
+                          notificationsService.initilised)
                       ? Home()
-                      : Loading());
+                      : const Loading());
             },
           );
         }));

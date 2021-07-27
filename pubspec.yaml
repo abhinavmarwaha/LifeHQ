@@ -14,10 +14,14 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-  # utils
+  # DB
   sqflite: ^2.0.0+3
+  shared_preferences: ^2.0.6
   provider: ^5.0.0
+
+  # utils
   intl: ^0.17.0
+  flutter_local_notifications: ^6.1.0
 
   # UI
   emojis: ^0.9.3
