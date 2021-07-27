@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:lifehq/journal/journal_entry_details.dart';
+import 'package:lifehq/journal/models/journal_entry.dart';
+import 'package:flutter_html/flutter_html.dart';
+
+class EntryCard extends StatelessWidget {
+  const EntryCard({
+    Key key,
+    @required this.journalEntry,
+  }) : super(key: key);
+
+  final JournalEntry journalEntry;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (ctx) => JournalEntryDetails(
+                      entry: journalEntry,
+                    )));
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                journalEntry.title,
+                style: TextStyle(color: Colors.black),
+              ),
+              Container(
+                color: Colors.black,
+                child: Html(
+                  data: journalEntry.text,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

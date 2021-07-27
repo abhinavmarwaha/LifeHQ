@@ -27,6 +27,11 @@ class JournalDB {
               tags TEXT,
               lastModified INTEGER);
             """);
+        db.execute("""
+            CREATE TABLE tags(
+              id INTEGER PRIMARY KEY,
+              name TEXT);
+            """);
       },
       version: 1,
     );
@@ -47,7 +52,9 @@ class JournalDB {
     return dbClient.close();
   }
 
-  Future<int> insertEntries(JournalEntry entry) async {
+  // Entries
+
+  Future<int> insertEntry(JournalEntry entry) async {
     final Database db = await getdb;
 
     return await db.insert(
@@ -76,13 +83,45 @@ class JournalDB {
     );
   }
 
-  Future<void> deleteGoal(int entryId) async {
+  // Tags
+
+  Future<void> insertTag(String tag) async {
+    final Database db = await getdb;
+
+    await db.insert(
+      JournalConstants.TAGS,
+      {'name': tag},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<String>> getTags() async {
+    final Database db = await getdb;
+
+    final List<Map<String, dynamic>> maps =
+        await db.query(JournalConstants.TAGS);
+    return List.generate(maps.length, (i) {
+      return maps[i]['name'];
+    });
+  }
+
+  Future<void> editTag(String prevTag, String newTag) async {
     final db = await getdb;
 
-    await db.delete(
-      JournalConstants.JOURNALENTRIES,
-      where: "entryId = ?",
-      whereArgs: [entryId],
+    await db.update(
+      JournalConstants.TAGS,
+      {'name': newTag},
+      where: "name = ?",
+      whereArgs: [prevTag],
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+
+  Future<void> deleteTag(String name) async {
+    final db = await getdb;
+
+    Batch batch = db.batch();
+    batch.delete(JournalConstants.TAGS, where: "name == ?", whereArgs: [name]);
+    await batch.commit();
   }
 }

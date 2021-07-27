@@ -14,15 +14,36 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-  emojis: ^0.9.3
+  # utils
   sqflite: ^2.0.0+3
   provider: ^5.0.0
   intl: ^0.17.0
+
+  # UI
+  emojis: ^0.9.3
   html_editor_enhanced: ^2.2.0
+  flutter_html: ^2.1.0
+  fluttertoast: ^8.0.7
+
+  # maps
+  flutter_map: ^0.13.1
+  osm_nominatim: ^2.0.1
+  gps: ^0.1.1
+  latlong2: ^0.8.0
+  cached_network_image: ^3.1.0
+
+dependency_overrides:
+   flutter_colorpicker: ^0.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.1
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "fastlane/metadata/android/en-US/images/icon.png"
 
 flutter:
   assets:

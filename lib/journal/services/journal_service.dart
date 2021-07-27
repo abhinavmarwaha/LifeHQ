@@ -15,13 +15,30 @@ class JournalService with ChangeNotifier {
 
   List<JournalEntry> _entries;
   List<JournalEntry> get entries => _entries;
+  List<String> _tags;
+  List<String> get tags => _tags;
 
   Future _init() async {
     if (!initilised) {
       _db = JournalDB();
       _entries = await _db.getEntries();
+      _tags = await _db.getTags();
       initilised = true;
       notifyListeners();
     }
+  }
+
+  Future<int> saveJournalEntry(JournalEntry entry) async {
+    int index = await _db.insertEntry(entry);
+    entry.entryId = index;
+    _entries.add(entry);
+    notifyListeners();
+    return index;
+  }
+
+  Future insertTag(String tag) async {
+    await _db.insertTag(tag);
+    _tags.add(tag);
+    notifyListeners();
   }
 }

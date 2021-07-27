@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lifehq/goals/goals.dart';
+import 'package:lifehq/journal/journal.dart';
+import 'package:lifehq/knowledge/knowledge.dart';
 import 'package:lifehq/routine/routine_home.dart';
 
 class Home extends StatelessWidget {
@@ -36,16 +39,22 @@ class Home extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.book,
-                      color: Colors.black,
-                      size: 64,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (ctx) => Journal()));
+                  },
+                  child: Card(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.book,
+                        color: Colors.black,
+                        size: 64,
+                      ),
                     ),
                   ),
                 ),
@@ -56,16 +65,22 @@ class Home extends StatelessWidget {
             Row(
               children: [
                 Spacer(),
-                Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.done,
-                      color: Colors.black,
-                      size: 64,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (ctx) => Goals()));
+                  },
+                  child: Card(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.done,
+                        color: Colors.black,
+                        size: 64,
+                      ),
                     ),
                   ),
                 ),
@@ -87,16 +102,22 @@ class Home extends StatelessWidget {
               ],
             ),
             Spacer(),
-            Card(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.map,
-                  color: Colors.black,
-                  size: 64,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (ctx) => Knowledge()));
+              },
+              child: Card(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.map,
+                    color: Colors.black,
+                    size: 64,
+                  ),
                 ),
               ),
             ),

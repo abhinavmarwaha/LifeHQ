@@ -9,7 +9,7 @@ class GoalsDB {
   factory GoalsDB() => _instance;
   GoalsDB._internal();
   static Database _db;
-
+ 
   openDB() async {
     var database = openDatabase(
       join(await getDatabasesPath(), 'goals.db'),

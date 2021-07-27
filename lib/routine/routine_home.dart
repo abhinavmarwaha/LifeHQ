@@ -61,7 +61,6 @@ class _RoutineHomeState extends State<RoutineHome> {
             Spacer()
           ]),
           Consumer<RoutineService>(builder: (context, provider, child) {
-            print(provider.routines[0].routineType);
             return Expanded(
                 child: SingleChildScrollView(
               child: Column(

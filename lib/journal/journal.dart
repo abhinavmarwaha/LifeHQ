@@ -1,57 +1,132 @@
 import 'package:flutter/material.dart';
-import 'package:lifehq/journal/models/journal_entry.dart';
+import 'package:lifehq/journal/journal_entry_input.dart';
 import 'package:lifehq/journal/services/journal_service.dart';
-import 'package:lifehq/routine/routine_details.dart';
+import 'package:lifehq/journal/widgets/entry_card.dart';
+import 'package:lifehq/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class JournalScreen extends StatelessWidget {
-  const JournalScreen({Key key}) : super(key: key);
+class Journal extends StatelessWidget {
+  const Journal({Key key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.black,
-        body: SafeArea(
-            child: Column(
-          children: [
-            Text(
-              "Journal",
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Consumer<JournalService>(
-              builder: (context, journalService, child) => Expanded(
-                child: ListView(
-                  children: journalService.entries
-                      .map((journalEntry) =>
-                          JournalEntryCard(journalEntry: journalEntry))
-                      .toList(),
-                ),
-              ),
-            )
-          ],
-        )));
+  showTagAddDialog(
+    BuildContext context,
+    JournalService provider,
+  ) {
+    final tagText = TextEditingController();
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(builder: (context, setState) {
+            return Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Container(
+                    height: 120,
+                    child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          children: [
+                            TextField(
+                              controller: tagText,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none, hintText: 'tag'),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                if (tagText.text.isNotEmpty) {
+                                  provider
+                                      .insertTag(tagText.text)
+                                      .then((value) => Navigator.pop(context));
+                                } else {
+                                  Utilities.showToast("Can't be empty");
+                                }
+                              },
+                              child: Card(
+                                  color: Colors.white,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Add",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  )),
+                            )
+                          ],
+                        ))));
+          });
+        });
   }
-}
-
-class EntryCard extends StatelessWidget {
-  const EntryCard({
-    Key key,
-    @required this.journalEntry,
-  }) : super(key: key);
-
-  final JournalEntry journalEntry;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      color: Colors.white,
-      child: Column(
-        children: [Text(journalEntry.title)],
-      ),
-    );
+    return Consumer<JournalService>(
+        builder: (context, journalService, child) => Scaffold(
+            endDrawer: Column(
+              children:
+                  journalService.tags.map<Widget>((e) => Text(e)).toList(),
+            ),
+            backgroundColor: Colors.black,
+            body: SafeArea(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "Journal",
+                      style:
+                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                    ),
+                    Spacer(),
+                    GestureDetector(
+                      onTap: () => showTagAddDialog(context, journalService),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Add Tag"),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                Expanded(
+                  child: ListView(
+                    children: journalService.entries
+                        .map((journalEntry) =>
+                            EntryCard(journalEntry: journalEntry))
+                        .toList(),
+                  ),
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => JournalEntryInput()));
+                    },
+                    child: SizedBox(
+                      width: 120,
+                      child: Card(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Text(
+                              "Add",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ))));
   }
 }

@@ -22,7 +22,7 @@ class KnowledgeDB {
               desc TEXT,
               added INTEGER,
               why TEXT,
-              whyNot TEXT,
+              whyNot TEXT
             );
             """);
         db.execute("""
@@ -32,7 +32,7 @@ class KnowledgeDB {
               by TEXT,
               added INTEGER,
               why TEXT,
-              whyNot TEXT,
+              whyNot TEXT
             );
             """);
       },
