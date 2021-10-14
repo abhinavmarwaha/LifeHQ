@@ -26,7 +26,7 @@ class NotificationsService {
 
   dailyNotif(int _id, String title, String desc, int hour, int min) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        Constants.CHANNEL_ID, Constants.CHANNEL_NAME, Constants.CHANNEL_DESC);
+        Constants.CHANNEL_ID, Constants.CHANNEL_NAME);
     var platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
     );

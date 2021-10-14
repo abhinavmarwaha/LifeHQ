@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:emojis/emoji.dart';
+import 'package:awesome_emojis/emoji.dart';
 
 class Routine {
   int routineId;

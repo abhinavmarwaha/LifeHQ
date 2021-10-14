@@ -41,10 +41,14 @@ Design Your Life
 * Knowledge
 * Journal
 * Goals
-* 
+
+### Coming Soon:
+
+* habits
+* decisions
 
 # Have Suggestions ?
 
 You can add an issue [here](https://github.com/abhinavmarwaha/lifehq/issues) or fill up a google form [here]().
 
-You can contact me at abhinavmarwaha@protonmail.com
+You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@protonmail.com)

@@ -1,4 +1,4 @@
-import 'package:emojis/emoji.dart';
+import 'package:awesome_emojis/emoji.dart';
 import 'package:flutter/material.dart';
 import 'package:lifehq/routine/rested.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
