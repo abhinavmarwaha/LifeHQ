@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 
 class KnowledgeBitsList extends StatelessWidget {
   const KnowledgeBitsList({
-    Key key,
-    @required this.cat,
+    Key? key,
+    required this.cat,
   }) : super(key: key);
 
   final KnowledgeCat cat;
@@ -29,8 +29,8 @@ class KnowledgeBitsList extends StatelessWidget {
                     color: Colors.white,
                   ),
               separatorBuilder: (context, index) =>
-                  Text(knowledgeService.quotes[index].text),
-              itemCount: knowledgeService.quotes.length),
+                  Text(knowledgeService.quotes![index].text!),
+              itemCount: knowledgeService.quotes!.length),
         ),
       ],
     ));

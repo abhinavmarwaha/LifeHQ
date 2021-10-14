@@ -7,7 +7,7 @@ class JournalDB {
   static final JournalDB _instance = JournalDB._internal();
   factory JournalDB() => _instance;
   JournalDB._internal();
-  static Database _db;
+  static Database? _db;
 
   openDB() async {
     var database = openDatabase(
@@ -40,11 +40,11 @@ class JournalDB {
 
   Future<Database> get getdb async {
     if (_db != null) {
-      return _db;
+      return _db!;
     }
     _db = await openDB();
 
-    return _db;
+    return _db!;
   }
 
   Future close() async {
@@ -83,7 +83,7 @@ class JournalDB {
     );
   }
 
-  Future<void> deleteJournalEntry(int id) async {
+  Future<void> deleteJournalEntry(int? id) async {
     final db = await getdb;
 
     await db.delete(
@@ -105,7 +105,7 @@ class JournalDB {
     );
   }
 
-  Future<List<String>> getTags() async {
+  Future<List<String?>> getTags() async {
     final Database db = await getdb;
 
     final List<Map<String, dynamic>> maps =

@@ -8,13 +8,13 @@ import 'package:lifehq/widgets/checkbox.dart' as myCheckBox;
 
 class RoutineDetails extends StatelessWidget {
   const RoutineDetails({
-    Key key,
-    @required this.routine,
-    @required this.tasks,
-    @required this.journalEntry,
+    Key? key,
+    required this.routine,
+    required this.tasks,
+    required this.journalEntry,
   }) : super(key: key);
 
-  final Routine routine;
+  final Routine? routine;
   final List<Task> tasks;
   final JournalEntry journalEntry;
 
@@ -32,12 +32,12 @@ class RoutineDetails extends StatelessWidget {
                   width: 12,
                 ),
                 Text(
-                  routine.quote,
+                  routine!.quote!,
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
                 Spacer(),
                 Text(
-                  routine.feel.char,
+                  routine!.feel!.char,
                   style: TextStyle(fontSize: 24),
                 ),
                 SizedBox(
@@ -63,7 +63,7 @@ class RoutineDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          routine.getRestedText(),
+                          routine!.getRestedText()!,
                           style: TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         ),
@@ -71,7 +71,7 @@ class RoutineDetails extends StatelessWidget {
                           height: 6,
                         ),
                         Text(
-                          routine.restedString,
+                          routine!.restedString!,
                           style: TextStyle(color: Colors.grey[600]),
                         ),
                       ],
@@ -90,8 +90,8 @@ class RoutineDetails extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                children: routine.treasures
-                    .map((e) => Text(Constants.BULLET + e))
+                children: routine!.treasures!
+                    .map((e) => Text(Constants.BULLET + e!))
                     .toList(),
               ),
             ),
@@ -110,7 +110,7 @@ class RoutineDetails extends StatelessWidget {
                           children: [
                             myCheckBox.CheckBox(checked: e.done),
                             SizedBox(width: 6),
-                            Text(e.text)
+                            Text(e.text!)
                           ],
                         ))
                     .toList(),
@@ -123,7 +123,7 @@ class RoutineDetails extends StatelessWidget {
                 Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(Utilities.formatedDate(routine.dateTime)),
+                  child: Text(Utilities.formatedDate(routine!.dateTime!)),
                 )
               ],
             )
@@ -133,7 +133,7 @@ class RoutineDetails extends StatelessWidget {
 }
 
 class JournalEntryCard extends StatelessWidget {
-  const JournalEntryCard({Key key, @required this.journalEntry})
+  const JournalEntryCard({Key? key, required this.journalEntry})
       : super(key: key);
 
   final JournalEntry journalEntry;
@@ -152,7 +152,7 @@ class JournalEntryCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text(journalEntry.title)],
+              children: [Text(journalEntry.title!)],
             ),
           ),
         ),

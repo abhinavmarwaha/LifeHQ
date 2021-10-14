@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationsService {
-  FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
+  late FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
 
   Future<void> serviceSetup() async {
     _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -18,7 +18,7 @@ class NotificationsService {
         onSelectNotification: selectNotification);
   }
 
-  Future selectNotification(String payload) async {
+  Future selectNotification(String? payload) async {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }

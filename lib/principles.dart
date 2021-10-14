@@ -5,7 +5,7 @@ import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:provider/provider.dart';
 
 class Principles extends StatefulWidget {
-  Principles({Key key}) : super(key: key);
+  Principles({Key? key}) : super(key: key);
 
   @override
   _PrinciplesState createState() => _PrinciplesState();
@@ -93,9 +93,9 @@ class _PrinciplesState extends State<Principles> {
 
 class Principle extends StatefulWidget {
   const Principle({
-    Key key,
-    @required this.principle,
-    @required this.index,
+    Key? key,
+    required this.principle,
+    required this.index,
   }) : super(key: key);
 
   final String principle;

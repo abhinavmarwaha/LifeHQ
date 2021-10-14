@@ -12,12 +12,12 @@ class GoalsService with ChangeNotifier {
     return instance;
   }
   bool initilised = false;
-  GoalsDB _db;
+  late GoalsDB _db;
 
-  List<Goal> _goals;
-  List<Goal> get routines => _goals;
-  List<Task> _todayTasks;
-  List<Task> get todayTasks => _todayTasks;
+  List<Goal>? _goals;
+  List<Goal>? get routines => _goals;
+  List<Task>? _todayTasks;
+  List<Task>? get todayTasks => _todayTasks;
 
   Future _init() async {
     if (!initilised) {

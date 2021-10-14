@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 class Goal {
-  int goalId;
-  String title;
-  DateTime added;
-  DateTime deadline;
-  int goalType;
-  bool done;
+  int? goalId;
+  String? title;
+  DateTime? added;
+  DateTime? deadline;
+  int? goalType;
+  bool? done;
 
   Goal({
     this.goalId,
@@ -21,10 +21,10 @@ class Goal {
     return {
       'goalId': goalId,
       'title': title,
-      'added': added.millisecondsSinceEpoch,
-      'deadline': deadline.millisecondsSinceEpoch,
+      'added': added!.millisecondsSinceEpoch,
+      'deadline': deadline!.millisecondsSinceEpoch,
       'goalType': goalType,
-      'done': done ? 1 : 0,
+      'done': done! ? 1 : 0,
     };
   }
 

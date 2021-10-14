@@ -4,7 +4,7 @@ import 'package:lifehq/routine/single_word.dart';
 import 'package:provider/provider.dart';
 
 class Rested extends StatelessWidget {
-  const Rested({Key key}) : super(key: key);
+  const Rested({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class Rested extends StatelessWidget {
               text: "Yes",
               onTap: () {
                 Provider.of<RoutineService>(context, listen: false)
-                    .goingOnRoutine
+                    .goingOnRoutine!
                     .rested = 0;
                 Navigator.push(
                     context,
@@ -39,7 +39,7 @@ class Rested extends StatelessWidget {
               text: "No",
               onTap: () {
                 Provider.of<RoutineService>(context, listen: false)
-                    .goingOnRoutine
+                    .goingOnRoutine!
                     .rested = 1;
                 Navigator.push(
                     context,
@@ -66,9 +66,9 @@ class Rested extends StatelessWidget {
 
 class Choice extends StatelessWidget {
   const Choice({
-    Key key,
-    @required this.text,
-    @required this.onTap,
+    Key? key,
+    required this.text,
+    required this.onTap,
   }) : super(key: key);
 
   final String text;
@@ -80,7 +80,7 @@ class Choice extends StatelessWidget {
       children: [
         Spacer(),
         GestureDetector(
-          onTap: onTap,
+          onTap: onTap as void Function()?,
           child: Text(
             text,
             textAlign: TextAlign.center,

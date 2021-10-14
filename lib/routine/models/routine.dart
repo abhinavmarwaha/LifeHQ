@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:awesome_emojis/emoji.dart';
 
 class Routine {
-  int routineId;
-  int routineType;
-  Emoji feel;
-  int rested;
-  String restedString;
-  String quote;
-  DateTime dateTime;
-  List<String> treasures;
+  int? routineId;
+  int? routineType;
+  Emoji? feel;
+  int? rested;
+  String? restedString;
+  String? quote;
+  DateTime? dateTime;
+  List<String?>? treasures;
 
   Routine({
     this.routineId,
@@ -27,10 +27,10 @@ class Routine {
     return {
       'routineId': routineId,
       'routineType': routineType,
-      'feel': feel.char,
+      'feel': feel!.char,
       'rested': rested,
       'quote': quote,
-      'dateTime': dateTime.millisecondsSinceEpoch,
+      'dateTime': dateTime!.millisecondsSinceEpoch,
       'restedString': restedString,
     };
   }
@@ -52,7 +52,7 @@ class Routine {
   factory Routine.fromJson(String source) =>
       Routine.fromMap(json.decode(source));
 
-  String getRestedText() {
+  String? getRestedText() {
     switch (rested) {
       case 0:
         return "Well Rested";

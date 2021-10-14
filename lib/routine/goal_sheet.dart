@@ -3,7 +3,7 @@ import 'package:lifehq/constants/strings.dart';
 import 'package:lifehq/routine/grateful.dart';
 
 class GoalSheet extends StatelessWidget {
-  const GoalSheet({Key key}) : super(key: key);
+  const GoalSheet({Key? key}) : super(key: key);
 
   final String titleOfDay = '"Make Shit"';
   final List<String> tasks = const [

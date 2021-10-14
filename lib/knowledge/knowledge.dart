@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lifehq/custom_icons.dart';
 
 class Knowledge extends StatelessWidget {
-  const Knowledge({Key key}) : super(key: key);
+  const Knowledge({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

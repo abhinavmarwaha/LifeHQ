@@ -6,7 +6,7 @@ import 'package:lifehq/knowledge/knowledge.dart';
 import 'package:lifehq/routine/routine_home.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

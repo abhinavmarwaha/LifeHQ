@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'goal.dart';
 
 class Task {
-  int taskId;
-  String text;
-  bool done;
-  DateTime date;
-  Goal goal;
+  int? taskId;
+  String? text;
+  bool? done;
+  DateTime? date;
+  Goal? goal;
 
   Task({
     this.taskId,
@@ -20,9 +20,9 @@ class Task {
     return {
       'taskId': taskId,
       'text': text,
-      'done': done ? 1 : 0,
-      'date': date.millisecondsSinceEpoch,
-      'goalId': goal.goalId
+      'done': done! ? 1 : 0,
+      'date': date!.millisecondsSinceEpoch,
+      'goalId': goal!.goalId
     };
   }
 

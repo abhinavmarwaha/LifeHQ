@@ -6,7 +6,7 @@ import 'package:lifehq/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class Journal extends StatefulWidget {
-  const Journal({Key key}) : super(key: key);
+  const Journal({Key? key}) : super(key: key);
 
   @override
   _JournalState createState() => _JournalState();
@@ -27,13 +27,13 @@ class _JournalState extends State<Journal> {
                 color: Colors.white,
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  children: journalService.tags
+                  children: journalService.tags!
                           .map<Widget>((e) => Card(
                               color: Colors.black,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  e,
+                                  e!,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               )))
@@ -68,7 +68,7 @@ class _JournalState extends State<Journal> {
                     ),
                     Spacer(),
                     GestureDetector(
-                      onTap: () => _scaffold.currentState.openEndDrawer(),
+                      onTap: () => _scaffold.currentState!.openEndDrawer(),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text("Tags"),
@@ -81,7 +81,7 @@ class _JournalState extends State<Journal> {
                 ),
                 Expanded(
                   child: ListView(
-                    children: journalService.entries
+                    children: journalService.entries!
                         .map((journalEntry) =>
                             EntryCard(journalEntry: journalEntry))
                         .toList(),

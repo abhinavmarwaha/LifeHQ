@@ -8,9 +8,9 @@ class GoalsDB {
   static final GoalsDB _instance = GoalsDB._internal();
   factory GoalsDB() => _instance;
   GoalsDB._internal();
-  static Database _db;
- 
-  openDB() async {
+  static Database? _db;
+
+  Future<Database> openDB() async {
     var database = openDatabase(
       join(await getDatabasesPath(), 'goals.db'),
       onCreate: (db, version) {
@@ -40,11 +40,11 @@ class GoalsDB {
 
   Future<Database> get getdb async {
     if (_db != null) {
-      return _db;
+      return _db!;
     }
     _db = await openDB();
 
-    return _db;
+    return _db!;
   }
 
   Future close() async {

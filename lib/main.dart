@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
                   builder: (context, child) {
                     return ScrollConfiguration(
                       behavior: RemovedGlowBehavior(),
-                      child: child,
+                      child: child!,
                     );
                   },
                   home: (routineService.initilised &&

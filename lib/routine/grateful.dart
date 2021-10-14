@@ -4,7 +4,7 @@ import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:provider/provider.dart';
 
 class Grateful extends StatefulWidget {
-  Grateful({Key key}) : super(key: key);
+  Grateful({Key? key}) : super(key: key);
 
   @override
   _GratefulState createState() => _GratefulState();
@@ -12,9 +12,9 @@ class Grateful extends StatefulWidget {
 
 class _GratefulState extends State<Grateful> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String treasure1;
-  String treasure2;
-  String treasure3;
+  String? treasure1;
+  String? treasure2;
+  String? treasure3;
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +35,16 @@ class _GratefulState extends State<Grateful> {
                   Spacer(),
                   GestureDetector(
                       onTap: () {
-                        if (_formKey.currentState.validate()) {
+                        if (_formKey.currentState!.validate()) {
                           RoutineService routineService =
                               Provider.of<RoutineService>(context,
                                   listen: false);
-                          routineService.goingOnRoutine.treasures = [];
-                          routineService.goingOnRoutine.treasures
+                          routineService.goingOnRoutine!.treasures = [];
+                          routineService.goingOnRoutine!.treasures!
                               .add(treasure1);
-                          routineService.goingOnRoutine.treasures
+                          routineService.goingOnRoutine!.treasures!
                               .add(treasure2);
-                          routineService.goingOnRoutine.treasures
+                          routineService.goingOnRoutine!.treasures!
                               .add(treasure3);
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (ctx) => Quote()));
@@ -63,19 +63,19 @@ class _GratefulState extends State<Grateful> {
                   children: [
                     TextFormField(
                         validator: (value) {
-                          if (value.isEmpty) return "Need to fill this ASAP!";
+                          if (value!.isEmpty) return "Need to fill this ASAP!";
                           return null;
                         },
                         onChanged: (value) => treasure1 = value),
                     TextFormField(
                         validator: (value) {
-                          if (value.isEmpty) return "Need to fill this ASAP!";
+                          if (value!.isEmpty) return "Need to fill this ASAP!";
                           return null;
                         },
                         onChanged: (value) => treasure2 = value),
                     TextFormField(
                         validator: (value) {
-                          if (value.isEmpty) return "Need to fill this ASAP!";
+                          if (value!.isEmpty) return "Need to fill this ASAP!";
                           return null;
                         },
                         onChanged: (value) => treasure3 = value),

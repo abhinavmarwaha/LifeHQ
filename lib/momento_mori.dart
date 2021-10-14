@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lifehq/principles.dart';
 
 class MomentoMori extends StatefulWidget {
-  MomentoMori({Key key}) : super(key: key);
+  MomentoMori({Key? key}) : super(key: key);
 
   @override
   _MomentoMoriState createState() => _MomentoMoriState();
@@ -83,8 +83,8 @@ class _MomentoMoriState extends State<MomentoMori> {
 
 class MoriCal extends StatelessWidget {
   const MoriCal({
-    Key key,
-    @required this.weekGoingOn,
+    Key? key,
+    required this.weekGoingOn,
   }) : super(key: key);
 
   final weekGoingOn;
@@ -121,7 +121,7 @@ class ProgressBar extends StatelessWidget {
     this.progress,
   });
 
-  final double progress;
+  final double? progress;
 
   @override
   Widget build(BuildContext context) {
@@ -147,13 +147,13 @@ class ProgressBar extends StatelessWidget {
 
 class Week extends StatefulWidget {
   const Week({
-    Key key,
+    Key? key,
     this.color,
     this.index,
   }) : super(key: key);
 
-  final Color color;
-  final int index;
+  final Color? color;
+  final int? index;
 
   @override
   _WeekState createState() => _WeekState();
@@ -177,7 +177,7 @@ class _WeekState extends State<Week> {
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: AnimatedOpacity(
-        duration: Duration(milliseconds: widget.index * 100),
+        duration: Duration(milliseconds: widget.index! * 100),
         curve: Curves.linear,
         opacity: opacity,
         child: Container(

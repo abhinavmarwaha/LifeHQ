@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 class Principle {
-  int principleId;
-  String title;
-  String subTitle;
-  String desc;
-  DateTime added;
-  String why;
-  String whyNot;
+  int? principleId;
+  String? title;
+  String? subTitle;
+  String? desc;
+  DateTime? added;
+  String? why;
+  String? whyNot;
 
   Principle({
     this.principleId,
@@ -25,7 +25,7 @@ class Principle {
       'title': title,
       'subTitle': subTitle,
       'desc': desc,
-      'added': added.millisecondsSinceEpoch,
+      'added': added!.millisecondsSinceEpoch,
       'why': why,
       'whyNot': whyNot,
     };

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class PageTitle extends StatelessWidget {
   const PageTitle({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
   }) : super(key: key);
 
   final String text;

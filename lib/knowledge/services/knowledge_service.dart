@@ -12,12 +12,12 @@ class KnowledgeService with ChangeNotifier {
     return instance;
   }
   bool initilised = false;
-  KnowledgeDB _db;
+  late KnowledgeDB _db;
 
-  List<Principle> _principles;
-  List<Principle> get principles => _principles;
-  List<Quote> _quotes;
-  List<Quote> get quotes => _quotes;
+  List<Principle>? _principles;
+  List<Principle>? get principles => _principles;
+  List<Quote>? _quotes;
+  List<Quote>? get quotes => _quotes;
 
   Future _init() async {
     if (!initilised) {

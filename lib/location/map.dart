@@ -6,22 +6,22 @@ import 'package:lifehq/location/cached_tile_provider.dart';
 
 class MapPage extends StatefulWidget {
   MapPage({
-    Key key,
-    @required this.lat,
-    @required this.lng,
-    @required this.mapController,
-    @required this.markers,
+    Key? key,
+    required this.lat,
+    required this.lng,
+    required this.mapController,
+    required this.markers,
     this.isNominatim = true,
     this.apiKey,
     this.customMapLayer,
   }) : super(key: key);
-  final List<Marker> markers;
-  final double lat;
-  final double lng;
+  final List<Marker>? markers;
+  final double? lat;
+  final double? lng;
   final MapController mapController;
   final bool isNominatim;
-  final String apiKey;
-  final TileLayerOptions customMapLayer;
+  final String? apiKey;
+  final TileLayerOptions? customMapLayer;
 
   @override
   _MapPageState createState() => _MapPageState();
@@ -32,7 +32,7 @@ class _MapPageState extends State<MapPage> {
     return new FlutterMap(
       mapController: widget.mapController,
       options: MapOptions(
-          center: LatLng(widget.lat, widget.lng), zoom: 13, maxZoom: 18),
+          center: LatLng(widget.lat!, widget.lng!), zoom: 13, maxZoom: 18),
       layers: [
         widget.isNominatim
             ? widget.customMapLayer == null
@@ -41,19 +41,19 @@ class _MapPageState extends State<MapPage> {
                         'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png',
                     subdomains: ['a', 'b', 'c'],
                     tileProvider: const CachedTileProvider())
-                : widget.customMapLayer
+                : widget.customMapLayer!
             : widget.customMapLayer == null
                 ? new TileLayerOptions(
                     urlTemplate: "https://api.tiles.mapbox.com/v4/"
                         "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                     additionalOptions: {
-                      'accessToken': widget.apiKey,
+                      'accessToken': widget.apiKey!,
                       'id': 'mapbox.streets',
                     },
                   )
-                : widget.customMapLayer,
+                : widget.customMapLayer!,
         MarkerLayerOptions(
-          markers: widget.markers,
+          markers: widget.markers!,
         ),
       ],
     );

@@ -7,7 +7,7 @@ import 'package:lifehq/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class RoutineHome extends StatefulWidget {
-  const RoutineHome({Key key}) : super(key: key);
+  const RoutineHome({Key? key}) : super(key: key);
 
   @override
   _RoutineHomeState createState() => _RoutineHomeState();
@@ -64,9 +64,9 @@ class _RoutineHomeState extends State<RoutineHome> {
             return Expanded(
                 child: SingleChildScrollView(
               child: Column(
-                children: provider.routines
+                children: provider.routines!
                     .where((element) =>
-                        element.routineType == (morningSelected ? 0 : 1))
+                        element!.routineType == (morningSelected ? 0 : 1))
                     .map((e) => RoutineCard(routine: e))
                     .toList(),
               ),
@@ -78,11 +78,11 @@ class _RoutineHomeState extends State<RoutineHome> {
 
 class RoutineCard extends StatelessWidget {
   const RoutineCard({
-    Key key,
-    @required this.routine,
+    Key? key,
+    required this.routine,
   }) : super(key: key);
 
-  final Routine routine;
+  final Routine? routine;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,7 @@ class RoutineCard extends StatelessWidget {
       },
       child: Card(
         child: Column(
-          children: [Text(Utilities.formatedDate(routine.dateTime))],
+          children: [Text(Utilities.formatedDate(routine!.dateTime!))],
         ),
       ),
     );
@@ -107,8 +107,8 @@ class RoutineCard extends StatelessWidget {
 
 class SelectedHeading extends StatelessWidget {
   const SelectedHeading({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
   }) : super(key: key);
 
   final String text;
@@ -130,8 +130,8 @@ class SelectedHeading extends StatelessWidget {
 
 class UnselectedHeading extends StatelessWidget {
   const UnselectedHeading({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
   }) : super(key: key);
 
   final String text;

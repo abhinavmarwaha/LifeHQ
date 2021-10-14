@@ -8,7 +8,7 @@ class KnowledgeDB {
   static final KnowledgeDB _instance = KnowledgeDB._internal();
   factory KnowledgeDB() => _instance;
   KnowledgeDB._internal();
-  static Database _db;
+  static Database? _db;
 
   openDB() async {
     var database = openDatabase(
@@ -43,11 +43,11 @@ class KnowledgeDB {
 
   Future<Database> get getdb async {
     if (_db != null) {
-      return _db;
+      return _db!;
     }
     _db = await openDB();
 
-    return _db;
+    return _db!;
   }
 
   Future close() async {
@@ -102,7 +102,7 @@ class KnowledgeDB {
         .map((e) => Quote.fromMap(e))
         .toList();
   }
-  
+
   Future<void> deleteQuote(int quoteId) async {
     final db = await getdb;
 
@@ -112,5 +112,4 @@ class KnowledgeDB {
       whereArgs: [quoteId],
     );
   }
-
 }

@@ -16,9 +16,9 @@ class NominatimLocationPicker extends StatefulWidget {
   final String searchHint;
   final String awaitingForLocation;
   
-  final TileLayerOptions customMapLayer;
+  final TileLayerOptions? customMapLayer;
 
-  final Widget customMarkerIcon;
+  final Widget? customMarkerIcon;
 
   @override
   _NominatimLocationPickerState createState() =>
@@ -26,21 +26,21 @@ class NominatimLocationPicker extends StatefulWidget {
 }
 
 class _NominatimLocationPickerState extends State<NominatimLocationPicker> {
-  Map retorno;
+  Map? retorno;
 
   List _addresses = [];
   Color _color = Colors.black;
   TextEditingController _ctrlSearch = TextEditingController();
-  GpsLatlng _currentPosition;
-  String _desc;
+  GpsLatlng? _currentPosition;
+  String? _desc;
   bool _isSearching = false;
-  double _lat;
-  double _lng;
+  double? _lat;
+  double? _lng;
   MapController _mapController = MapController();
 
-  List<Marker> _markers;
+  List<Marker>? _markers;
 
-  LatLng _point;
+  LatLng? _point;
 
   @override
   void dispose() {
@@ -75,7 +75,7 @@ class _NominatimLocationPickerState extends State<NominatimLocationPicker> {
   }
 
   _getCurrentLocation() {
-    Gps.currentGps().then((GpsLatlng latlng) {
+    Gps.currentGps().then((GpsLatlng? latlng) {
       _currentPosition = latlng;
       _getCurrentLocationMarker();
       _getCurrentLocationDesc();
@@ -86,13 +86,13 @@ class _NominatimLocationPickerState extends State<NominatimLocationPicker> {
 
   _getCurrentLocationMarker() {
     setState(() {
-      _lat = double.parse(_currentPosition.lat);
-      _lng = double.parse(_currentPosition.lng);
-      _point = LatLng(_lat, _lng);
-      _markers[0] = Marker(
+      _lat = double.parse(_currentPosition!.lat!);
+      _lng = double.parse(_currentPosition!.lng!);
+      _point = LatLng(_lat!, _lng!);
+      _markers![0] = Marker(
         width: 80.0,
         height: 80.0,
-        point: LatLng(_lat, _lng),
+        point: LatLng(_lat!, _lng!),
         builder: (ctx) => new Container(
             child: widget.customMarkerIcon == null
                 ? Icon(
@@ -106,12 +106,12 @@ class _NominatimLocationPickerState extends State<NominatimLocationPicker> {
 
   _getCurrentLocationDesc() async {
     dynamic res = await NominatimService()
-        .getAddressLatLng("${_currentPosition.lat} ${_currentPosition.lng}");
+        .getAddressLatLng("${_currentPosition!.lat} ${_currentPosition!.lng}");
     setState(() {
       _addresses = res;
-      _lat = double.parse(_currentPosition.lat);
-      _lng = double.parse(_currentPosition.lng);
-      _point = LatLng(_lat, _lng);
+      _lat = double.parse(_currentPosition!.lat!);
+      _lng = double.parse(_currentPosition!.lng!);
+      _point = LatLng(_lat!, _lng!);
       retorno = {
         'latlng': _point,
         'state': _addresses[0]['state'],
@@ -251,7 +251,7 @@ class _NominatimLocationPickerState extends State<NominatimLocationPicker> {
                           scrollDirection: Axis.vertical,
                           reverse: false,
                           child: Text(
-                            _desc == null ? widget.awaitingForLocation : _desc,
+                            _desc == null ? widget.awaitingForLocation : _desc!,
                             style: TextStyle(fontSize: 20),
                             textAlign: TextAlign.start,
                           ),
@@ -279,8 +279,8 @@ class _NominatimLocationPickerState extends State<NominatimLocationPicker> {
               child: Icon(Icons.arrow_forward),
               onPressed: () {
                 setState(() {
-                  _point = LatLng(double.parse(_currentPosition.lat),
-                      double.parse(_currentPosition.lng));
+                  _point = LatLng(double.parse(_currentPosition!.lat!),
+                      double.parse(_currentPosition!.lng!));
                 });
                 Navigator.pop(context, retorno);
               }),
@@ -315,12 +315,12 @@ class _NominatimLocationPickerState extends State<NominatimLocationPicker> {
                     _lat = double.parse(_addresses[index]['lat']);
                     _lng = double.parse(_addresses[index]['lng']);
                     retorno = {
-                      'latlng': LatLng(_lat, _lng),
+                      'latlng': LatLng(_lat!, _lng!),
                       'state': _addresses[index]['state'],
                       'desc':
                           "${_addresses[index]['state']}, ${_addresses[index]['city']}, ${_addresses[index]['suburb']}, ${_addresses[index]['neighbourhood']}, ${_addresses[index]['road']}"
                     };
-                    _markers[0] = Marker(
+                    _markers![0] = Marker(
                       width: 80.0,
                       height: 80.0,
                       point: LatLng(double.parse(_addresses[index]['lat']),

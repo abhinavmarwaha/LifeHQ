@@ -7,9 +7,9 @@ class RoutineDB {
   static final RoutineDB _instance = RoutineDB._internal();
   factory RoutineDB() => _instance;
   RoutineDB._internal();
-  static Database _db;
+  static Database? _db;
 
-  openDB() async {
+  Future<Database> openDB() async {
     var database = openDatabase(
       join(await getDatabasesPath(), 'routines.db'),
       onCreate: (db, version) {
@@ -38,11 +38,11 @@ class RoutineDB {
 
   Future<Database> get getdb async {
     if (_db != null) {
-      return _db;
+      return _db!;
     }
     _db = await openDB();
 
-    return _db;
+    return _db!;
   }
 
   Future close() async {
@@ -58,7 +58,7 @@ class RoutineDB {
       routine.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-    for (String treasure in routine.treasures) {
+    for (String? treasure in routine.treasures!) {
       await db.insert(
         RoutineConstants.ROUTINETREASURES,
         {
@@ -71,21 +71,21 @@ class RoutineDB {
     return id;
   }
 
-  Future<List<Routine>> getRoutines() async {
+  Future<List<Routine?>> getRoutines() async {
     final Database db = await getdb;
     List<Map<String, dynamic>> maps = await db.query(RoutineConstants.ROUTINES);
-    List<Routine> routines = maps.map((map) => Routine.fromMap(map)).toList();
-    for (Routine routine in routines) {
-      routine.treasures = [];
-      List<String> treasures = (await db.query(
+    List<Routine?> routines = maps.map((map) => Routine.fromMap(map)).toList();
+    for (Routine? routine in routines) {
+      routine!.treasures = [];
+      List<String?> treasures = (await db.query(
         RoutineConstants.ROUTINETREASURES,
         columns: ["treasure"],
         where: "routineId = ?",
         whereArgs: [routine.routineId],
       ))
-          .map<String>((e) => e["treasure"])
+          .map<String?>((e) => e["treasure"] as String?)
           .toList();
-      routine.treasures.addAll(treasures);
+      routine.treasures!.addAll(treasures);
     }
     return routines;
   }

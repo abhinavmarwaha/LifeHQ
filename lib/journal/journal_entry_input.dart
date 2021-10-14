@@ -10,7 +10,7 @@ import 'package:osm_nominatim/osm_nominatim.dart';
 import 'package:provider/provider.dart';
 
 class JournalEntryInput extends StatefulWidget {
-  const JournalEntryInput({Key key}) : super(key: key);
+  const JournalEntryInput({Key? key}) : super(key: key);
 
   @override
   _JournalEntryInputState createState() => _JournalEntryInputState();
@@ -21,14 +21,14 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
   String title = "";
   Map _pickedLocation = {};
   String _displayLocationName = "";
-  List<String> selectedTags = [];
+  List<String?> selectedTags = [];
 
   DateTime _dateTime = DateTime.now();
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
 
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(2019, 1),
@@ -42,7 +42,7 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
   }
 
   Future<Null> _selectTime(BuildContext context) async {
-    final TimeOfDay picked = await showTimePicker(
+    final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedTime,
     );
@@ -57,7 +57,7 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
   Future getLocation() async {
     Utilities.showInfoToast("Don't forget to on the GPS!");
 
-    Map result = await showDialog(
+    Map? result = await showDialog(
         context: context,
         builder: (BuildContext ctx) {
           return NominatimLocationPicker(
@@ -103,7 +103,7 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                             ),
                           )
                         : Container(),
-                    if (journalService.tags.length != 0)
+                    if (journalService.tags!.length != 0)
                       SizedBox(
                         height: 64,
                         child: Padding(
@@ -115,12 +115,12 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                                   onTap: () {
                                     setState(() {
                                       if (selectedTags
-                                          .contains(journalService.tags[index]))
+                                          .contains(journalService.tags![index]))
                                         selectedTags
-                                            .remove(journalService.tags[index]);
+                                            .remove(journalService.tags![index]);
                                       else
                                         selectedTags
-                                            .add(journalService.tags[index]);
+                                            .add(journalService.tags![index]);
                                     });
                                   },
                                   child: Padding(
@@ -132,18 +132,18 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                                           border: Border.all(
                                               color: selectedTags.contains(
                                                       journalService
-                                                          .tags[index])
+                                                          .tags![index])
                                                   ? Colors.white
                                                   : Colors.grey)),
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Text(
-                                          journalService.tags[index],
+                                          journalService.tags![index]!,
                                           style: TextStyle(
                                               fontSize: 18,
                                               color: selectedTags.contains(
                                                       journalService
-                                                          .tags[index])
+                                                          .tags![index])
                                                   ? Colors.white
                                                   : Colors.grey),
                                         ),
@@ -151,7 +151,7 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                                     ),
                                   ));
                             },
-                            itemCount: journalService.tags.length - 1,
+                            itemCount: journalService.tags!.length - 1,
                             scrollDirection: Axis.horizontal,
                           ),
                         ),

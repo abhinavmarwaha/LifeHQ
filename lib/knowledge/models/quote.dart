@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 class Quote {
-  int quoteId;
-  String text;
-  String by;
-  DateTime added;
-  String why;
-  String whyNot;
+  int? quoteId;
+  String? text;
+  String? by;
+  DateTime? added;
+  String? why;
+  String? whyNot;
 
   Quote({
     this.quoteId,
@@ -22,7 +22,7 @@ class Quote {
       'quoteId': quoteId,
       'text': text,
       'by': by,
-      'added': added.millisecondsSinceEpoch,
+      'added': added!.millisecondsSinceEpoch,
       'why': why,
       'whyNot': whyNot,
     };

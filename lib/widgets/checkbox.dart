@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 class CheckBox extends StatelessWidget {
   const CheckBox({
-    Key key,
-    @required this.checked,
+    Key? key,
+    required this.checked,
   }) : super(key: key);
 
-  final bool checked;
+  final bool? checked;
 
   @override
   Widget build(BuildContext context) {
-    return checked
+    return checked!
         ? Container(
             width: 12,
             height: 12,

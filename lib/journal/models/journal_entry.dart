@@ -1,15 +1,15 @@
 import 'dart:convert';
 
 class JournalEntry {
-  int entryId;
-  String title;
-  String text;
-  DateTime date;
-  double latitude;
-  double longitude;
-  String locationDisplayName;
-  List<String> tags;
-  DateTime lastModified;
+  int? entryId;
+  String? title;
+  String? text;
+  DateTime? date;
+  double? latitude;
+  double? longitude;
+  String? locationDisplayName;
+  List<String?>? tags;
+  DateTime? lastModified;
 
   JournalEntry({
     this.entryId,
@@ -28,7 +28,7 @@ class JournalEntry {
       'entryId': entryId,
       'title': title,
       'text': text,
-      'date': date.millisecondsSinceEpoch,
+      'date': date!.millisecondsSinceEpoch,
       'latitude': latitude,
       'longitude': longitude,
       'locationDisplayName': locationDisplayName,

@@ -12,12 +12,12 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
-  Animation<double> animationRadiusIn;
-  Animation<double> animationRadiusOut;
-  Animation<double> animationRotation;
-  AnimationController controller;
-  double dotRadius;
-  double radius;
+  late Animation<double> animationRadiusIn;
+  late Animation<double> animationRadiusOut;
+  late Animation<double> animationRotation;
+  late AnimationController controller;
+  double? dotRadius;
+  double? radius;
 
   @override
   void dispose() {
@@ -102,8 +102,8 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
                       color: Colors.amber,
                     ),
                     offset: Offset(
-                      radius * cos(0.0),
-                      radius * sin(0.0),
+                      radius! * cos(0.0),
+                      radius! * sin(0.0),
                     ),
                   ),
                   new Transform.translate(
@@ -112,8 +112,8 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
                       color: Colors.deepOrangeAccent,
                     ),
                     offset: Offset(
-                      radius * cos(0.0 + 1 * pi / 4),
-                      radius * sin(0.0 + 1 * pi / 4),
+                      radius! * cos(0.0 + 1 * pi / 4),
+                      radius! * sin(0.0 + 1 * pi / 4),
                     ),
                   ),
                   new Transform.translate(
@@ -122,8 +122,8 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
                       color: Colors.pinkAccent,
                     ),
                     offset: Offset(
-                      radius * cos(0.0 + 2 * pi / 4),
-                      radius * sin(0.0 + 2 * pi / 4),
+                      radius! * cos(0.0 + 2 * pi / 4),
+                      radius! * sin(0.0 + 2 * pi / 4),
                     ),
                   ),
                   new Transform.translate(
@@ -132,8 +132,8 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
                       color: Colors.purple,
                     ),
                     offset: Offset(
-                      radius * cos(0.0 + 3 * pi / 4),
-                      radius * sin(0.0 + 3 * pi / 4),
+                      radius! * cos(0.0 + 3 * pi / 4),
+                      radius! * sin(0.0 + 3 * pi / 4),
                     ),
                   ),
                   new Transform.translate(
@@ -142,8 +142,8 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
                       color: Colors.yellow,
                     ),
                     offset: Offset(
-                      radius * cos(0.0 + 4 * pi / 4),
-                      radius * sin(0.0 + 4 * pi / 4),
+                      radius! * cos(0.0 + 4 * pi / 4),
+                      radius! * sin(0.0 + 4 * pi / 4),
                     ),
                   ),
                   new Transform.translate(
@@ -152,8 +152,8 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
                       color: Colors.lightGreen,
                     ),
                     offset: Offset(
-                      radius * cos(0.0 + 5 * pi / 4),
-                      radius * sin(0.0 + 5 * pi / 4),
+                      radius! * cos(0.0 + 5 * pi / 4),
+                      radius! * sin(0.0 + 5 * pi / 4),
                     ),
                   ),
                   new Transform.translate(
@@ -162,8 +162,8 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
                       color: Colors.orangeAccent,
                     ),
                     offset: Offset(
-                      radius * cos(0.0 + 6 * pi / 4),
-                      radius * sin(0.0 + 6 * pi / 4),
+                      radius! * cos(0.0 + 6 * pi / 4),
+                      radius! * sin(0.0 + 6 * pi / 4),
                     ),
                   ),
                   new Transform.translate(
@@ -172,8 +172,8 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
                       color: Colors.blueAccent,
                     ),
                     offset: Offset(
-                      radius * cos(0.0 + 7 * pi / 4),
-                      radius * sin(0.0 + 7 * pi / 4),
+                      radius! * cos(0.0 + 7 * pi / 4),
+                      radius! * sin(0.0 + 7 * pi / 4),
                     ),
                   ),
                 ],
@@ -189,8 +189,8 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
 class Dot extends StatelessWidget {
   Dot({this.radius, this.color});
 
-  final Color color;
-  final double radius;
+  final Color? color;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {

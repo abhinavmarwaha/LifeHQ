@@ -5,8 +5,8 @@ import 'package:flutter_html/flutter_html.dart';
 
 class EntryCard extends StatelessWidget {
   const EntryCard({
-    Key key,
-    @required this.journalEntry,
+    Key? key,
+    required this.journalEntry,
   }) : super(key: key);
 
   final JournalEntry journalEntry;
@@ -31,7 +31,7 @@ class EntryCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                journalEntry.title,
+                journalEntry.title!,
                 style: TextStyle(color: Colors.black),
               ),
               Container(

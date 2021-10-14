@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 
 class JournalEntryDetails extends StatelessWidget {
   const JournalEntryDetails({
-    Key key,
-    @required this.entry,
+    Key? key,
+    required this.entry,
   }) : super(key: key);
 
   final JournalEntry entry;
@@ -33,7 +33,7 @@ class JournalEntryDetails extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(Icons.delete),
                   )),
-              if (entry.tags != null && entry.tags.length != 0)
+              if (entry.tags != null && entry.tags!.length != 0)
                 SizedBox(
                   height: 56,
                   child: Padding(
@@ -43,14 +43,14 @@ class JournalEntryDetails extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            entry.tags[index],
+                            entry.tags![index]!,
                             style: TextStyle(
                               fontSize: 18,
                             ),
                           ),
                         );
                       },
-                      itemCount: entry.tags.length,
+                      itemCount: entry.tags!.length,
                       scrollDirection: Axis.horizontal,
                     ),
                   ),
@@ -58,7 +58,7 @@ class JournalEntryDetails extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  Utilities.beautifulDate(entry.date),
+                  Utilities.beautifulDate(entry.date!),
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
@@ -70,7 +70,7 @@ class JournalEntryDetails extends StatelessWidget {
                 ),
               ),
               Text(
-                entry.title,
+                entry.title!,
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               Html(

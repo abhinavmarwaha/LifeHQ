@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 class SingleWord extends StatelessWidget {
   const SingleWord({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
 
   final String title;
@@ -28,7 +28,7 @@ class SingleWord extends StatelessWidget {
             TextFormField(
               onFieldSubmitted: (value) {
                 Provider.of<RoutineService>(context, listen: false)
-                    .goingOnRoutine
+                    .goingOnRoutine!
                     .restedString = value;
                 Navigator.push(
                     context, MaterialPageRoute(builder: (ctx) => GoalSheet()));

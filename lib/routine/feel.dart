@@ -5,7 +5,7 @@ import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:provider/provider.dart';
 
 class Feel extends StatefulWidget {
-  Feel({Key key}) : super(key: key);
+  Feel({Key? key}) : super(key: key);
 
   @override
   _FeelState createState() => _FeelState();
@@ -81,7 +81,7 @@ class _FeelState extends State<Feel> {
                     .map((e) => GestureDetector(
                         onTap: () {
                           Provider.of<RoutineService>(context, listen: false)
-                              .goingOnRoutine
+                              .goingOnRoutine!
                               .feel = e;
                           Navigator.push(context,
                               MaterialPageRoute(builder: (ctx) => Rested()));

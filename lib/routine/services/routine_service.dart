@@ -11,12 +11,12 @@ class RoutineService with ChangeNotifier {
     return instance;
   }
   bool initilised = false;
-  RoutineDB _db;
+  late RoutineDB _db;
 
-  List<Routine> _routines;
-  List<Routine> get routines => _routines;
+  List<Routine?>? _routines;
+  List<Routine?>? get routines => _routines;
 
-  Routine goingOnRoutine;
+  Routine? goingOnRoutine;
 
   Future _init() async {
     if (!initilised) {
@@ -37,20 +37,20 @@ class RoutineService with ChangeNotifier {
     final evenEnd =
         DateTime(now.year, now.month, now.day + 1).millisecondsSinceEpoch;
     if (now.millisecondsSinceEpoch < mornEnd) {
-      for (Routine routine in _routines) {
-        if (routine.routineType == 0 &&
-            routine.dateTime.millisecondsSinceEpoch > mornStart &&
-            routine.dateTime.millisecondsSinceEpoch < mornEnd) {
+      for (Routine? routine in _routines!) {
+        if (routine!.routineType == 0 &&
+            routine.dateTime!.millisecondsSinceEpoch > mornStart &&
+            routine.dateTime!.millisecondsSinceEpoch < mornEnd) {
           return -1;
         }
       }
 
       return 0;
     } else {
-      for (Routine routine in _routines) {
-        if (routine.routineType == 1 &&
-            routine.dateTime.millisecondsSinceEpoch > mornEnd &&
-            routine.dateTime.millisecondsSinceEpoch < evenEnd) {
+      for (Routine? routine in _routines!) {
+        if (routine!.routineType == 1 &&
+            routine.dateTime!.millisecondsSinceEpoch > mornEnd &&
+            routine.dateTime!.millisecondsSinceEpoch < evenEnd) {
           return -1;
         }
       }
@@ -63,9 +63,9 @@ class RoutineService with ChangeNotifier {
   }
 
   Future<int> saveRoutine() async {
-    int index = await _db.insertRoutine(goingOnRoutine);
-    goingOnRoutine.routineId = index;
-    _routines.add(goingOnRoutine);
+    int index = await _db.insertRoutine(goingOnRoutine!);
+    goingOnRoutine!.routineId = index;
+    _routines!.add(goingOnRoutine);
     goingOnRoutine = null;
     return index;
   }

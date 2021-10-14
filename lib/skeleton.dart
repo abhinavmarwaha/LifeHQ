@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class Skeleton extends StatelessWidget {
   const Skeleton({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
   }) : super(key: key);
 
   final Widget child;

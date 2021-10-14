@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class Quote extends StatelessWidget {
   const Quote({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class Quote extends StatelessWidget {
               onFieldSubmitted: (value) {
                 final routineService =
                     Provider.of<RoutineService>(context, listen: false);
-                routineService.goingOnRoutine.quote = value;
+                routineService.goingOnRoutine!.quote = value;
                 routineService.saveRoutine().then((value) => Navigator.push(
                     context, MaterialPageRoute(builder: (ctx) => Home())));
                 
