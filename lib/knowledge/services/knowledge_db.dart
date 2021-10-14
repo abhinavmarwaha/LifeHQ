@@ -55,7 +55,7 @@ class KnowledgeDB {
     return dbClient.close();
   }
 
-  // Princicples CRUD
+  // Princicples
 
   Future<int> insertPrinciple(Principle principle) async {
     final Database db = await getdb;
@@ -84,7 +84,7 @@ class KnowledgeDB {
     );
   }
 
-  // Quotes CRUD
+  // Quotes
 
   Future<int> insertQuote(Quote quote) async {
     final Database db = await getdb;

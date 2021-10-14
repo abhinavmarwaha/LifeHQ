@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lifehq/custom_icons.dart';
 import 'package:lifehq/goals/goals.dart';
 import 'package:lifehq/journal/journal.dart';
 import 'package:lifehq/knowledge/knowledge.dart';
@@ -29,9 +30,9 @@ class Home extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Icon(
-                        Icons.access_alarm,
+                        CustomIcons.routine,
                         color: Colors.black,
                         size: 64,
                       ),
@@ -49,9 +50,9 @@ class Home extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Icon(
-                        Icons.book,
+                        CustomIcons.journal,
                         color: Colors.black,
                         size: 64,
                       ),
@@ -75,9 +76,9 @@ class Home extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Icon(
-                        Icons.done,
+                        CustomIcons.goal,
                         color: Colors.black,
                         size: 64,
                       ),
@@ -85,41 +86,27 @@ class Home extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.repeat,
-                      color: Colors.black,
-                      size: 64,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (ctx) => Knowledge()));
+                  },
+                  child: Card(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Icon(
+                        CustomIcons.knowledge,
+                        color: Colors.black,
+                        size: 64,
+                      ),
                     ),
                   ),
                 ),
                 Spacer(),
               ],
-            ),
-            Spacer(),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (ctx) => Knowledge()));
-              },
-              child: Card(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.map,
-                    color: Colors.black,
-                    size: 64,
-                  ),
-                ),
-              ),
             ),
             Spacer(),
           ],

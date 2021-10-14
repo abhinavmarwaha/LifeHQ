@@ -24,11 +24,15 @@ class NotificationsProvider with ChangeNotifier {
       _firstTime = prefs.getBool(Constants.FIRSTTIME) ?? true;
       if (_firstTime) {
         final _notifs = NotificationsService();
+        await _notifs.serviceSetup();
         await _notifs.dailyNotif(
             0, "Morning Routine", "Lets prepare for the day ahead", 9, 0);
         await _notifs.dailyNotif(
             1, "Night Routine", "Lets analyse our day", 21, 0);
         prefs.setBool(Constants.FIRSTTIME, false);
+        _initilised = true;
+        notifyListeners();
+      } else {
         _initilised = true;
         notifyListeners();
       }

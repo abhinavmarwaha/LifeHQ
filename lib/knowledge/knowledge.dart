@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lifehq/custom_icons.dart';
 
 class Knowledge extends StatelessWidget {
   const Knowledge({Key key}) : super(key: key);
@@ -131,7 +132,7 @@ class Knowledge extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Icon(
-                        Icons.edit,
+                        CustomIcons.left_quote,
                         color: Colors.black,
                         size: 64,
                       ),
@@ -147,7 +148,7 @@ class Knowledge extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Icon(
-                        Icons.wb_sunny,
+                        CustomIcons.principle,
                         color: Colors.black,
                         size: 64,
                       ),
@@ -181,7 +182,7 @@ class Knowledge extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
-                      Icons.card_giftcard,
+                      CustomIcons.flash_cards,
                       color: Colors.black,
                     ),
                   ),
@@ -196,7 +197,7 @@ class Knowledge extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
-                      Icons.lock_clock,
+                      CustomIcons.reminder,
                       color: Colors.black,
                     ),
                   ),

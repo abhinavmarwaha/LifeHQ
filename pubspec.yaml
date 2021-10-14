@@ -52,4 +52,8 @@ flutter_icons:
 flutter:
   assets:
     - assets/loading.gif
+  fonts:
+  - family: CustomIcons
+    fonts:
+      - asset: assets/fonts/CustomIcons.ttf
   uses-material-design: true

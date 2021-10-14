@@ -22,6 +22,7 @@ class JournalService with ChangeNotifier {
     if (!initilised) {
       _db = JournalDB();
       _entries = await _db.getEntries();
+      _tags = [];
       _tags.add("All");
       _tags = await _db.getTags();
       initilised = true;

@@ -8,8 +8,10 @@ import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/services/notifications_provider.dart';
 import 'package:lifehq/utils/removed_glow_behavior.dart';
 import 'package:provider/provider.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() {
+  tz.initializeTimeZones();
   runApp(MyApp());
 }
 
@@ -39,6 +41,15 @@ class MyApp extends StatelessWidget {
               KnowledgeService, NotificationsProvider>(
             builder: (context, routineService, goalsService, journalService,
                 knowledgeService, notificationsService, child) {
+              print(routineService.initilised.toString() +
+                  " " +
+                  goalsService.initilised.toString() +
+                  " " +
+                  journalService.initilised.toString() +
+                  " " +
+                  knowledgeService.initilised.toString() +
+                  " " +
+                  notificationsService.initilised.toString());
               return MaterialApp(
                   title: 'LifeHQ',
                   debugShowCheckedModeBanner: false,

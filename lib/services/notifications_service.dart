@@ -4,14 +4,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:lifehq/constants/strings.dart';
 import 'dart:async';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
 
 class NotificationsService {
   FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
-
-  notificationsService() {
-    serviceSetup();
-  }
 
   Future<void> serviceSetup() async {
     _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -21,7 +16,6 @@ class NotificationsService {
         InitializationSettings(android: initializationSettingsAndroid);
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: selectNotification);
-    tz.initializeTimeZones();
   }
 
   Future selectNotification(String payload) async {
