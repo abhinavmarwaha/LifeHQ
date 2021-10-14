@@ -35,6 +35,7 @@ class JournalDB {
       },
       version: 1,
     );
+
     return database;
   }
 
@@ -49,6 +50,7 @@ class JournalDB {
 
   Future close() async {
     var dbClient = await getdb;
+
     return dbClient.close();
   }
 
@@ -66,6 +68,7 @@ class JournalDB {
 
   Future<List<JournalEntry>> getEntries() async {
     final Database db = await getdb;
+
     return (await db.query(JournalConstants.JOURNALENTRIES))
         .map((e) => JournalEntry.fromMap(e))
         .toList();
@@ -110,6 +113,7 @@ class JournalDB {
 
     final List<Map<String, dynamic>> maps =
         await db.query(JournalConstants.TAGS);
+        
     return List.generate(maps.length, (i) {
       return maps[i]['name'];
     });

@@ -25,6 +25,7 @@ class NominatimService {
         'road': ad['address']['road'] == null ? "na" : ad['address']['road'],
       });
     }
+
     return share;
   }
 }

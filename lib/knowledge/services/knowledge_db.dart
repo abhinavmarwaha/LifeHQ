@@ -38,6 +38,7 @@ class KnowledgeDB {
       },
       version: 1,
     );
+
     return database;
   }
 
@@ -52,6 +53,7 @@ class KnowledgeDB {
 
   Future close() async {
     var dbClient = await getdb;
+
     return dbClient.close();
   }
 
@@ -69,6 +71,7 @@ class KnowledgeDB {
 
   Future<List<Principle>> getPrinciples() async {
     final Database db = await getdb;
+
     return (await db.query(KnowledgeConstants.PRINCIPLES))
         .map((e) => Principle.fromMap(e))
         .toList();
@@ -98,6 +101,7 @@ class KnowledgeDB {
 
   Future<List<Quote>> getQuotes() async {
     final Database db = await getdb;
+    
     return (await db.query(KnowledgeConstants.QUOTES))
         .map((e) => Quote.fromMap(e))
         .toList();

@@ -35,6 +35,7 @@ class GoalsDB {
       },
       version: 1,
     );
+
     return database;
   }
 
@@ -49,6 +50,7 @@ class GoalsDB {
 
   Future close() async {
     var dbClient = await getdb;
+
     return dbClient.close();
   }
 
@@ -64,6 +66,7 @@ class GoalsDB {
 
   Future<List<Goal>> getGoals() async {
     final Database db = await getdb;
+
     return (await db.query(GoalsConstants.GOALS))
         .map((e) => Goal.fromMap(e))
         .toList();
@@ -76,6 +79,7 @@ class GoalsDB {
       '${DateTime(dateTime.year, dateTime.month, dateTime.day).millisecondsSinceEpoch}',
       '${DateTime(dateTime.year, dateTime.month, dateTime.day + 1).millisecondsSinceEpoch}'
     ]);
+    
     return maps.map((e) => Task.fromMap(e)).toList();
   }
 

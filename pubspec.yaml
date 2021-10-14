@@ -3,7 +3,7 @@ description: Design your life.
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 0.5.0+1
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -51,6 +51,12 @@ dependency_overrides:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  test: any
+  flutter_lints: ^1.0.0
+  dart_code_metrics: ^4.3.1
+
   flutter_launcher_icons: ^0.9.2
 
 flutter_icons:

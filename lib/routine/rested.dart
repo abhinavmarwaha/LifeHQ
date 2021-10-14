@@ -51,11 +51,15 @@ class Rested extends StatelessWidget {
             ),
             Choice(
               text: "Don't know",
-              onTap: () {},
+              onTap: () {
+                print("Don't know");
+              },
             ),
             Choice(
               text: "Maybe",
-              onTap: () {},
+              onTap: () {
+                print("Maybe");
+              },
             ),
           ],
         ),

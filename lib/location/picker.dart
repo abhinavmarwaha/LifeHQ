@@ -15,7 +15,7 @@ class NominatimLocationPicker extends StatefulWidget {
 
   final String searchHint;
   final String awaitingForLocation;
-  
+
   final TileLayerOptions? customMapLayer;
 
   final Widget? customMarkerIcon;
@@ -182,7 +182,7 @@ class _NominatimLocationPickerState extends State<NominatimLocationPicker> {
                 if (!currentFocus.hasPrimaryFocus) {
                   currentFocus.unfocus();
                 }
-                _isResult == false
+                !_isResult
                     ? _changeAppBar()
                     : setState(() {
                         _isSearching = true;

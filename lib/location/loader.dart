@@ -71,7 +71,9 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
     });
 
     controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {}
+      if (status == AnimationStatus.completed) {
+        print("Completed");
+      }
     });
 
     controller.repeat();

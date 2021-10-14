@@ -49,6 +49,6 @@ Design Your Life
 
 # Have Suggestions ?
 
-You can add an issue [here](https://github.com/abhinavmarwaha/lifehq/issues) or fill up a google form [here]().
+You can add an issue [here](https://github.com/abhinavmarwaha/lifehq/issues) or fill up a google form [here](https://docs.google.com/forms/d/e/1FAIpQLSdcVAl64UwJg6U6xZ3YnDc8inIsk1WO7-jHpTpRLcl6t4XP7g/viewform?usp=sf_link).
 
 You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@protonmail.com)

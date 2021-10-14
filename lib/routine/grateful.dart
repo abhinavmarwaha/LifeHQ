@@ -64,18 +64,21 @@ class _GratefulState extends State<Grateful> {
                     TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) return "Need to fill this ASAP!";
+
                           return null;
                         },
                         onChanged: (value) => treasure1 = value),
                     TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) return "Need to fill this ASAP!";
+
                           return null;
                         },
                         onChanged: (value) => treasure2 = value),
                     TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) return "Need to fill this ASAP!";
+                          
                           return null;
                         },
                         onChanged: (value) => treasure3 = value),

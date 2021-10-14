@@ -19,7 +19,7 @@ class JournalEntryInput extends StatefulWidget {
 class _JournalEntryInputState extends State<JournalEntryInput> {
   HtmlEditorController controller = HtmlEditorController();
   String title = "";
-  Map _pickedLocation = {};
+  Map? _pickedLocation = {};
   String _displayLocationName = "";
   List<String?> selectedTags = [];
 
@@ -111,6 +111,7 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                           child: ListView.builder(
                             itemBuilder: (context, index) {
                               index = index + 1;
+                              
                               return GestureDetector(
                                   onTap: () {
                                     setState(() {
@@ -205,9 +206,9 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                                       tags: selectedTags,
                                       lastModified: DateTime.now(),
                                       latitude:
-                                          _pickedLocation["latlng"]?.latitude,
+                                          _pickedLocation!["latlng"]?.latitude,
                                       longitude:
-                                          _pickedLocation["latlng"]?.longitude,
+                                          _pickedLocation!["latlng"]?.longitude,
                                       locationDisplayName: _displayLocationName,
                                       text: await controller.getText(),
                                       title: title))

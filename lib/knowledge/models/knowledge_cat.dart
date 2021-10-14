@@ -26,6 +26,7 @@ extension KnowledgeCatExtensions on KnowledgeCat {
 
   String title() {
     final title = this.toString().split(".")[1];
+    
     return title[0].toUpperCase() + title.substring(1);
   }
 }

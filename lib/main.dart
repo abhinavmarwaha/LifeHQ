@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
                   knowledgeService.initilised.toString() +
                   " " +
                   notificationsService.initilised.toString());
+
               return MaterialApp(
                   title: 'LifeHQ',
                   debugShowCheckedModeBanner: false,

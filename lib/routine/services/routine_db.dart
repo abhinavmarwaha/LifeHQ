@@ -33,6 +33,7 @@ class RoutineDB {
       },
       version: 1,
     );
+
     return database;
   }
 
@@ -47,6 +48,7 @@ class RoutineDB {
 
   Future close() async {
     var dbClient = await getdb;
+
     return dbClient.close();
   }
 
@@ -68,6 +70,7 @@ class RoutineDB {
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }
+
     return id;
   }
 
@@ -87,6 +90,7 @@ class RoutineDB {
           .toList();
       routine.treasures!.addAll(treasures);
     }
+
     return routines;
   }
 

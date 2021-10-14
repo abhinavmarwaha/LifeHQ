@@ -35,6 +35,7 @@ class JournalService with ChangeNotifier {
     entry.entryId = index;
     _entries!.add(entry);
     notifyListeners();
+    
     return index;
   }
 

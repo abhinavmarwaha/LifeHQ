@@ -54,6 +54,7 @@ class RoutineService with ChangeNotifier {
           return -1;
         }
       }
+
       return 1;
     }
   }
@@ -67,6 +68,7 @@ class RoutineService with ChangeNotifier {
     goingOnRoutine!.routineId = index;
     _routines!.add(goingOnRoutine);
     goingOnRoutine = null;
+
     return index;
   }
 }
