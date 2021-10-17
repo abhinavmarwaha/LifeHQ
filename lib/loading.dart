@@ -10,7 +10,7 @@ class Loading extends StatelessWidget {
       body: SafeArea(
           child: Center(
         child: SizedBox(
-          height: 350,
+          height: 360,
           child: Column(
             children: [
               Image.asset("assets/loading.gif"),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/goals/models/goal.dart';
 import 'package:lifehq/goals/models/task.dart';
+import 'package:lifehq/goals/services/goals_service.dart';
 import 'package:lifehq/skeleton.dart';
 
 class AddGoalPage extends StatefulWidget {
@@ -19,16 +20,24 @@ class _AddGoalPageState extends State<AddGoalPage> {
       goalType: 0,
       title: "");
 
-  TextEditingController controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Skeleton(
         child: Column(
       children: [
         Expanded(
+          child: IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              GoalsService.instance.saveGoal(goal);
+              Navigator.pop(context);
+            },
+          ),
+          flex: 1,
+        ),
+        Expanded(
           child: TextField(
-            controller: controller,
+            onChanged: (val) => goal.title = val,
           ),
           flex: 1,
         ),
@@ -46,8 +55,10 @@ class _AddGoalPageState extends State<AddGoalPage> {
                     GestureDetector(
                         child: Text("Add"),
                         onTap: () {
-                          goal.tasks.add(Task(
-                              date: DateTime.now(), done: false, text: ""));
+                          setState(() {
+                            goal.tasks.add(Task(
+                                date: DateTime.now(), done: false, text: ""));
+                          });
                         }),
                   ]),
         )

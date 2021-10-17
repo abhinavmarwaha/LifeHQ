@@ -43,4 +43,13 @@ class GoalsService with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<int> saveGoal(Goal goal) async {
+    int index = await _db.insertGoal(goal);
+    goal.goalId = index;
+    _goals!.add(goal);
+    notifyListeners();
+
+    return index;
+  }
 }

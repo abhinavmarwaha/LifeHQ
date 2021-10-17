@@ -30,7 +30,6 @@ class _GoalPageState extends State<GoalPage> {
               },
               value: e.done,
             )),
-        Container(child: Text("Add Task")),
       ],
     ));
   }

@@ -54,6 +54,18 @@ class GoalsDB {
     return dbClient.close();
   }
 
+  Future<int> insertGoal(Goal goal) async {
+    final Database db = await getdb;
+
+    goal.tasks.map((e) => insertTask(e));
+
+    return await db.insert(
+      GoalsConstants.GOALS,
+      goal.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
   Future<int> insertTask(Task task) async {
     final Database db = await getdb;
 
@@ -79,7 +91,7 @@ class GoalsDB {
       '${DateTime(dateTime.year, dateTime.month, dateTime.day).millisecondsSinceEpoch}',
       '${DateTime(dateTime.year, dateTime.month, dateTime.day + 1).millisecondsSinceEpoch}'
     ]);
-    
+
     return maps.map((e) => Task.fromMap(e)).toList();
   }
 
