@@ -4,6 +4,7 @@ import 'package:lifehq/home.dart';
 import 'package:lifehq/journal/services/journal_service.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/loading.dart';
+import 'package:lifehq/momento_mori.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/services/notifications_provider.dart';
 import 'package:lifehq/utils/removed_glow_behavior.dart';
@@ -41,15 +42,15 @@ class MyApp extends StatelessWidget {
               KnowledgeService, NotificationsProvider>(
             builder: (context, routineService, goalsService, journalService,
                 knowledgeService, notificationsService, child) {
-              print(routineService.initilised.toString() +
-                  " " +
-                  goalsService.initilised.toString() +
-                  " " +
-                  journalService.initilised.toString() +
-                  " " +
-                  knowledgeService.initilised.toString() +
-                  " " +
-                  notificationsService.initilised.toString());
+              // print(routineService.initilised.toString() +
+              //     " " +
+              //     goalsService.initilised.toString() +
+              //     " " +
+              //     journalService.initilised.toString() +
+              //     " " +
+              //     knowledgeService.initilised.toString() +
+              //     " " +
+              //     notificationsService.initilised.toString());
 
               return MaterialApp(
                   title: 'LifeHQ',
@@ -66,7 +67,9 @@ class MyApp extends StatelessWidget {
                           journalService.initilised &&
                           knowledgeService.initilised &&
                           notificationsService.initilised)
-                      ? Home()
+                      ? routineService.checkIfRoutined() != -1
+                          ? MomentoMori()
+                          : Home()
                       : const Loading());
             },
           );

@@ -63,50 +63,24 @@ class Home extends StatelessWidget {
               ],
             ),
             Spacer(),
-            Row(
-              children: [
-                Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (ctx) => Goals()));
-                  },
-                  child: Card(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Icon(
-                        CustomIcons.goal,
-                        color: Colors.black,
-                        size: 64,
-                      ),
-                    ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (ctx) => Goals()));
+              },
+              child: Card(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Icon(
+                    CustomIcons.goal,
+                    color: Colors.black,
+                    size: 64,
                   ),
                 ),
-                Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (ctx) => Knowledge()));
-                  },
-                  child: Card(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Icon(
-                        CustomIcons.knowledge,
-                        color: Colors.black,
-                        size: 64,
-                      ),
-                    ),
-                  ),
-                ),
-                Spacer(),
-              ],
+              ),
             ),
             Spacer(),
           ],

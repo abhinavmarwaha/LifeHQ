@@ -15,14 +15,29 @@ class GoalsService with ChangeNotifier {
   late GoalsDB _db;
 
   List<Goal>? _goals;
-  List<Goal>? get routines => _goals;
+  List<Goal>? get goals => _goals;
   List<Task>? _todayTasks;
   List<Task>? get todayTasks => _todayTasks;
 
   Future _init() async {
     if (!initilised) {
       _db = GoalsDB();
-      _goals = await _db.getGoals();
+      // _goals = await _db.getGoals();
+      _goals = [
+        Goal(
+            tasks: [
+              Task(
+                text: "make UI",
+                done: false,
+              )
+            ],
+            added: DateTime.now(),
+            deadline: DateTime.now(),
+            done: false,
+            goalId: 1,
+            goalType: 0,
+            title: "Make App")
+      ];
       _todayTasks = await _db.getTasksByDate(DateTime.now());
       initilised = true;
       notifyListeners();
