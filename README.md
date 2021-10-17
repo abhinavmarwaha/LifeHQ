@@ -38,7 +38,6 @@ Design Your Life
 # Features:
 
 * Routine
-* Knowledge
 * Journal
 * Goals
 
@@ -46,6 +45,7 @@ Design Your Life
 
 * habits
 * decisions
+* Knowledge
 
 # Have Suggestions ?
 
