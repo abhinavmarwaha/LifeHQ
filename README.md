@@ -15,9 +15,9 @@ Design Your Life
     <a href='https://f-droid.org/en/packages/com.abhinavmarwaha.lifehq/'>
         <img height="70" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png">
     </a>
-    <a href='https://appdistribution.firebase.dev/i/2775ef0933970ecc'>
+<!--     <a href='https://appdistribution.firebase.dev/i/2775ef0933970ecc'>
         <img height="56" alt='Download on the App Store' style="padding-right:8px;" src='assets/external/download_on_the_app_store.svg'/>
-    </a>
+    </a> -->
     <a href='https://github.com/abhinavmarwaha/lifehq/releases/latest'>
     <img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png" alt="Get it on Github" height="70">
     </a>
