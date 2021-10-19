@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'goal.dart';
 
 class Task {
   int? taskId;

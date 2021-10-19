@@ -44,6 +44,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
         Expanded(
           child: Column(
               children: goal.tasks
+                      // ignore: unnecessary_cast
                       .map((e) => CheckboxListTile(
                           title: TextField(
                             onChanged: (val) => e.text = val,

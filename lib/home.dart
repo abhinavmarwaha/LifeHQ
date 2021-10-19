@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lifehq/custom_icons.dart';
 import 'package:lifehq/goals/goals.dart';
 import 'package:lifehq/journal/journal.dart';
-import 'package:lifehq/knowledge/knowledge.dart';
 import 'package:lifehq/routine/routine_home.dart';
 
 class Home extends StatelessWidget {
