@@ -14,7 +14,7 @@ class Skeleton extends StatelessWidget {
         backgroundColor: Colors.black,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: child,
           ),
         ));

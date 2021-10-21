@@ -42,16 +42,6 @@ class MyApp extends StatelessWidget {
               KnowledgeService, NotificationsProvider>(
             builder: (context, routineService, goalsService, journalService,
                 knowledgeService, notificationsService, child) {
-              // print(routineService.initilised.toString() +
-              //     " " +
-              //     goalsService.initilised.toString() +
-              //     " " +
-              //     journalService.initilised.toString() +
-              //     " " +
-              //     knowledgeService.initilised.toString() +
-              //     " " +
-              //     notificationsService.initilised.toString());
-
               return MaterialApp(
                   title: 'LifeHQ',
                   debugShowCheckedModeBanner: false,

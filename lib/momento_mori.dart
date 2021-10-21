@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/principles.dart';
+import 'package:lifehq/skeleton.dart';
 
 class MomentoMori extends StatefulWidget {
   MomentoMori({Key? key}) : super(key: key);
@@ -25,57 +26,54 @@ class _MomentoMoriState extends State<MomentoMori> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  "Momento Mori",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26,
-                  ),
+    return Skeleton(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                "Momento Mori",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26,
                 ),
-                Spacer(),
-                Opacity(
-                  opacity: nextOpacity,
-                  child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (ctx) => Principles()));
-                      },
-                      child: Icon(Icons.arrow_forward_ios)),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 6,
-            ),
-            Expanded(
-                child: MoriCal(
-              weekGoingOn: weekCompleted,
-            )),
-            SizedBox(
-              height: 6,
-            ),
-            Text("Year"),
-            SizedBox(
-              height: 6,
-            ),
-            ProgressBar(
-              progress: 10 / 100,
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Text(
-                '“Stop whatever you’re doing for a moment and ask yourself: Am I afraid of death because I won’t be able to do this anymore?”')
-          ],
-        ),
+              ),
+              Spacer(),
+              Opacity(
+                opacity: nextOpacity,
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (ctx) => Principles()));
+                    },
+                    child: Icon(Icons.arrow_forward_ios)),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          Expanded(
+              child: MoriCal(
+            weekGoingOn: weekCompleted,
+          )),
+          SizedBox(
+            height: 6,
+          ),
+          Text("Year"),
+          SizedBox(
+            height: 6,
+          ),
+          ProgressBar(
+            progress: 10 / 100,
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Text(
+              '“Stop whatever you’re doing for a moment and ask yourself: Am I afraid of death because I won’t be able to do this anymore?”')
+        ],
       ),
     );
   }
