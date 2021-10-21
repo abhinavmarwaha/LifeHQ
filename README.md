@@ -58,4 +58,10 @@ You can add an issue [here](https://github.com/abhinavmarwaha/lifehq/issues) or 
 
 I don't have ios dev account so you can download the xarchive [here](https://github.com/abhinavmarwaha/LifeHQ/releases) and you can sign and install using [AltStore](https://altstore.io/) 
 
+# ToDo
+
+[Roadmap](https://github.com/abhinavmarwaha/LifeHQ/projects/1)
+
+# Contact
+
 You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@protonmail.com)

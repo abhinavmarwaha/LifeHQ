@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:lifehq/constants/strings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Utilities {
   static String formatedDate(DateTime dateTime) {
@@ -42,5 +43,17 @@ class Utilities {
         date.hour.toString() +
         ":" +
         date.minute.toString();
+  }
+
+  static Future<bool> getPrefBool(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final _firstTime = prefs.getBool(Constants.FIRSTTIME) ?? true;
+
+    return _firstTime;
+  }
+
+  static Future<void> setPrefBool(String name, bool val) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(Constants.FIRSTTIME, val);
   }
 }
