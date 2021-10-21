@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/home.dart';
+import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/routine/feel.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
+import 'package:lifehq/skeleton.dart';
 import 'package:provider/provider.dart';
 
 class Principles extends StatefulWidget {
@@ -27,10 +29,9 @@ class _PrinciplesState extends State<Principles> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Column(
+    return Skeleton(
+      child: Consumer<KnowledgeService>(
+        builder: (context, provider, child) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -76,12 +77,8 @@ class _PrinciplesState extends State<Principles> {
             SizedBox(
               height: 12,
             ),
-            ...[
-              "Obstacle is the way.",
-              "Ego is the enemy.",
-              "Travel, Read and create."
-            ].map((e) => Principle(
-                  principle: e,
+            ...provider.principles.map((e) => Principle(
+                  principle: e.title,
                   index: principleIndex++,
                 ))
           ],

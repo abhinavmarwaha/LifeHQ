@@ -22,7 +22,7 @@ class _GoalPageState extends State<GoalPage> {
       children: [
         Text(widget.goal.title!),
         ...widget.goal.tasks.map((e) => CheckboxListTile(
-              title: Text(e.text!),
+              title: Text(e.text),
               onChanged: (bool? value) {
                 setState(() {
                   e.done = value;

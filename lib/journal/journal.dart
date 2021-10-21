@@ -56,66 +56,83 @@ class _JournalState extends State<Journal> {
               ),
             ),
             body: SafeArea(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "Journal",
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    GestureDetector(
-                      onTap: () => _scaffold.currentState!.openEndDrawer(),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("Tags"),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                Expanded(
-                  child: ListView(
-                    children: journalService.entries!
-                        .map((journalEntry) =>
-                            EntryCard(journalEntry: journalEntry))
-                        .toList(),
-                  ),
-                ),
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (ctx) => JournalEntryInput()));
-                    },
-                    child: SizedBox(
-                      width: 120,
-                      child: Card(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(
-                              "Add",
-                              style: TextStyle(color: Colors.black),
+                child: Container(
+                    color: Color(0xffe0e0e0),
+                    child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.black,
                             ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ))));
+                            child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Journal",
+                                          style: TextStyle(
+                                              fontSize: 26,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Spacer(),
+                                        GestureDetector(
+                                          onTap: () => _scaffold.currentState!
+                                              .openEndDrawer(),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text("Tags"),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 12,
+                                    ),
+                                    Expanded(
+                                      child: ListView(
+                                        children: journalService.entries!
+                                            .map((journalEntry) => EntryCard(
+                                                journalEntry: journalEntry))
+                                            .toList(),
+                                      ),
+                                    ),
+                                    Center(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (ctx) =>
+                                                      JournalEntryInput()));
+                                        },
+                                        child: SizedBox(
+                                          width: 120,
+                                          child: Card(
+                                            color: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Center(
+                                                child: Text(
+                                                  "Add",
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ))))))));
   }
 
   showTagAddDialog(BuildContext context, JournalService provider) {

@@ -4,23 +4,23 @@ import 'package:awesome_emojis/emoji.dart';
 
 class Routine {
   int? routineId;
-  int? routineType;
+  int routineType;
   Emoji? feel;
   int? rested;
   String? restedString;
   String? quote;
-  DateTime? dateTime;
-  List<String?>? treasures;
+  DateTime dateTime;
+  List<String?> treasures;
 
   Routine({
     this.routineId,
-    this.routineType,
+    required this.routineType,
     this.feel,
     this.rested,
     this.restedString,
     this.quote,
-    this.dateTime,
-    this.treasures,
+    required this.dateTime,
+    required this.treasures,
   });
 
   Map<String, dynamic> toMap() {
@@ -30,7 +30,7 @@ class Routine {
       'feel': feel!.char,
       'rested': rested,
       'quote': quote,
-      'dateTime': dateTime!.millisecondsSinceEpoch,
+      'dateTime': dateTime.millisecondsSinceEpoch,
       'restedString': restedString,
     };
   }
@@ -44,6 +44,7 @@ class Routine {
       quote: map['quote'],
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime']),
       restedString: map['restedString'],
+      treasures: [],
     );
   }
 

@@ -31,7 +31,7 @@ class CheckBox extends StatelessWidget {
             height: 12,
             decoration: BoxDecoration(
                 border: Border.all(
-              color: Colors.white,
+              color: Colors.black,
               width: 1,
             )),
           );

@@ -29,8 +29,8 @@ class KnowledgeBitsList extends StatelessWidget {
                     color: Colors.white,
                   ),
               separatorBuilder: (context, index) =>
-                  Text(knowledgeService.quotes![index].text!),
-              itemCount: knowledgeService.quotes!.length),
+                  Text(knowledgeService.quotes[index].text),
+              itemCount: knowledgeService.quotes.length),
         ),
       ],
     ));

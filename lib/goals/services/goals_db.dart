@@ -2,13 +2,16 @@ import 'package:lifehq/goals/constants/strings.dart';
 import 'package:lifehq/goals/models/goal.dart';
 import 'package:lifehq/goals/models/task.dart';
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 class GoalsDB {
-  static final GoalsDB _instance = GoalsDB._internal();
-  factory GoalsDB() => _instance;
+  static final GoalsDB instance = GoalsDB._internal();
+  factory GoalsDB() => instance;
   GoalsDB._internal();
   static Database? _db;
+
+  SharedPreferences? prefs;
 
   Future<Database> openDB() async {
     var database = openDatabase(
@@ -43,6 +46,7 @@ class GoalsDB {
     if (_db != null) {
       return _db!;
     }
+    prefs = await SharedPreferences.getInstance();
     _db = await openDB();
 
     return _db!;
@@ -121,5 +125,13 @@ class GoalsDB {
       where: "goalId = ?",
       whereArgs: [id],
     );
+  }
+
+  String getTodayGoalSheetTitle() {
+    return prefs!.getString(GoalsConstants.GOALTITLE) ?? "";
+  }
+
+  void setTodayGoalSheetTitle(String title) {
+    prefs!.setString(GoalsConstants.GOALTITLE, title);
   }
 }

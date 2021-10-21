@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/routine/single_word.dart';
+import 'package:lifehq/skeleton.dart';
 import 'package:provider/provider.dart';
 
 class Rested extends StatelessWidget {
@@ -8,61 +9,58 @@ class Rested extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Well Rested?",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 26,
-              ),
+    return Skeleton(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Well Rested?",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 26,
             ),
-            Choice(
-              text: "Yes",
-              onTap: () {
-                Provider.of<RoutineService>(context, listen: false)
-                    .goingOnRoutine!
-                    .rested = 0;
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (ctx) => SingleWord(
-                              title: "What Worked?",
-                            )));
-              },
-            ),
-            Choice(
-              text: "No",
-              onTap: () {
-                Provider.of<RoutineService>(context, listen: false)
-                    .goingOnRoutine!
-                    .rested = 1;
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (ctx) => SingleWord(
-                              title: "Whats Wrong?",
-                            )));
-              },
-            ),
-            Choice(
-              text: "Don't know",
-              onTap: () {
-                print("Don't know");
-              },
-            ),
-            Choice(
-              text: "Maybe",
-              onTap: () {
-                print("Maybe");
-              },
-            ),
-          ],
-        ),
+          ),
+          Choice(
+            text: "Yes",
+            onTap: () {
+              Provider.of<RoutineService>(context, listen: false)
+                  .goingOnRoutine!
+                  .rested = 0;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (ctx) => SingleWord(
+                            title: "What Worked?",
+                          )));
+            },
+          ),
+          Choice(
+            text: "No",
+            onTap: () {
+              Provider.of<RoutineService>(context, listen: false)
+                  .goingOnRoutine!
+                  .rested = 1;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (ctx) => SingleWord(
+                            title: "Whats Wrong?",
+                          )));
+            },
+          ),
+          Choice(
+            text: "Don't know",
+            onTap: () {
+              print("Don't know"); // TODO Don't know
+            },
+          ),
+          Choice(
+            text: "Maybe",
+            onTap: () {
+              print("Maybe"); // TODO Maybe
+            },
+          ),
+        ],
       ),
     );
   }

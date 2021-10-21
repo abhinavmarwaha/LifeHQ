@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class Quote {
   int? quoteId;
-  String? text;
+  String text;
   String? by;
   DateTime? added;
   String? why;
@@ -10,7 +10,7 @@ class Quote {
 
   Quote({
     this.quoteId,
-    this.text,
+    required this.text,
     this.by,
     this.added,
     this.why,

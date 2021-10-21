@@ -2,13 +2,13 @@ import 'dart:convert';
 
 class Task {
   int? taskId;
-  String? text;
+  String text;
   bool? done;
   DateTime? date;
 
   Task({
     this.taskId,
-    this.text,
+    required this.text,
     this.done,
     this.date,
   });

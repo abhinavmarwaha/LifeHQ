@@ -60,7 +60,7 @@ class RoutineDB {
       routine.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-    for (String? treasure in routine.treasures!) {
+    for (String? treasure in routine.treasures) {
       await db.insert(
         RoutineConstants.ROUTINETREASURES,
         {
@@ -74,10 +74,10 @@ class RoutineDB {
     return id;
   }
 
-  Future<List<Routine?>> getRoutines() async {
+  Future<List<Routine>> getRoutines() async {
     final Database db = await getdb;
     List<Map<String, dynamic>> maps = await db.query(RoutineConstants.ROUTINES);
-    List<Routine?> routines = maps.map((map) => Routine.fromMap(map)).toList();
+    List<Routine> routines = maps.map((map) => Routine.fromMap(map)).toList();
     for (Routine? routine in routines) {
       routine!.treasures = [];
       List<String?> treasures = (await db.query(
@@ -88,7 +88,7 @@ class RoutineDB {
       ))
           .map<String?>((e) => e["treasure"] as String?)
           .toList();
-      routine.treasures!.addAll(treasures);
+      routine.treasures.addAll(treasures);
     }
 
     return routines;
