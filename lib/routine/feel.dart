@@ -77,8 +77,11 @@ class _FeelState extends State<Feel> {
                         Provider.of<RoutineService>(context, listen: false)
                             .goingOnRoutine!
                             .feel = e;
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (ctx) => Rested()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctx) =>
+                                    Rested())); // TODO Night Routine
                       },
                       child: Text(e.char)))
                   .toList(),

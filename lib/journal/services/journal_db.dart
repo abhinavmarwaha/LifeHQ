@@ -108,7 +108,7 @@ class JournalDB {
     );
   }
 
-  Future<List<String?>> getTags() async {
+  Future<List<String>> getTags() async {
     final Database db = await getdb;
 
     final List<Map<String, dynamic>> maps =

@@ -2,25 +2,25 @@ import 'dart:convert';
 
 class JournalEntry {
   int? entryId;
-  String? title;
-  String? text;
-  DateTime? date;
+  String title;
+  String text;
+  DateTime date;
   double? latitude;
   double? longitude;
   String? locationDisplayName;
-  List<String?>? tags;
-  DateTime? lastModified;
+  List<String> tags;
+  DateTime lastModified;
 
   JournalEntry({
     this.entryId,
-    this.title,
-    this.text,
-    this.date,
+    required this.title,
+    required this.text,
+    required this.date,
     this.latitude,
     this.longitude,
     this.locationDisplayName,
-    this.tags,
-    this.lastModified,
+    required this.tags,
+    required this.lastModified,
   });
 
   Map<String, dynamic> toMap() {
@@ -28,12 +28,12 @@ class JournalEntry {
       'entryId': entryId,
       'title': title,
       'text': text,
-      'date': date!.millisecondsSinceEpoch,
+      'date': date.millisecondsSinceEpoch,
       'latitude': latitude,
       'longitude': longitude,
       'locationDisplayName': locationDisplayName,
-      'tags': tags?.join(","),
-      'lastModified': lastModified?.millisecondsSinceEpoch,
+      'tags': tags.join(","),
+      'lastModified': lastModified.millisecondsSinceEpoch,
     };
   }
 
@@ -47,9 +47,7 @@ class JournalEntry {
       longitude: map['longitude'],
       locationDisplayName: map['locationDisplayName'],
       tags: map['tags']?.split(","),
-      lastModified: map['lastModified'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['lastModified'])
-          : null,
+      lastModified: DateTime.fromMillisecondsSinceEpoch(map['lastModified']),
     );
   }
 

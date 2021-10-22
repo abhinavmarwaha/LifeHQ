@@ -49,16 +49,16 @@ class _RoutineHomeState extends State<RoutineHome> {
                 ? SelectedHeading(text: "Night")
                 : UnselectedHeading(text: "Night"),
           ),
-          SizedBox(
-            width: 40,
-          ),
-          Card(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.bar_chart, color: Colors.black))),
+          // SizedBox(
+          //   width: 40,
+          // ),
+          // Card(
+          //     color: Colors.white,
+          //     shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(10)),
+          //     child: Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: Icon(Icons.bar_chart, color: Colors.black))),
           Spacer()
         ]),
         SizedBox(

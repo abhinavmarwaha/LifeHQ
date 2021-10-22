@@ -27,11 +27,12 @@ class RoutineDetails extends StatelessWidget {
               SizedBox(
                 width: 12,
               ),
-              Text(
-                routine.quote!,
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              Expanded(
+                child: Text(
+                  routine.quote!,
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                ),
               ),
-              Spacer(),
               Text(
                 routine.feel!.char,
                 style: TextStyle(fontSize: 24),

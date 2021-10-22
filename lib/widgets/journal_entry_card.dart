@@ -21,7 +21,7 @@ class JournalEntryCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text(journalEntry.title!)],
+              children: [Text(journalEntry.title)],
             ),
           ),
         ),

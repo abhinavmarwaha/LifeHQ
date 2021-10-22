@@ -31,11 +31,16 @@ class EntryCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                journalEntry.title!,
-                style: TextStyle(color: Colors.black),
+                journalEntry.title,
+                style: TextStyle(color: Colors.black, fontSize: 14),
+              ),
+              SizedBox(
+                height: 12,
               ),
               Container(
-                color: Colors.black,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(5)),
                 child: Html(
                   data: journalEntry.text,
                 ),

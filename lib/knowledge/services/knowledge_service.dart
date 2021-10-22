@@ -36,4 +36,10 @@ class KnowledgeService with ChangeNotifier {
     _principles.add(prin);
     notifyListeners();
   }
+
+  Future<void> deletePrinciple(Principle principle) async {
+    await _db.deletePrinciple(principle.principleId!);
+    _principles.remove(principle);
+    notifyListeners();
+  }
 }

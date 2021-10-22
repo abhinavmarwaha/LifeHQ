@@ -26,21 +26,6 @@ class GoalsService with ChangeNotifier {
     if (!initilised) {
       _db = GoalsDB();
       _goals = await _db.getGoals();
-      // _goals = [
-      //   Goal(
-      //       tasks: [
-      //         Task(
-      //           text: "make UI",
-      //           done: false,
-      //         )
-      //       ],
-      //       added: DateTime.now(),
-      //       deadline: DateTime.now(),
-      //       done: false,
-      //       goalId: 1,
-      //       goalType: 0,
-      //       title: "Make App")
-      // ];
       _goalTitle = await _db.getTodayGoalSheetTitle();
       _todayTasks = await _db.getTasksByDate(DateTime.now());
       initilised = true;
@@ -57,5 +42,9 @@ class GoalsService with ChangeNotifier {
     return index;
   }
 
-  
+  Future<void> deleteGoal(Goal goal) async {
+    await _db.deleteGoal(goal.goalId!);
+    _goals.remove(goal);
+    notifyListeners();
+  }
 }

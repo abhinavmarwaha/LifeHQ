@@ -15,6 +15,8 @@ class Journal extends StatefulWidget {
 class _JournalState extends State<Journal> {
   final GlobalKey<ScaffoldState> _scaffold = GlobalKey<ScaffoldState>();
 
+  String? selectedTag;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<JournalService>(
@@ -27,16 +29,29 @@ class _JournalState extends State<Journal> {
                 color: Colors.white,
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  children: journalService.tags!
-                          .map<Widget>((e) => Card(
-                              color: Colors.black,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  e!,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              )))
+                  children: journalService.tags
+                          .map<Widget>((e) => GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedTag = selectedTag != null &&
+                                            selectedTag!.compareTo(e) == 0
+                                        ? null
+                                        : e;
+                                  });
+                                },
+                                child: Card(
+                                    color: selectedTag != null &&
+                                            selectedTag!.compareTo(e) == 0
+                                        ? Colors.red
+                                        : Colors.black,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        e,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    )),
+                              ))
                           .toList() +
                       [
                         Spacer(),
@@ -94,7 +109,12 @@ class _JournalState extends State<Journal> {
                                     ),
                                     Expanded(
                                       child: ListView(
-                                        children: journalService.entries!
+                                        children: journalService.entries
+                                            .where((element) =>
+                                                selectedTag == null
+                                                    ? true
+                                                    : element.tags
+                                                        .contains(selectedTag))
                                             .map((journalEntry) => EntryCard(
                                                 journalEntry: journalEntry))
                                             .toList(),
@@ -153,6 +173,7 @@ class _JournalState extends State<Journal> {
                           children: [
                             TextField(
                               controller: tagText,
+                              cursorColor: Colors.white,
                               decoration: InputDecoration(
                                   border: InputBorder.none, hintText: 'tag'),
                             ),

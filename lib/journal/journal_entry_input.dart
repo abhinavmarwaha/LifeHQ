@@ -5,6 +5,7 @@ import 'package:lifehq/journal/journal.dart';
 import 'package:lifehq/journal/models/journal_entry.dart';
 import 'package:lifehq/journal/services/journal_service.dart';
 import 'package:lifehq/location/picker.dart';
+import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/utils/utils.dart';
 import 'package:osm_nominatim/osm_nominatim.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
   String title = "";
   Map? _pickedLocation = {};
   String _displayLocationName = "";
-  List<String?> selectedTags = [];
+  List<String> selectedTags = [];
 
   DateTime _dateTime = DateTime.now();
   DateTime selectedDate = DateTime.now();
@@ -86,88 +87,12 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.black,
-        body: Consumer<JournalService>(
+    return Skeleton(
+        child: Consumer<JournalService>(
             builder: (context, journalService, child) => SafeArea(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _pickedLocation != null
-                        ? SizedBox(
-                            height: 20,
-                            child: Text(
-                              _displayLocationName,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )
-                        : Container(),
-                    if (journalService.tags!.length != 0)
-                      SizedBox(
-                        height: 64,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListView.builder(
-                            itemBuilder: (context, index) {
-                              index = index + 1;
-                              
-                              return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      if (selectedTags
-                                          .contains(journalService.tags![index]))
-                                        selectedTags
-                                            .remove(journalService.tags![index]);
-                                      else
-                                        selectedTags
-                                            .add(journalService.tags![index]);
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          border: Border.all(
-                                              color: selectedTags.contains(
-                                                      journalService
-                                                          .tags![index])
-                                                  ? Colors.white
-                                                  : Colors.grey)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          journalService.tags![index]!,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: selectedTags.contains(
-                                                      journalService
-                                                          .tags![index])
-                                                  ? Colors.white
-                                                  : Colors.grey),
-                                        ),
-                                      ),
-                                    ),
-                                  ));
-                            },
-                            itemCount: journalService.tags!.length - 1,
-                            scrollDirection: Axis.horizontal,
-                          ),
-                        ),
-                      ),
-                    Row(children: [
-                      GestureDetector(
-                          onTap: () => _selectDate(context),
-                          child: Text(Utilities.beautifulDate(_dateTime)
-                              .split("at")[0])),
-                      Text(" at "),
-                      GestureDetector(
-                          onTap: () => _selectTime(context),
-                          child: Text(Utilities.beautifulDate(_dateTime)
-                              .split("at")[1]))
-                    ]),
                     Row(
                       children: [
                         GestureDetector(
@@ -179,7 +104,85 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                             child: Icon(Icons.navigation),
                           ),
                         ),
+                        Spacer(),
+                        _pickedLocation != null
+                            ? SizedBox(
+                                height: 20,
+                                child: Text(
+                                  _displayLocationName,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )
+                            : Container(),
                       ],
+                    ),
+                    if (journalService.tags.length != 0)
+                      SizedBox(
+                        height: 48,
+                        child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    if (selectedTags
+                                        .contains(journalService.tags[index]))
+                                      selectedTags
+                                          .remove(journalService.tags[index]);
+                                    else
+                                      selectedTags
+                                          .add(journalService.tags[index]);
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                            color: selectedTags.contains(
+                                                    journalService.tags[index])
+                                                ? Colors.white
+                                                : Colors.grey)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Center(
+                                        child: Text(
+                                          journalService.tags[index],
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: selectedTags.contains(
+                                                      journalService
+                                                          .tags[index])
+                                                  ? Colors.white
+                                                  : Colors.grey),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ));
+                          },
+                          itemCount: journalService.tags.length,
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(children: [
+                      Spacer(),
+                      GestureDetector(
+                          onTap: () => _selectDate(context),
+                          child: Text(Utilities.beautifulDate(_dateTime)
+                              .split("at")[0])),
+                      Text(" at "),
+                      GestureDetector(
+                          onTap: () => _selectTime(context),
+                          child: Text(Utilities.beautifulDate(_dateTime)
+                              .split("at")[1]))
+                    ]),
+                    SizedBox(
+                      height: 4,
                     ),
                     Row(
                       children: [
@@ -187,6 +190,7 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                           child: TextFormField(
                             onChanged: (value) => title = value,
                             cursorColor: Colors.white,
+                            style: TextStyle(fontSize: 24),
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 errorBorder: InputBorder.none,
