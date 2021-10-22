@@ -6,12 +6,14 @@ class OnBoarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO Onboarding
     return Skeleton(
-          child: YearPicker(
-          firstDate: DateTime.fromMicrosecondsSinceEpoch(0),
-          lastDate: DateTime.now(),
-          selectedDate: DateTime.now(),
-          onChanged: (value) => null,),
+      child: YearPicker(
+        firstDate: DateTime.fromMicrosecondsSinceEpoch(0),
+        lastDate: DateTime.now(),
+        selectedDate: DateTime.now(),
+        onChanged: (value) => null,
+      ),
     );
   }
 }
