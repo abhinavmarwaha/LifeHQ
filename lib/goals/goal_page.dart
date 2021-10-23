@@ -3,6 +3,7 @@ import 'package:lifehq/goals/models/goal.dart';
 import 'package:lifehq/goals/services/goals_db.dart';
 import 'package:lifehq/goals/services/goals_service.dart';
 import 'package:lifehq/skeleton.dart';
+import 'package:lifehq/widgets/back_button.dart';
 import 'package:provider/provider.dart';
 
 class GoalPage extends StatefulWidget {
@@ -10,6 +11,8 @@ class GoalPage extends StatefulWidget {
     Key? key,
     required this.goal,
   }) : super(key: key);
+
+  static const routeName = '/goal-details';
 
   final Goal goal;
 
@@ -25,6 +28,7 @@ class _GoalPageState extends State<GoalPage> {
       children: [
         Row(
           children: [
+            MyBackButton(),
             Expanded(child: Text(widget.goal.title!)),
             GestureDetector(
               onTap: () {

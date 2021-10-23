@@ -27,7 +27,7 @@ class GoalSheet extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
-            ...goals.todayTasks.map((e) => Text(Constants.BULLET + e.text)),
+            ...goals.todayTasks.map((e) => Text(StringConstants.BULLET + e.text)),
             SizedBox(
               height: 12,
             ),

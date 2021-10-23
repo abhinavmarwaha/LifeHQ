@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:lifehq/journal/journal.dart';
 import 'package:lifehq/journal/models/journal_entry.dart';
 import 'package:lifehq/journal/services/journal_service.dart';
+import 'package:lifehq/journal/widgets/journal_editor.dart';
 import 'package:lifehq/location/picker.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/utils/utils.dart';
@@ -13,12 +13,16 @@ import 'package:provider/provider.dart';
 class JournalEntryInput extends StatefulWidget {
   const JournalEntryInput({Key? key}) : super(key: key);
 
+  static const routeName = '/add-entry';
+
   @override
   _JournalEntryInputState createState() => _JournalEntryInputState();
 }
 
 class _JournalEntryInputState extends State<JournalEntryInput> {
-  HtmlEditorController controller = HtmlEditorController();
+  // HtmlEditorController controller = HtmlEditorController();
+
+  String _bodytext = "";
   String title = "";
   Map? _pickedLocation = {};
   String _displayLocationName = "";
@@ -115,6 +119,11 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                                 ),
                               )
                             : Container(),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(Icons.cancel)),
                       ],
                     ),
                     if (journalService.tags.length != 0)
@@ -202,7 +211,7 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                           ),
                         ),
                         GestureDetector(
-                            onTap: () async {
+                            onTap: () {
                               Provider.of<JournalService>(context,
                                       listen: false)
                                   .saveJournalEntry(JournalEntry(
@@ -214,13 +223,9 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                                       longitude:
                                           _pickedLocation!["latlng"]?.longitude,
                                       locationDisplayName: _displayLocationName,
-                                      text: await controller.getText(),
+                                      text: _bodytext,
                                       title: title))
-                                  .then((value) => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Journal(),
-                                      )));
+                                  .then((value) => Navigator.pop(context));
                             },
                             child: Icon(Icons.arrow_forward_ios))
                       ],
@@ -228,34 +233,77 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                     SizedBox(
                       height: 12,
                     ),
-                    Expanded(
-                      child: HtmlEditor(
-                          // TODO focus not working
-                          controller: controller,
-                          htmlEditorOptions: HtmlEditorOptions(
-                            darkMode: true,
-                            hint: "",
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (ctx) => Dialog(
+                                  child: JournalEditor(),
+                                )).then((value) => setState(() {
+                              _bodytext = value;
+                            }));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.edit,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                Text("Edit Text",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 16)),
+                              ],
+                            ),
                           ),
-                          htmlToolbarOptions: HtmlToolbarOptions(
-                              toolbarPosition: ToolbarPosition.belowEditor,
-                              defaultToolbarButtons: const [
-                                StyleButtons(),
-                                FontSettingButtons(fontSizeUnit: false),
-                                FontButtons(clearAll: false),
-                                ColorButtons(),
-                                ListButtons(listStyles: false),
-                                ParagraphButtons(
-                                    textDirection: false,
-                                    lineHeight: false,
-                                    caseConverter: false),
-                                InsertButtons(
-                                    video: true,
-                                    audio: true,
-                                    table: true,
-                                    hr: true,
-                                    otherFile: true)
-                              ])),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Html(
+                      data: _bodytext,
                     )
+                    // Expanded(
+                    //   child: HtmlEditor(
+                    //       // TODO focus not working
+                    //       controller: controller,
+                    //       htmlEditorOptions: HtmlEditorOptions(
+                    //         darkMode: true,
+                    //         hint: "",
+                    //       ),
+                    //       htmlToolbarOptions: HtmlToolbarOptions(
+                    //           toolbarPosition: ToolbarPosition.belowEditor,
+                    //           defaultToolbarButtons: const [
+                    //             StyleButtons(),
+                    //             FontSettingButtons(fontSizeUnit: false),
+                    //             FontButtons(clearAll: false),
+                    //             ColorButtons(),
+                    //             ListButtons(listStyles: false),
+                    //             ParagraphButtons(
+                    //                 textDirection: false,
+                    //                 lineHeight: false,
+                    //                 caseConverter: false),
+                    //             InsertButtons(
+                    //                 video: true,
+                    //                 audio: true,
+                    //                 table: true,
+                    //                 hr: true,
+                    //                 otherFile: true)
+                    //           ])),
+                    // )
                   ],
                 ))));
   }

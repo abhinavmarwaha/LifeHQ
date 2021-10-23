@@ -13,6 +13,8 @@ class RoutineDetails extends StatelessWidget {
     required this.tasks,
   }) : super(key: key);
 
+  static const routeName = '/details';
+
   final Routine routine;
   final List<Task> tasks;
 
@@ -88,7 +90,7 @@ class RoutineDetails extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: routine.treasures
-                  .map((e) => Text(Constants.BULLET + e!))
+                  .map((e) => Text(StringConstants.BULLET + e!))
                   .toList(),
             ),
           ),

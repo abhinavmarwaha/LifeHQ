@@ -11,6 +11,8 @@ class JournalEntryDetails extends StatelessWidget {
     Key? key,
     required this.entry,
   }) : super(key: key);
+  
+  static const routeName = '/details';
 
   final JournalEntry entry;
 

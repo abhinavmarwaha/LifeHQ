@@ -20,6 +20,7 @@ dependencies:
   provider: ^6.0.1
 
   # utils
+  url_launcher: ^6.0.12
   intl: ^0.17.0
   flutter_local_notifications: ^9.0.0
 
@@ -33,7 +34,7 @@ dependencies:
   flutter_html: ^2.1.5
   fluttertoast: ^8.0.8
 
-  # maps
+  # location
   flutter_map: ^0.14.0
   osm_nominatim: ^2.0.1
   # gps: ^0.1.1 # non-null safe

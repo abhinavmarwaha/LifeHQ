@@ -51,13 +51,29 @@ class Rested extends StatelessWidget {
           Choice(
             text: "Don't know",
             onTap: () {
-              print("Don't know"); // TODO Don't know
+              Provider.of<RoutineService>(context, listen: false)
+                  .goingOnRoutine!
+                  .rested = 2;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (ctx) => SingleWord(
+                            title: "What is confusing you?",
+                          )));
             },
           ),
           Choice(
             text: "Maybe",
             onTap: () {
-              print("Maybe"); // TODO Maybe
+              Provider.of<RoutineService>(context, listen: false)
+                  .goingOnRoutine!
+                  .rested = 3;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (ctx) => SingleWord(
+                            title: "How Much?",
+                          )));
             },
           ),
         ],

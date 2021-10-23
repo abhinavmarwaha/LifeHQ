@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/utils/utils.dart';
+import 'package:lifehq/widgets/back_button.dart';
 import 'package:provider/provider.dart';
 
-class PrincipleCRUD extends StatelessWidget {
-  const PrincipleCRUD({Key? key}) : super(key: key);
+class PrinciplesCRUD extends StatelessWidget {
+  const PrinciplesCRUD({Key? key}) : super(key: key);
+
+  static const routeName = '/principles-crud';
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +17,14 @@ class PrincipleCRUD extends StatelessWidget {
       builder: (context, value, child) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Principles",
-            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+          Row(
+            children: [
+              MyBackButton(),
+              Text(
+                "Principles",
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
           SizedBox(
             height: 12,
@@ -96,7 +104,8 @@ class PrincipleCRUD extends StatelessWidget {
                               onChanged: (value) => _princi = value,
                               cursorColor: Colors.white,
                               decoration: InputDecoration(
-                                  border: InputBorder.none, hintText: 'tag'),
+                                  border: InputBorder.none,
+                                  hintText: 'Principle'),
                             ),
                             GestureDetector(
                               onTap: () {

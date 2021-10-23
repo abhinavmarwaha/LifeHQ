@@ -61,7 +61,7 @@ class Goal {
       added: DateTime.fromMillisecondsSinceEpoch(map['added']),
       deadline: DateTime.fromMillisecondsSinceEpoch(map['deadline']),
       goalType: map['goalType'],
-      done: map['done'],
+      done: map['done'] == 1,
       tasks: [],
     );
   }

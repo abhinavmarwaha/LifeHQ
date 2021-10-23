@@ -7,10 +7,13 @@ import 'package:lifehq/routine/routine_details.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/utils/utils.dart';
+import 'package:lifehq/widgets/back_button.dart';
 import 'package:provider/provider.dart';
 
 class RoutineHome extends StatefulWidget {
   const RoutineHome({Key? key}) : super(key: key);
+  
+  static const routeName = '/routines';
 
   @override
   _RoutineHomeState createState() => _RoutineHomeState();
@@ -25,6 +28,7 @@ class _RoutineHomeState extends State<RoutineHome> {
       child: Center(
           child: Column(children: [
         Row(children: [
+          const MyBackButton(),
           Spacer(),
           GestureDetector(
             onTap: () {
@@ -106,36 +110,39 @@ class RoutineCard extends StatelessWidget {
       onTap: () {
         _showDetails(context);
       },
-      child: Container(
-        width: double.infinity,
-        height: 80,
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(15)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(Utilities.formatedDate(routine.dateTime),
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Text(routine.feel!.char)
-                ],
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              Text(routine.quote!,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: Dimensions.BigText,
-                  )),
-            ],
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Container(
+          width: double.infinity,
+          height: 80,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(15)),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(Utilities.formatedDate(routine.dateTime),
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold)),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Text(routine.feel!.char)
+                  ],
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                Text(routine.quote!,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: Dimensions.BigText,
+                    )),
+              ],
+            ),
           ),
         ),
       ),

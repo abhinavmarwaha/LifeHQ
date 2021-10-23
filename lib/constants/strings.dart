@@ -1,6 +1,7 @@
-class Constants {
-  Constants._();
+class StringConstants {
+  StringConstants._();
   static const String BULLET = "\u2022 ";
+  static const String BIRTHYEAR = "birthYear";
 
   static const List<String> WEEKDAYS = [
     "Mon",
@@ -33,7 +34,8 @@ class Constants {
 
   static const String FIRSTTIME = "firstTime";
 
-  static const String FEATUREFORMURL = "";
+  static const String FEATUREFORMURL =
+      "https://docs.google.com/forms/d/e/1FAIpQLSdcVAl64UwJg6U6xZ3YnDc8inIsk1WO7-jHpTpRLcl6t4XP7g/viewform?usp=sf_link";
   static const String RATEAPPURL =
       "https://play.google.com/store/apps/details?id=com.abhinavmarwaha.lifehq";
   static const String GITHUBREPO = "https://github.com/abhinavmarwaha/lifehq";

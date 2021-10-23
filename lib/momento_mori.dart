@@ -5,11 +5,14 @@ import 'package:lifehq/skeleton.dart';
 class MomentoMori extends StatefulWidget {
   MomentoMori({Key? key}) : super(key: key);
 
+  static const routeName = '/momento-mori';
+
   @override
   _MomentoMoriState createState() => _MomentoMoriState();
 }
 
 class _MomentoMoriState extends State<MomentoMori> {
+  // TODO MomentoMori
   int weekCompleted = 160;
   final whichBar = 2;
   double nextOpacity = 0.0;
@@ -27,7 +30,7 @@ class _MomentoMoriState extends State<MomentoMori> {
   @override
   Widget build(BuildContext context) {
     return Skeleton(
-          child: Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -44,8 +47,7 @@ class _MomentoMoriState extends State<MomentoMori> {
                 opacity: nextOpacity,
                 child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (ctx) => Principles()));
+                      Navigator.pushNamed(context, Principles.routeName);
                     },
                     child: Icon(Icons.arrow_forward_ios)),
               )

@@ -3,10 +3,13 @@ import 'package:lifehq/journal/journal_entry_input.dart';
 import 'package:lifehq/journal/services/journal_service.dart';
 import 'package:lifehq/journal/widgets/entry_card.dart';
 import 'package:lifehq/utils/utils.dart';
+import 'package:lifehq/widgets/back_button.dart';
 import 'package:provider/provider.dart';
 
 class Journal extends StatefulWidget {
   const Journal({Key? key}) : super(key: key);
+
+  static const routeName = '/journal';
 
   @override
   _JournalState createState() => _JournalState();
@@ -87,6 +90,7 @@ class _JournalState extends State<Journal> {
                                   children: [
                                     Row(
                                       children: [
+                                        MyBackButton(),
                                         Text(
                                           "Journal",
                                           style: TextStyle(
@@ -123,11 +127,8 @@ class _JournalState extends State<Journal> {
                                     Center(
                                       child: GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (ctx) =>
-                                                      JournalEntryInput()));
+                                          Navigator.pushNamed(context,
+                                              JournalEntryInput.routeName);
                                         },
                                         child: SizedBox(
                                           width: 120,

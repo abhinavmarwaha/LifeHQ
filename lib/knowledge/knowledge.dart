@@ -3,9 +3,12 @@ import 'package:lifehq/constants/dimensions.dart';
 import 'package:lifehq/custom_icons.dart';
 import 'package:lifehq/knowledge/principles_crud.dart';
 import 'package:lifehq/skeleton.dart';
+import 'package:lifehq/widgets/back_button.dart';
 
 class Knowledge extends StatelessWidget {
   const Knowledge({Key? key}) : super(key: key);
+
+  static const routeName = '/knowledge';
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +16,17 @@ class Knowledge extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Knowledge",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 26,
-            ),
+          Row(
+            children: [
+              MyBackButton(),
+              Text(
+                "Knowledge",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26,
+                ),
+              ),
+            ],
           ),
           // Row(children: [
           //   Expanded(
@@ -147,8 +155,7 @@ class Knowledge extends StatelessWidget {
                 // ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (ctx) => PrincipleCRUD()));
+                    Navigator.pushNamed(context, PrinciplesCRUD.routeName);
                   },
                   child: Card(
                     color: Colors.white,

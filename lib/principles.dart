@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 class Principles extends StatefulWidget {
   Principles({Key? key}) : super(key: key);
 
+  static const routeName = '/principles';
+
   @override
   _PrinciplesState createState() => _PrinciplesState();
 }
@@ -53,8 +55,7 @@ class _PrinciplesState extends State<Principles> {
                         int routineCheck = routineService.checkIfRoutined();
                         switch (routineCheck) {
                           case -1:
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (ctx) => Home()));
+                            Navigator.pushNamed(context, Home.routeName);
                             break;
                           case 0:
                             routineService.startRoutine(0);

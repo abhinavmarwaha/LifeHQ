@@ -32,9 +32,9 @@ class Utilities {
   }
 
   static String beautifulDate(DateTime date) {
-    return Constants.WEEKDAYS[date.weekday - 1] +
+    return StringConstants.WEEKDAYS[date.weekday - 1] +
         " , " +
-        Constants.MONTHS[date.month - 1] +
+        StringConstants.MONTHS[date.month - 1] +
         " " +
         date.day.toString() +
         " , " +
@@ -47,13 +47,13 @@ class Utilities {
 
   static Future<bool> getPrefBool(String name) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final _firstTime = prefs.getBool(Constants.FIRSTTIME) ?? true;
+    final _firstTime = prefs.getBool(StringConstants.FIRSTTIME) ?? true;
 
     return _firstTime;
   }
 
   static Future<void> setPrefBool(String name, bool val) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(Constants.FIRSTTIME, val);
+    prefs.setBool(StringConstants.FIRSTTIME, val);
   }
 }

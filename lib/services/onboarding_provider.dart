@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/constants/strings.dart';
+import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/services/notifications_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class NotificationsProvider with ChangeNotifier {
-  static final NotificationsProvider instance =
-      NotificationsProvider._internal();
-  factory NotificationsProvider() {
+class OnboardingProvider with ChangeNotifier {
+  static final OnboardingProvider instance = OnboardingProvider._internal();
+  factory OnboardingProvider() {
     return instance;
   }
-  NotificationsProvider._internal() {
+  OnboardingProvider._internal() {
     _init();
   }
 
@@ -18,18 +18,21 @@ class NotificationsProvider with ChangeNotifier {
   bool _firstTime = false;
   bool get firstTime => _firstTime;
 
+  SharedPreferences? _prefs;
+
   _init() async {
     if (!initilised) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      _firstTime = prefs.getBool(Constants.FIRSTTIME) ?? true;
-      if (_firstTime) {
+      _prefs = await SharedPreferences.getInstance();
+      _firstTime = _prefs!.getBool(StringConstants.FIRSTTIME) ?? true;
+
+      if (firstTime) {
         final _notifs = NotificationsService();
         await _notifs.serviceSetup();
         await _notifs.dailyNotif(
             0, "Morning Routine", "Lets prepare for the day ahead", 9, 0);
         await _notifs.dailyNotif(
             1, "Night Routine", "Lets analyse our day", 21, 0);
-        prefs.setBool(Constants.FIRSTTIME, false);
+
         _initilised = true;
         notifyListeners();
       } else {
@@ -37,5 +40,17 @@ class NotificationsProvider with ChangeNotifier {
         notifyListeners();
       }
     }
+  }
+
+  Future<void> onBoardingCompleted(
+      int birthYear, List<String> principles) async {
+    _prefs!.setInt(StringConstants.BIRTHYEAR, birthYear);
+    for (String prin in principles) {
+      await KnowledgeService.instance.savePrinciple(prin);
+    }
+
+    _firstTime = false;
+    _prefs!.setBool(StringConstants.FIRSTTIME, false);
+    notifyListeners();
   }
 }

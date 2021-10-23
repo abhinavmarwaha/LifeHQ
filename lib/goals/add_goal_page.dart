@@ -7,6 +7,8 @@ import 'package:lifehq/skeleton.dart';
 class AddGoalPage extends StatefulWidget {
   AddGoalPage({Key? key}) : super(key: key);
 
+  static const routeName = '/add-goal';
+
   @override
   _AddGoalPageState createState() => _AddGoalPageState();
 }
@@ -27,6 +29,12 @@ class _AddGoalPageState extends State<AddGoalPage> {
       children: [
         Row(
           children: [
+            IconButton(
+              icon: Icon(Icons.cancel),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
             Expanded(
               child: TextField(
                 onChanged: (val) => goal.title = val,
