@@ -47,7 +47,15 @@ class _DailyQuoteState extends State<DailyQuote> {
           ),
           SizedBox(height: 16),
           if (widget.display)
-            Text(Provider.of<RoutineService>(context).routines.first.quote!)
+            Text(Provider.of<RoutineService>(context, listen: false)
+                        .routines
+                        .length >
+                    0
+                ? Provider.of<RoutineService>(context, listen: false)
+                    .routines
+                    .first
+                    .quote!
+                : "Obstacle is the way.")
           else
             TextFormField(
               onFieldSubmitted: (value) => _submit(value, context),
@@ -92,20 +100,19 @@ class _DailyQuoteState extends State<DailyQuote> {
   }
 
   _submit(String value, BuildContext context) {
-    if (widget.display) {
-      Navigator.pushNamed(context, Home.routeName);
-    } else {
-      final routineService =
-          Provider.of<RoutineService>(context, listen: false);
+    final routineService = Provider.of<RoutineService>(context, listen: false);
+
+    if (!widget.display) {
       routineService.goingOnRoutine!.quote = value;
-      routineService.saveRoutine().then((value) {
-        Navigator.popUntil(
-            context,
-            (route) =>
-                route.settings.name != null &&
-                route.settings.name!.compareTo(Principles.routeName) == 0);
-        Navigator.pushNamed(context, Home.routeName);
-      });
     }
+
+    routineService.saveRoutine().then((value) {
+      Navigator.popUntil(
+          context,
+          (route) =>
+              route.settings.name != null &&
+              route.settings.name!.compareTo(Principles.routeName) == 0);
+      Navigator.pushNamed(context, Home.routeName);
+    });
   }
 }

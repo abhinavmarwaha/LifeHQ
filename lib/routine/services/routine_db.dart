@@ -18,10 +18,10 @@ class RoutineDB {
               routineId INTEGER PRIMARY KEY AUTOINCREMENT,
               routineType INTEGER,
               feel TEXT,
-              rested INTEGER,
+              restedProductive INTEGER,
               quote TEXT,
               dateTime INTEGER,
-              restedString TEXT,
+              restedProdString TEXT,
               morningGoalId INTEGER
               );
             """);
@@ -33,7 +33,7 @@ class RoutineDB {
               FOREIGN KEY (routineId) REFERENCES routines (routineId) );
             """);
       },
-      version: 2,
+      version: 1,
     );
 
     return database;

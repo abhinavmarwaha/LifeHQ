@@ -100,7 +100,7 @@ class MoriCal extends StatelessWidget {
 
   final int weekGoingOn;
 
-  final colCount = 11;
+  final colCount = 10;
   final totalWeeks = 4160;
 
   @override

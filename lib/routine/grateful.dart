@@ -62,18 +62,26 @@ class _GratefulState extends State<Grateful> {
             if (widget.display)
               Padding(
                 padding: const EdgeInsets.only(left: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: value.routines.first.treasures
-                      .map((e) => Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: Text(
-                              StringConstants.BULLET + e,
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ))
-                      .toList(),
-                ),
+                child: value.routines.length > 0
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: value.routines.first.treasures
+                            .map((e) => Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Text(
+                                    StringConstants.BULLET + e,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ))
+                            .toList(),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text(
+                          StringConstants.BULLET + "This App 💖",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ),
               )
             else
               Form(

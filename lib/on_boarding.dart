@@ -32,6 +32,7 @@ class _OnBoardingState extends State<OnBoarding> {
                 border: Border.all(color: Colors.white),
                 borderRadius: BorderRadius.circular(15)),
             height: 160,
+            // TODO Year Picker bug
             child: YearPicker(
               firstDate: DateTime.fromMillisecondsSinceEpoch(0),
               lastDate: DateTime.now(),
@@ -117,6 +118,9 @@ class _OnBoardingState extends State<OnBoarding> {
           ),
           GestureDetector(
             onTap: () {
+              // TODO onboarded principles are blank
+              // TODO see logs for sql errors
+              // TODO screen goes blank after inputing
               Provider.of<OnboardingProvider>(context, listen: false)
                   .onBoardingCompleted(_selectedYear, _principles)
                   .then((value) => Navigator.pop(context));

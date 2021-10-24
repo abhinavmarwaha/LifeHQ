@@ -281,9 +281,12 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                           // TODO focus not working
                           controller: controller,
                           htmlEditorOptions: HtmlEditorOptions(
-                            darkMode: true,
-                            hint: "body",
-                          ),
+                              darkMode: true,
+                              hint: "body",
+                              inputType: HtmlInputType.text,
+                              shouldEnsureVisible: true,
+                              adjustHeightForKeyboard: true,
+                              autoAdjustHeight: true),
                           htmlToolbarOptions: HtmlToolbarOptions(
                               toolbarPosition: ToolbarPosition.belowEditor,
                               defaultToolbarButtons: const [
