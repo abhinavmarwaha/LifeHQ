@@ -107,14 +107,15 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                             child: Icon(Icons.navigation),
                           ),
                         ),
-                        Spacer(),
                         _pickedLocation != null
-                            ? SizedBox(
-                                height: 20,
-                                child: Text(
-                                  _displayLocationName,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                            ? Expanded(
+                                child: SizedBox(
+                                  height: 20,
+                                  child: Text(
+                                    _displayLocationName,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               )
                             : Container(),
