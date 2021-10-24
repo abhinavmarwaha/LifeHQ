@@ -25,7 +25,7 @@ class Principle {
       'title': title,
       'subTitle': subTitle,
       'desc': desc,
-      'added': added!.millisecondsSinceEpoch,
+      'added': added?.millisecondsSinceEpoch,
       'why': why,
       'whyNot': whyNot,
     };

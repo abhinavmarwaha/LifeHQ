@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 class RoutineHome extends StatefulWidget {
   const RoutineHome({Key? key}) : super(key: key);
-  
+
   static const routeName = '/routines';
 
   @override
@@ -136,7 +136,7 @@ class RoutineCard extends StatelessWidget {
                 SizedBox(
                   height: 12,
                 ),
-                Text(routine.quote!,
+                Text(routine.quote ?? "",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: Dimensions.BigText,

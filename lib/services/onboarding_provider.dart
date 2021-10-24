@@ -52,8 +52,9 @@ class OnboardingProvider with ChangeNotifier {
     _year = birthYear;
     _prefs!.setInt(StringConstants.BIRTHYEAR, birthYear);
     for (String prin in principles) {
-      await KnowledgeDB()
-          .insertPrinciple(Principle(title: prin, added: DateTime.now()));
+      await KnowledgeDB().insertPrinciple(Principle(
+        title: prin,
+      ));
     }
 
     _firstTime = false;

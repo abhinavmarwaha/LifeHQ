@@ -31,7 +31,7 @@ class RoutineDetails extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  routine.quote!,
+                  routine.quote ?? "",
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
               ),

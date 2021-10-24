@@ -55,75 +55,73 @@ class _OnBoardingState extends State<OnBoarding> {
             height: 12,
           ),
           Expanded(
-            child: ListView(
-                children: _principles
-                        // ignore: unnecessary_cast
-                        .map((e) => (Row(
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    onChanged: (val) => e = val,
-                                    cursorColor: Colors.white,
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        errorBorder: InputBorder.none,
-                                        enabledBorder: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                        disabledBorder: InputBorder.none,
-                                        focusedErrorBorder: InputBorder.none,
-                                        hintText: "Principle"),
-                                  ),
-                                ),
-                                Spacer(),
-                                GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _principles.remove(e);
-                                      });
-                                    },
-                                    child: Icon(Icons.cancel))
-                              ],
-                            )) as Widget)
-                        .toList() +
-                    [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _principles.add("");
-                          });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(24.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
-                            width: double.infinity,
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Add",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
+            child: ListView.builder(
+              itemCount: _principles.length + 1,
+              itemBuilder: (context, index) => index < _principles.length
+                  ? Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            onChanged: (val) => _principles[index] = val,
+                            cursorColor: Colors.white,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedErrorBorder: InputBorder.none,
+                                hintText: "Principle"),
+                          ),
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _principles.removeAt(index);
+                              });
+                            },
+                            child: Icon(Icons.cancel))
+                      ],
+                    )
+                  : GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _principles.add("");
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          width: double.infinity,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Add",
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      )
-                    ]),
+                      ),
+                    ),
+            ),
           ),
           GestureDetector(
             onTap: () {
               // TODO onboarded principles are blank
               // TODO see logs for sql errors
-              // TODO screen goes blank after inputing
               Provider.of<OnboardingProvider>(context, listen: false)
-                  .onBoardingCompleted(_selectedYear, _principles)
-                  .then((value) => Navigator.pop(context));
+                  .onBoardingCompleted(_selectedYear, _principles);
+              // .then((value) => Navigator.pushReplacementNamed(
+              //     context, MomentoMori.routeName));
             },
             child: Padding(
               padding: const EdgeInsets.all(24.0),
