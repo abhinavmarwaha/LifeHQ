@@ -278,7 +278,6 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                     // )
                     Expanded(
                       child: HtmlEditor(
-                          // TODO focus not working
                           controller: controller,
                           htmlEditorOptions: HtmlEditorOptions(
                               darkMode: true,

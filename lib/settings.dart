@@ -11,30 +11,44 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Skeleton(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.cancel)),
-        SizedBox(
-          height: 16,
-        ),
-        SettingsCard(
-            icon: Icons.bug_report,
-            url: StringConstants.FEATUREFORMURL,
-            title: "Bug/Feature request"),
-        SettingsCard(
-            icon: Icons.rate_review,
-            url: StringConstants.RATEAPPURL,
-            title: "Rate App"),
-        SettingsCard(
-            icon: Icons.code,
-            url: StringConstants.GITHUBREPO,
-            title: "Github Repo"),
-      ],
+        child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.cancel)),
+          SizedBox(
+            height: 16,
+          ),
+          SettingsCard(
+              icon: Icons.bug_report,
+              url: StringConstants.FEATUREFORMURL,
+              title: "Bug/Feature request"),
+          SettingsCard(
+              icon: Icons.rate_review,
+              url: StringConstants.RATEAPPURL,
+              title: "Rate App"),
+          SettingsCard(
+              icon: Icons.code,
+              url: StringConstants.GITHUBREPO,
+              title: "Github Repo"),
+          SettingsCard(
+              icon: Icons.coffee,
+              url: StringConstants.COFFEE,
+              title: "Buy Me a Coffee"),
+          SettingsCard(
+              icon: Icons.support_sharp,
+              url: StringConstants.PATREON,
+              title: "Patreon"),
+          SettingsCard(
+              icon: Icons.message,
+              url: StringConstants.DISCORD,
+              title: "Discord"),
+        ],
+      ),
     ));
   }
 }
