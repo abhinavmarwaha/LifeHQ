@@ -70,7 +70,7 @@ class RoutineDetails extends StatelessWidget {
                         height: 6,
                       ),
                       Text(
-                        routine.restedProdString!,
+                        routine.restedProdString ?? "",
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ],

@@ -37,7 +37,10 @@ class Goals extends StatelessWidget {
               child: SingleChildScrollView(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: provider.goals.map((e) => GoalCard(goal: e)).toList(),
+                children: provider.goals
+                    .map((e) => SizedBox(
+                        width: double.infinity, child: GoalCard(goal: e)))
+                    .toList(),
               )),
             ),
             Expanded(
@@ -92,14 +95,16 @@ class GoalCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           color: Colors.white,
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
                 child: Text(
                   goal.title,
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               )
             ],

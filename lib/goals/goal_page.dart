@@ -29,7 +29,14 @@ class _GoalPageState extends State<GoalPage> {
         Row(
           children: [
             MyBackButton(),
-            Expanded(child: Text(widget.goal.title)),
+            Expanded(
+                child: Text(
+              widget.goal.title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 26,
+              ),
+            )),
             GestureDetector(
               onTap: () {
                 Provider.of<GoalsService>(context, listen: false)

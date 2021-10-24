@@ -18,7 +18,7 @@ class Settings extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Icon(Icons.close)),
+            child: Icon(Icons.cancel)),
         SizedBox(
           height: 16,
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lifehq/constants/strings.dart';
 import 'package:lifehq/routine/daily_quote.dart';
 import 'package:lifehq/routine/models/routine.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
@@ -28,11 +29,12 @@ class _GratefulState extends State<Grateful> {
     return Skeleton(
       child: Consumer<RoutineService>(
         builder: (context, value, child) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Text(
-                  widget.display ? "Was grateful for: " : "Grateful for?",
+                  widget.display ? "Was grateful for" : "Grateful for?",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 26,
@@ -58,9 +60,20 @@ class _GratefulState extends State<Grateful> {
               height: 12,
             ),
             if (widget.display)
-              Column(
-                children:
-                    value.routines.first.treasures.map((e) => Text(e)).toList(),
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: value.routines.first.treasures
+                      .map((e) => Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Text(
+                              StringConstants.BULLET + e,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ))
+                      .toList(),
+                ),
               )
             else
               Form(

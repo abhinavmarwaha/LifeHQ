@@ -37,12 +37,13 @@ class _AddGoalPageState extends State<AddGoalPage> {
       children: [
         Row(
           children: [
-            IconButton(
-              icon: Icon(Icons.cancel),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
+            if (!widget.inRoutine)
+              IconButton(
+                icon: Icon(Icons.cancel),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
             Expanded(
               child: TextField(
                 onChanged: (val) => goal.title = val,
@@ -55,7 +56,9 @@ class _AddGoalPageState extends State<AddGoalPage> {
                     focusedBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
                     focusedErrorBorder: InputBorder.none,
-                    hintText: "Goal Title"),
+                    hintText: widget.inRoutine
+                        ? "Tomorrow's Goal title"
+                        : "Goal Title"),
               ),
             ),
             IconButton(
@@ -63,7 +66,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
               onPressed: () {
                 GoalsService.instance.saveGoal(goal).then((value) {
                   if (widget.inRoutine) {
-                    Provider.of<RoutineService>(context)
+                    Provider.of<RoutineService>(context, listen: false)
                         .goingOnRoutine!
                         .morningGoalId = value;
                     Navigator.pushNamed(context, Grateful.displayRoute);

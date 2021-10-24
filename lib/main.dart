@@ -83,6 +83,9 @@ class MyApp extends StatelessWidget {
                           display: true,
                         ),
                     DailyQuote.routeName: (ctx) => DailyQuote(),
+                    DailyQuote.displayRoute: (ctx) => DailyQuote(
+                          display: true,
+                        ),
                     AddGoalPage.routineRoute: (ctx) => AddGoalPage(
                           inRoutine: true,
                         ),

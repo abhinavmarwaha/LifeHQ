@@ -67,4 +67,4 @@ I don't have an ios dev account so you can download the xarchive [here](https://
 
 # Contact
 
-You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@protonmail.com)
+You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@protonmail.com) or [discord]()
