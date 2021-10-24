@@ -2,7 +2,6 @@ import 'package:lifehq/goals/constants/strings.dart';
 import 'package:lifehq/goals/models/goal.dart';
 import 'package:lifehq/goals/models/task.dart';
 import 'package:path/path.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 class GoalsDB {
@@ -10,8 +9,6 @@ class GoalsDB {
   factory GoalsDB() => instance;
   GoalsDB._internal();
   static Database? _db;
-
-  SharedPreferences? prefs;
 
   Future<Database> openDB() async {
     var database = openDatabase(
@@ -46,7 +43,6 @@ class GoalsDB {
     if (_db != null) {
       return _db!;
     }
-    prefs = await SharedPreferences.getInstance();
     _db = await openDB();
 
     return _db!;
@@ -61,13 +57,18 @@ class GoalsDB {
   Future<int> insertGoal(Goal goal) async {
     final Database db = await getdb;
 
-    goal.tasks.map((e) => insertTask(e));
-
-    return await db.insert(
+    int goalId = await db.insert(
       GoalsConstants.GOALS,
       goal.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+
+    goal.tasks.map((e) {
+      e.goalId = goalId;
+      insertTask(e);
+    });
+
+    return goalId;
   }
 
   Future<int> insertTask(Task task) async {
@@ -88,6 +89,16 @@ class GoalsDB {
         .toList();
   }
 
+  Future<Goal> getGoal(int goalId) async {
+    final Database db = await getdb;
+
+    return Goal.fromMap((await db.query(
+      GoalsConstants.GOALS,
+      where: 'goalId = ?',
+      whereArgs: [goalId],
+    ))[0]);
+  }
+
   Future<List<Task>> getTasksByDate(DateTime dateTime) async {
     final Database db = await getdb;
     List<Map<String, dynamic>> maps =
@@ -95,6 +106,17 @@ class GoalsDB {
       '${DateTime(dateTime.year, dateTime.month, dateTime.day).millisecondsSinceEpoch}',
       '${DateTime(dateTime.year, dateTime.month, dateTime.day + 1).millisecondsSinceEpoch}'
     ]);
+
+    return maps.map((e) => Task.fromMap(e)).toList();
+  }
+
+  Future<List<Task>> getTasksByGoalId(int goalId) async {
+    final Database db = await getdb;
+    List<Map<String, dynamic>> maps = await db.query(
+      GoalsConstants.TASKS,
+      where: 'goalId = ?',
+      whereArgs: [goalId],
+    );
 
     return maps.map((e) => Task.fromMap(e)).toList();
   }
@@ -125,13 +147,5 @@ class GoalsDB {
       where: "goalId = ?",
       whereArgs: [id],
     );
-  }
-
-  String getTodayGoalSheetTitle() {
-    return prefs!.getString(GoalsConstants.GOALTITLE) ?? "";
-  }
-
-  void setTodayGoalSheetTitle(String title) {
-    prefs!.setString(GoalsConstants.GOALTITLE, title);
   }
 }

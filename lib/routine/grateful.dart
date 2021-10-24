@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:lifehq/routine/quote.dart';
+import 'package:lifehq/routine/daily_quote.dart';
+import 'package:lifehq/routine/models/routine.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:provider/provider.dart';
 
 class Grateful extends StatefulWidget {
-  Grateful({Key? key}) : super(key: key);
+  Grateful({Key? key, this.display = false}) : super(key: key);
+
+  static const routeName = '/grateful';
+  static const displayRoute = '/showGrateful';
+
+  final bool display;
 
   @override
   _GratefulState createState() => _GratefulState();
@@ -20,65 +26,73 @@ class _GratefulState extends State<Grateful> {
   @override
   Widget build(BuildContext context) {
     return Skeleton(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                "Grateful for?",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 26,
-                ),
-              ),
-              Spacer(),
-              GestureDetector(
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      RoutineService routineService =
-                          Provider.of<RoutineService>(context, listen: false);
-                      routineService.goingOnRoutine!.treasures.add(treasure1);
-                      routineService.goingOnRoutine!.treasures.add(treasure2);
-                      routineService.goingOnRoutine!.treasures.add(treasure3);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (ctx) => Quote()));
-                    }
-                  },
-                  child: Icon(Icons.arrow_forward_ios))
-            ],
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Form(
-            key: _formKey,
-            child: Column(
+      child: Consumer<RoutineService>(
+        builder: (context, value, child) => Column(
+          children: [
+            Row(
               children: [
-                TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) return "Need to fill this ASAP!";
-
-                      return null;
+                Text(
+                  widget.display ? "Was grateful for: " : "Grateful for?",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                  ),
+                ),
+                Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      if (widget.display) {
+                        Navigator.pushNamed(context, DailyQuote.displayRoute);
+                      } else if (_formKey.currentState!.validate()) {
+                        Routine routine = value.goingOnRoutine!;
+                        routine.treasures.add(treasure1);
+                        routine.treasures.add(treasure2);
+                        routine.treasures.add(treasure3);
+                        Navigator.pushNamed(context, DailyQuote.routeName);
+                      }
                     },
-                    onChanged: (value) => treasure1 = value),
-                TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) return "Need to fill this ASAP!";
-
-                      return null;
-                    },
-                    onChanged: (value) => treasure2 = value),
-                TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) return "Need to fill this ASAP!";
-
-                      return null;
-                    },
-                    onChanged: (value) => treasure3 = value),
+                    child: Icon(Icons.arrow_forward_ios))
               ],
             ),
-          )
-        ],
+            SizedBox(
+              height: 12,
+            ),
+            if (widget.display)
+              Column(
+                children:
+                    value.routines.first.treasures.map((e) => Text(e)).toList(),
+              )
+            else
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) return "Need to fill this ASAP!";
+
+                          return null;
+                        },
+                        onChanged: (value) => treasure1 = value),
+                    TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) return "Need to fill this ASAP!";
+
+                          return null;
+                        },
+                        onChanged: (value) => treasure2 = value),
+                    TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) return "Need to fill this ASAP!";
+
+                          return null;
+                        },
+                        onChanged: (value) => treasure3 = value),
+                  ],
+                ),
+              )
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/principles.dart';
+import 'package:lifehq/services/onboarding_provider.dart';
 import 'package:lifehq/skeleton.dart';
+import 'package:provider/provider.dart';
 
 class MomentoMori extends StatefulWidget {
   MomentoMori({Key? key}) : super(key: key);
@@ -12,8 +14,6 @@ class MomentoMori extends StatefulWidget {
 }
 
 class _MomentoMoriState extends State<MomentoMori> {
-  // TODO MomentoMori
-  int weekCompleted = 160;
   final whichBar = 2;
   double nextOpacity = 0.0;
 
@@ -29,53 +29,64 @@ class _MomentoMoriState extends State<MomentoMori> {
 
   @override
   Widget build(BuildContext context) {
+    final _today = DateTime.now();
+    final _yearStart = DateTime(_today.year);
+    final _yearEnd = DateTime(_today.year + 1);
+
     return Skeleton(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                "Momento Mori",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 26,
+      child: Consumer<OnboardingProvider>(
+        builder: (context, value, child) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  "Momento Mori",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                  ),
                 ),
-              ),
-              Spacer(),
-              Opacity(
-                opacity: nextOpacity,
-                child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, Principles.routeName);
-                    },
-                    child: Icon(Icons.arrow_forward_ios)),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 6,
-          ),
-          Expanded(
-              child: MoriCal(
-            weekGoingOn: weekCompleted,
-          )),
-          SizedBox(
-            height: 6,
-          ),
-          Text("Year"),
-          SizedBox(
-            height: 6,
-          ),
-          ProgressBar(
-            progress: 10 / 100,
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Text(
-              '“Stop whatever you’re doing for a moment and ask yourself: Am I afraid of death because I won’t be able to do this anymore?”')
-        ],
+                Spacer(),
+                Opacity(
+                  opacity: nextOpacity,
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, Principles.routeName);
+                      },
+                      child: Icon(Icons.arrow_forward_ios)),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            Expanded(
+                child: MoriCal(
+              weekGoingOn: (_today.millisecondsSinceEpoch -
+                      DateTime(value.year).millisecondsSinceEpoch) ~/
+                  6.048e+8,
+            )),
+            SizedBox(
+              height: 6,
+            ),
+            Text("Year"),
+            SizedBox(
+              height: 6,
+            ),
+            ProgressBar(
+              progress: (_today.millisecondsSinceEpoch -
+                      _yearStart.millisecondsSinceEpoch) /
+                  (_yearEnd.millisecondsSinceEpoch -
+                      _yearStart.millisecondsSinceEpoch),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Text(
+                '“Stop whatever you’re doing for a moment and ask yourself: Am I afraid of death because I won’t be able to do this anymore?”')
+          ],
+        ),
       ),
     );
   }
@@ -87,7 +98,7 @@ class MoriCal extends StatelessWidget {
     required this.weekGoingOn,
   }) : super(key: key);
 
-  final weekGoingOn;
+  final int weekGoingOn;
 
   final colCount = 11;
   final totalWeeks = 4160;
@@ -104,8 +115,8 @@ class MoriCal extends StatelessWidget {
               (colIn) => Week(
                     key: Key((rowIn * colCount + colIn).toString()),
                     index: rowIn * colCount + colIn,
-                    color: (rowIn * colCount + colIn) >= 160
-                        ? (rowIn * colCount + colIn) == 160
+                    color: (rowIn * colCount + colIn) >= weekGoingOn
+                        ? (rowIn * colCount + colIn) == weekGoingOn
                             ? Colors.red
                             : Colors.white
                         : Colors.grey[900],

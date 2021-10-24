@@ -60,8 +60,11 @@ class RoutineService with ChangeNotifier {
   }
 
   void startRoutine(int type) {
-    goingOnRoutine =
-        Routine(dateTime: DateTime.now(), routineType: type, treasures: []);
+    goingOnRoutine = Routine(
+        dateTime: DateTime.now(),
+        routineType: type,
+        treasures: [],
+        morningGoalId: null);
   }
 
   Future<int> saveRoutine() async {

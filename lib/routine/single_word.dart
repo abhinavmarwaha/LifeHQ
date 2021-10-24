@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lifehq/goals/add_goal_page.dart';
 import 'package:lifehq/routine/goal_sheet.dart';
+import 'package:lifehq/routine/models/routine.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +11,8 @@ class SingleWord extends StatefulWidget {
     Key? key,
     required this.title,
   }) : super(key: key);
+
+  static const routeName = '/single-word';
 
   final String title;
 
@@ -83,9 +87,12 @@ class _SingleWordState extends State<SingleWord> {
   }
 
   _submit(String value, BuildContext context) {
-    Provider.of<RoutineService>(context, listen: false)
-        .goingOnRoutine!
-        .restedString = value;
-    Navigator.push(context, MaterialPageRoute(builder: (ctx) => GoalSheet()));
+    Routine routine =
+        Provider.of<RoutineService>(context, listen: false).goingOnRoutine!;
+    routine.restedProdString = value;
+    if (routine.routineType == 0)
+      Navigator.pushNamed(context, GoalSheet.routeName);
+    else
+      Navigator.pushNamed(context, AddGoalPage.routineRoute);
   }
 }

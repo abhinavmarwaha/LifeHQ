@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:lifehq/goals/models/goal.dart';
 import 'package:lifehq/goals/models/task.dart';
 import 'package:lifehq/goals/services/goals_service.dart';
+import 'package:lifehq/routine/grateful.dart';
+import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/skeleton.dart';
+import 'package:provider/provider.dart';
 
 class AddGoalPage extends StatefulWidget {
-  AddGoalPage({Key? key}) : super(key: key);
+  AddGoalPage({
+    Key? key,
+    this.inRoutine = false,
+  }) : super(key: key);
 
   static const routeName = '/add-goal';
+  static const routineRoute = '/add-goal-routine';
+  final bool inRoutine;
 
   @override
   _AddGoalPageState createState() => _AddGoalPageState();
@@ -53,8 +61,15 @@ class _AddGoalPageState extends State<AddGoalPage> {
             IconButton(
               icon: Icon(Icons.arrow_forward_ios),
               onPressed: () {
-                GoalsService.instance.saveGoal(goal);
-                Navigator.pop(context);
+                GoalsService.instance.saveGoal(goal).then((value) {
+                  if (widget.inRoutine) {
+                    Provider.of<RoutineService>(context)
+                        .goingOnRoutine!
+                        .morningGoalId = value;
+                    Navigator.pushNamed(context, Grateful.displayRoute);
+                  } else
+                    Navigator.pop(context);
+                });
               },
             ),
           ],
@@ -89,7 +104,10 @@ class _AddGoalPageState extends State<AddGoalPage> {
                       onTap: () {
                         setState(() {
                           goal.tasks.add(Task(
-                              date: DateTime.now(), done: false, text: ""));
+                              date: DateTime.now(),
+                              done: false,
+                              text: "",
+                              goalId: 0));
                         });
                       },
                       child: Padding(

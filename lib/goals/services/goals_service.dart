@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lifehq/goals/models/goal.dart';
 import 'package:lifehq/goals/models/task.dart';
 import 'package:lifehq/goals/services/goals_db.dart';
+import 'package:lifehq/routine/services/routine_service.dart';
 
 class GoalsService with ChangeNotifier {
   static final GoalsService instance = GoalsService._internal();
@@ -26,8 +27,11 @@ class GoalsService with ChangeNotifier {
     if (!initilised) {
       _db = GoalsDB();
       _goals = await _db.getGoals();
-      _goalTitle = await _db.getTodayGoalSheetTitle();
-      _todayTasks = await _db.getTasksByDate(DateTime.now());
+      int? goalId = RoutineService.instance.routines.first.morningGoalId;
+      if (goalId != null) {
+        _goalTitle = (await _db.getGoal(goalId)).title;
+        _todayTasks = await _db.getTasksByGoalId(goalId);
+      }
       initilised = true;
       notifyListeners();
     }

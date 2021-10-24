@@ -21,7 +21,9 @@ class RoutineDB {
               rested INTEGER,
               quote TEXT,
               dateTime INTEGER,
-              restedString TEXT);
+              restedString TEXT,
+              morningGoalId INTEGER
+              );
             """);
         db.execute("""
             CREATE TABLE routineTreasures(
@@ -31,7 +33,7 @@ class RoutineDB {
               FOREIGN KEY (routineId) REFERENCES routines (routineId) );
             """);
       },
-      version: 1,
+      version: 2,
     );
 
     return database;
@@ -80,13 +82,13 @@ class RoutineDB {
     List<Routine> routines = maps.map((map) => Routine.fromMap(map)).toList();
     for (Routine? routine in routines) {
       routine!.treasures = [];
-      List<String?> treasures = (await db.query(
+      List<String> treasures = (await db.query(
         RoutineConstants.ROUTINETREASURES,
         columns: ["treasure"],
         where: "routineId = ?",
         whereArgs: [routine.routineId],
       ))
-          .map<String?>((e) => e["treasure"] as String?)
+          .map<String>((e) => e["treasure"] as String)
           .toList();
       routine.treasures.addAll(treasures);
     }

@@ -1,5 +1,6 @@
 import 'package:awesome_emojis/emoji.dart';
 import 'package:flutter/material.dart';
+import 'package:lifehq/routine/models/routine.dart';
 import 'package:lifehq/routine/rested.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/skeleton.dart';
@@ -7,6 +8,8 @@ import 'package:provider/provider.dart';
 
 class Feel extends StatefulWidget {
   Feel({Key? key}) : super(key: key);
+
+  static const routeName = '/feel';
 
   @override
   _FeelState createState() => _FeelState();
@@ -74,14 +77,14 @@ class _FeelState extends State<Feel> {
               children: selectedEmojis
                   .map((e) => GestureDetector(
                       onTap: () {
-                        Provider.of<RoutineService>(context, listen: false)
-                            .goingOnRoutine!
-                            .feel = e;
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (ctx) =>
-                                    Rested())); // TODO Night Routine
+                        Routine routine =
+                            Provider.of<RoutineService>(context, listen: false)
+                                .goingOnRoutine!;
+                        routine.feel = e;
+                        if (routine.routineType == 0)
+                          Navigator.pushNamed(context, Rested.restedRoute);
+                        else
+                          Navigator.pushNamed(context, Rested.productiveRoute);
                       },
                       child: Text(e.char)))
                   .toList(),

@@ -62,7 +62,7 @@ class RoutineDetails extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        routine.getRestedText()!,
+                        routine.getProdRestedText(),
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
@@ -70,7 +70,7 @@ class RoutineDetails extends StatelessWidget {
                         height: 6,
                       ),
                       Text(
-                        routine.restedString!,
+                        routine.restedProdString!,
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ],
@@ -90,7 +90,7 @@ class RoutineDetails extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: routine.treasures
-                  .map((e) => Text(StringConstants.BULLET + e!))
+                  .map((e) => Text(StringConstants.BULLET + e))
                   .toList(),
             ),
           ),

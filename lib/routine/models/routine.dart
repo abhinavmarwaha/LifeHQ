@@ -6,21 +6,23 @@ class Routine {
   int? routineId;
   int routineType;
   Emoji? feel;
-  int? rested;
-  String? restedString;
+  int? restedProductive;
+  String? restedProdString;
   String? quote;
   DateTime dateTime;
-  List<String?> treasures;
+  List<String> treasures;
+  int? morningGoalId;
 
   Routine({
     this.routineId,
     required this.routineType,
     this.feel,
-    this.rested,
-    this.restedString,
+    this.restedProductive,
+    this.restedProdString,
     this.quote,
     required this.dateTime,
     required this.treasures,
+    required this.morningGoalId,
   });
 
   Map<String, dynamic> toMap() {
@@ -28,24 +30,25 @@ class Routine {
       'routineId': routineId,
       'routineType': routineType,
       'feel': feel!.char,
-      'rested': rested,
+      'restedProductive': restedProductive,
       'quote': quote,
       'dateTime': dateTime.millisecondsSinceEpoch,
-      'restedString': restedString,
+      'restedProdString': restedProdString,
+      'morningGoalId': morningGoalId,
     };
   }
 
   factory Routine.fromMap(Map<String, dynamic> map) {
     return Routine(
-      routineId: map['routineId'],
-      routineType: map['routineType'],
-      feel: Emoji.byChar(map['feel']),
-      rested: map['rested'],
-      quote: map['quote'],
-      dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime']),
-      restedString: map['restedString'],
-      treasures: [],
-    );
+        routineId: map['routineId'],
+        routineType: map['routineType'],
+        feel: Emoji.byChar(map['feel']),
+        restedProductive: map['restedProductive'],
+        quote: map['quote'],
+        dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime']),
+        restedProdString: map['restedProdString'],
+        treasures: [],
+        morningGoalId: map['morningGoalId']);
   }
 
   String toJson() => json.encode(toMap());
@@ -53,12 +56,22 @@ class Routine {
   factory Routine.fromJson(String source) =>
       Routine.fromMap(json.decode(source));
 
-  String? getRestedText() {
-    switch (rested) {
+  String getProdRestedText() {
+    switch (restedProductive) {
       case 0:
-        return "Well Rested";
+        return restedProdString! + "Worked";
+      case 1:
+        return routineType == 0
+            ? "Was not rested due to " + restedProdString!
+            : "Was not productive due to " + restedProdString!;
+      case 2:
+        return "Was confused due to " + restedProdString!;
+      case 3:
+        return routineType == 0
+            ? restedProdString! + "rested"
+            : restedProdString! + "productive";
       default:
-        return null;
+        return "";
     }
   }
 }

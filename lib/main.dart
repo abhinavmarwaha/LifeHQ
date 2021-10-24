@@ -14,6 +14,11 @@ import 'package:lifehq/loading.dart';
 import 'package:lifehq/momento_mori.dart';
 import 'package:lifehq/on_boarding.dart';
 import 'package:lifehq/principles.dart';
+import 'package:lifehq/routine/daily_quote.dart';
+import 'package:lifehq/routine/feel.dart';
+import 'package:lifehq/routine/goal_sheet.dart';
+import 'package:lifehq/routine/grateful.dart';
+import 'package:lifehq/routine/rested.dart';
 import 'package:lifehq/routine/routine_home.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/services/onboarding_provider.dart';
@@ -64,6 +69,23 @@ class MyApp extends StatelessWidget {
                     Home.routeName: (ctx) => Home(),
                     Settings.routeName: (ctx) => Settings(),
                     RoutineHome.routeName: (ctx) => RoutineHome(),
+                    Feel.routeName: (ctx) => Feel(),
+                    Rested.restedRoute: (ctx) => Rested(
+                          title: "Rested?",
+                        ),
+                    Rested.productiveRoute: (ctx) => Rested(
+                          title: "Productive?",
+                        ),
+                    // SingleWord.routeName: (ctx) => SingleWord(), // dynamic view
+                    GoalSheet.routeName: (ctx) => GoalSheet(),
+                    Grateful.routeName: (ctx) => Grateful(),
+                    Grateful.displayRoute: (ctx) => Grateful(
+                          display: true,
+                        ),
+                    DailyQuote.routeName: (ctx) => DailyQuote(),
+                    AddGoalPage.routineRoute: (ctx) => AddGoalPage(
+                          inRoutine: true,
+                        ),
                     // RoutineDetails.routeName: (ctx) => RoutineDetails(), // dynamic route
                     Journal.routeName: (ctx) => Journal(),
                     // JournalEntryDetails.routeName: (ctx) => JournalEntryDetails(), // dynamic route

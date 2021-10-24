@@ -59,13 +59,11 @@ class _PrinciplesState extends State<Principles> {
                             break;
                           case 0:
                             routineService.startRoutine(0);
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (ctx) => Feel()));
+                            Navigator.pushNamed(context, Feel.routeName);
                             break;
                           case 1:
                             routineService.startRoutine(1);
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (ctx) => Feel()));
+                            Navigator.pushNamed(context, Feel.routeName);
                             break;
                           case -2:
                             throw Error();

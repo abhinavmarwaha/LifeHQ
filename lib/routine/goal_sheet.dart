@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 class GoalSheet extends StatelessWidget {
   const GoalSheet({Key? key}) : super(key: key);
 
+  static const routeName = '/goal-sheet';
+
   @override
   Widget build(BuildContext context) {
     return Skeleton(
@@ -27,7 +29,8 @@ class GoalSheet extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
-            ...goals.todayTasks.map((e) => Text(StringConstants.BULLET + e.text)),
+            ...goals.todayTasks
+                .map((e) => Text(StringConstants.BULLET + e.text)),
             SizedBox(
               height: 12,
             ),
@@ -36,8 +39,7 @@ class GoalSheet extends StatelessWidget {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (ctx) => Grateful()));
+                    Navigator.pushNamed(context, Grateful.routeName);
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(

@@ -5,7 +5,15 @@ import 'package:lifehq/skeleton.dart';
 import 'package:provider/provider.dart';
 
 class Rested extends StatelessWidget {
-  const Rested({Key? key}) : super(key: key);
+  const Rested({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  static const restedRoute = '/rested';
+  static const productiveRoute = '/productive';
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +22,7 @@ class Rested extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Well Rested?",
+            title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 26,
@@ -25,7 +33,7 @@ class Rested extends StatelessWidget {
             onTap: () {
               Provider.of<RoutineService>(context, listen: false)
                   .goingOnRoutine!
-                  .rested = 0;
+                  .restedProductive = 0;
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -39,7 +47,7 @@ class Rested extends StatelessWidget {
             onTap: () {
               Provider.of<RoutineService>(context, listen: false)
                   .goingOnRoutine!
-                  .rested = 1;
+                  .restedProductive = 1;
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -53,7 +61,7 @@ class Rested extends StatelessWidget {
             onTap: () {
               Provider.of<RoutineService>(context, listen: false)
                   .goingOnRoutine!
-                  .rested = 2;
+                  .restedProductive = 2;
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -67,7 +75,7 @@ class Rested extends StatelessWidget {
             onTap: () {
               Provider.of<RoutineService>(context, listen: false)
                   .goingOnRoutine!
-                  .rested = 3;
+                  .restedProductive = 3;
               Navigator.push(
                   context,
                   MaterialPageRoute(

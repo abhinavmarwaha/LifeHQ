@@ -98,7 +98,7 @@ class GoalCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  goal.title!,
+                  goal.title,
                   style: TextStyle(color: Colors.black),
                 ),
               )
