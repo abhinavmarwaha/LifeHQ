@@ -59,7 +59,7 @@ You can add an issue [here](https://github.com/abhinavmarwaha/lifehq/issues) or 
 
 # IOS
 
-I don't have an ios dev account so you can download the xarchive [here](https://github.com/abhinavmarwaha/LifeHQ/releases) and you can sign and install using [AltStore](https://altstore.io/) 
+I don't have an ios dev account so you can download the runner.app.zip [here](https://github.com/abhinavmarwaha/LifeHQ/releases) and you can sign and install using [AltStore](https://altstore.io/) 
 
 # ToDo
 
