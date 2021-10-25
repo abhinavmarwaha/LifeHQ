@@ -116,12 +116,8 @@ class _OnBoardingState extends State<OnBoarding> {
           ),
           GestureDetector(
             onTap: () {
-              // TODO onboarded principles are blank
-              // TODO see logs for sql errors
               Provider.of<OnboardingProvider>(context, listen: false)
                   .onBoardingCompleted(_selectedYear, _principles);
-              // .then((value) => Navigator.pushReplacementNamed(
-              //     context, MomentoMori.routeName));
             },
             child: Padding(
               padding: const EdgeInsets.all(24.0),
