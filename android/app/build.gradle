@@ -76,15 +76,15 @@ android {
     }
 
     android.applicationVariants.all { variant ->
-        // if (variant.flavorName == "fdroid") {
-        //     variant.outputs.all { output ->
-        //         output.outputFileName = "app-fdroid-release.apk"
-        //     }
-        // }
-
-        variant.outputs.all { output ->
-            output.outputFileName = "app-release.apk"
+        if (variant.flavorName == "fdroid") {
+            variant.outputs.all { output ->
+                output.outputFileName = "app-fdroid-release.apk"
+            }
         }
+
+        // variant.outputs.all { output ->
+        //     output.outputFileName = "app-release.apk"
+        // }
 
         // variant.assemble.doLast {
         //     def apkFile = variant.outputs.first().outputFile as File
