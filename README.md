@@ -1,7 +1,7 @@
 <br>
 
 <p align='center'>
-<img height="100%" width="auto" src="fastlane/metadata/android/en-US/images/featureGraphic.png"/>
+<img height="auto" width="100%" src="fastlane/metadata/android/en-US/images/featureGraphic.png"/>
 </p>
 
 <p align='center'>
