@@ -29,8 +29,8 @@ Design Your Life
     <a href="https://codemagic.io/apps/6171a494996b0056d63e95bc/6171a494996b0056d63e95bb/latest_build">
         <img src="https://api.codemagic.io/apps/6171a494996b0056d63e95bc/6171a494996b0056d63e95bb/status_badge.svg" alt="build"/> 
     </a>
-    <img src="https://img.shields.io/github/license/abhinavmarwaha/LifeHQ?color=black"/>
-    <img src="https://img.shields.io/github/v/release/abhinavmarwaha/LifeHQ?include_prereleases&color=black"/>
+    <img src="https://img.shields.io/github/license/abhinavmarwaha/LifeHQ?color=white"/>
+    <img src="https://img.shields.io/github/v/release/abhinavmarwaha/LifeHQ?include_prereleases&color=white"/>
 </p>
 
 <p align='center'> 
