@@ -11,7 +11,6 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Skeleton(
-        child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -40,7 +39,7 @@ class Settings extends StatelessWidget {
               url: StringConstants.COFFEE,
               title: "Buy Me a Coffee"),
           SettingsCard(
-              icon: Icons.support_sharp,
+              icon: Icons.people,
               url: StringConstants.PATREON,
               title: "Patreon"),
           SettingsCard(
@@ -49,7 +48,7 @@ class Settings extends StatelessWidget {
               title: "Discord"),
         ],
       ),
-    ));
+    );
   }
 }
 
@@ -86,7 +85,7 @@ class SettingsCard extends StatelessWidget {
                   color: Colors.black,
                 ),
                 SizedBox(
-                  width: 4,
+                  width: 12,
                 ),
                 Text(title,
                     style: TextStyle(color: Colors.black, fontSize: 16)),

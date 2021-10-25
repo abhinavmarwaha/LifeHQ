@@ -37,7 +37,9 @@ class Principle {
       title: map['title'],
       subTitle: map['subTitle'],
       desc: map['desc'],
-      added: DateTime.fromMillisecondsSinceEpoch(map['added']),
+      added: map['added'] == null
+          ? null
+          : DateTime.fromMillisecondsSinceEpoch(map['added']),
       why: map['why'],
       whyNot: map['whyNot'],
     );

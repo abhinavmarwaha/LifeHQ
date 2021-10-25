@@ -11,7 +11,7 @@ class JournalEntryDetails extends StatelessWidget {
     Key? key,
     required this.entry,
   }) : super(key: key);
-  
+
   static const routeName = '/details';
 
   final JournalEntry entry;
@@ -22,16 +22,21 @@ class JournalEntryDetails extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-              onTap: () {
-                Provider.of<JournalService>(context, listen: false)
-                    .deleteJournalEntry(entry)
-                    .then((value) => Navigator.of(context).pop());
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(Icons.delete),
-              )),
+          Row(
+            children: [
+              Spacer(),
+              GestureDetector(
+                  onTap: () {
+                    Provider.of<JournalService>(context, listen: false)
+                        .deleteJournalEntry(entry)
+                        .then((value) => Navigator.of(context).pop());
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.delete),
+                  )),
+            ],
+          ),
           if (entry.tags.length != 0)
             SizedBox(
               height: 56,
@@ -39,12 +44,17 @@ class JournalEntryDetails extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.builder(
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        entry.tags[index],
-                        style: TextStyle(
-                          fontSize: 18,
+                    return Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: Colors.white)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          entry.tags[index],
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     );
@@ -54,19 +64,21 @@ class JournalEntryDetails extends StatelessWidget {
                 ),
               ),
             ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              Utilities.beautifulDate(entry.date),
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              entry.locationDisplayName ?? "",
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
+          Row(
+            children: [
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  Utilities.beautifulDate(entry.date),
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ],
           ),
           Text(
             entry.title,
@@ -74,6 +86,14 @@ class JournalEntryDetails extends StatelessWidget {
           ),
           Html(
             data: entry.text,
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              entry.locationDisplayName ?? "",
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
           ),
         ],
       ),

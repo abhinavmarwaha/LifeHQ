@@ -233,49 +233,6 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                     SizedBox(
                       height: 12,
                     ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     showDialog(
-                    //         context: context,
-                    //         builder: (ctx) => Dialog(
-                    //               child: JournalEditor(),
-                    //             )).then((value) => setState(() {
-                    //           _bodytext = value;
-                    //         }));
-                    //   },
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.only(bottom: 8),
-                    //     child: Container(
-                    //       height: 40,
-                    //       decoration: BoxDecoration(
-                    //           color: Colors.white,
-                    //           borderRadius: BorderRadius.circular(15)),
-                    //       child: Padding(
-                    //         padding: const EdgeInsets.all(8.0),
-                    //         child: Row(
-                    //           children: [
-                    //             Icon(
-                    //               Icons.edit,
-                    //               color: Colors.black,
-                    //             ),
-                    //             SizedBox(
-                    //               width: 4,
-                    //             ),
-                    //             Text("Edit Text",
-                    //                 style: TextStyle(
-                    //                     color: Colors.black, fontSize: 16)),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 12,
-                    // ),
-                    // Html(
-                    //   data: _bodytext,
-                    // )
                     Expanded(
                       child: HtmlEditor(
                           controller: controller,

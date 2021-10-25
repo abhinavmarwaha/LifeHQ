@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lifehq/constants/strings.dart';
 import 'package:lifehq/knowledge/models/principle.dart';
 import 'package:lifehq/knowledge/services/knowledge_db.dart';
+import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/services/notifications_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,9 +53,11 @@ class OnboardingProvider with ChangeNotifier {
     _year = birthYear;
     _prefs!.setInt(StringConstants.BIRTHYEAR, birthYear);
     for (String prin in principles) {
-      await KnowledgeDB().insertPrinciple(Principle(
+      final princi = Principle(
         title: prin,
-      ));
+      );
+      int id = await KnowledgeDB().insertPrinciple(princi);
+      KnowledgeService.instance.addPrincipleToList(princi, id);
     }
 
     _firstTime = false;

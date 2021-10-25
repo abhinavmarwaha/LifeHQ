@@ -92,6 +92,7 @@ class _MomentoMoriState extends State<MomentoMori> {
   }
 }
 
+// TODO Slow UI
 class MoriCal extends StatelessWidget {
   const MoriCal({
     Key? key,

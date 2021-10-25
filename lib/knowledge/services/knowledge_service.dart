@@ -42,4 +42,10 @@ class KnowledgeService with ChangeNotifier {
     _principles.remove(principle);
     notifyListeners();
   }
+
+  addPrincipleToList(Principle prin, int id) {
+    prin.principleId = id;
+    _principles.add(prin);
+    notifyListeners();
+  }
 }
