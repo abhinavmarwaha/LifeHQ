@@ -82,17 +82,21 @@ android {
             }
         }
 
-        variant.assemble.doLast {
-            def apkFile = variant.outputs.first().outputFile as File
-            System.out.println("apk file: ${apkFile.path}")
-            def flavorNames = variant.productFlavors.collect{flavor -> flavor.name}.toList()
-            System.out.println("flavorNames: ${flavorNames.join('-')}")
-            def targetApkFile = new File(apkFile.parentFile.path, "app-${flavorNames.withIndex().collect{flavorName, index -> index == 0 ? flavorName : flavorName.capitalize()}.join('')}-${variant.buildType.name}.apk")
-            System.out.println("target apk file: ${targetApkFile.path}")
-            exec {
-                commandLine 'bash', '-lc', "cp ${apkFile.path} ${targetApkFile.path}"
-            }
+        variant.outputs.all { output ->
+            output.outputFileName = "app-release.apk"
         }
+
+        // variant.assemble.doLast {
+        //     def apkFile = variant.outputs.first().outputFile as File
+        //     System.out.println("apk file: ${apkFile.path}")
+        //     def flavorNames = variant.productFlavors.collect{flavor -> flavor.name}.toList()
+        //     System.out.println("flavorNames: ${flavorNames.join('-')}")
+        //     def targetApkFile = new File(apkFile.parentFile.path, "app-${flavorNames.withIndex().collect{flavorName, index -> index == 0 ? flavorName : flavorName.capitalize()}.join('')}-${variant.buildType.name}.apk")
+        //     System.out.println("target apk file: ${targetApkFile.path}")
+        //     exec {
+        //         commandLine 'bash', '-lc', "cp ${apkFile.path} ${targetApkFile.path}"
+        //     }
+        // }
     }
 
     buildTypes {
