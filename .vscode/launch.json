@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "name": "Flutter Run",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--flavor",
+        "fdroid"
+      ]
+    }
+  ]
+}

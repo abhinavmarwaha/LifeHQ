@@ -4,13 +4,13 @@
 
  dart_code_metrics:
    anti-patterns:
-     - long-method
+    #  - long-method
      - long-parameter-list
    metrics:
      cyclomatic-complexity: 20
-     maximum-nesting-level: 5
+    #  maximum-nesting-level: 5
      number-of-parameters: 6
-     source-lines-of-code: 50
+    #  source-lines-of-code: 50
    metrics-exclude:
      - test/**
    rules:

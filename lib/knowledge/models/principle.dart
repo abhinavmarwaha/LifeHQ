@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class Principle {
   int? principleId;
-  String? title;
+  String title;
   String? subTitle;
   String? desc;
   DateTime? added;
@@ -11,7 +11,7 @@ class Principle {
 
   Principle({
     this.principleId,
-    this.title,
+    required this.title,
     this.subTitle,
     this.desc,
     this.added,
@@ -25,7 +25,7 @@ class Principle {
       'title': title,
       'subTitle': subTitle,
       'desc': desc,
-      'added': added!.millisecondsSinceEpoch,
+      'added': added?.millisecondsSinceEpoch,
       'why': why,
       'whyNot': whyNot,
     };

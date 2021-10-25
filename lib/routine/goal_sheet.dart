@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/constants/strings.dart';
+import 'package:lifehq/goals/services/goals_service.dart';
 import 'package:lifehq/routine/grateful.dart';
+import 'package:lifehq/skeleton.dart';
+import 'package:provider/provider.dart';
 
 class GoalSheet extends StatelessWidget {
   const GoalSheet({Key? key}) : super(key: key);
 
-  final String titleOfDay = '"Make Shit"';
-  final List<String> tasks = const [
-    "10 CP problems",
-    "Complete App UI",
-    "Call Moms"
-  ];
+  static const routeName = '/goal-sheet';
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.black,
-        body: SafeArea(
-            child: Column(
+    return Skeleton(
+      child: Consumer<GoalsService>(
+        builder: (context, goals, child) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              titleOfDay,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 26,
+            Center(
+              child: Text(
+                goals.goalTitle,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26,
+                ),
               ),
             ),
             SizedBox(
               height: 12,
             ),
-            ...tasks.map((e) => Text(Constants.BULLET + e)),
+            ...goals.todayTasks
+                .map((e) => Text(StringConstants.BULLET + e.text)),
             SizedBox(
               height: 12,
             ),
@@ -39,8 +39,7 @@ class GoalSheet extends StatelessWidget {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (ctx) => Grateful()));
+                    Navigator.pushNamed(context, Grateful.routeName);
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -59,6 +58,8 @@ class GoalSheet extends StatelessWidget {
               ],
             )
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

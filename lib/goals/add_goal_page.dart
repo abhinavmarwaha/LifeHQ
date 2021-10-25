@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:lifehq/goals/models/goal.dart';
 import 'package:lifehq/goals/models/task.dart';
 import 'package:lifehq/goals/services/goals_service.dart';
+import 'package:lifehq/routine/grateful.dart';
+import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/skeleton.dart';
+import 'package:provider/provider.dart';
 
 class AddGoalPage extends StatefulWidget {
-  AddGoalPage({Key? key}) : super(key: key);
+  AddGoalPage({
+    Key? key,
+    this.inRoutine = false,
+  }) : super(key: key);
+
+  static const routeName = '/add-goal';
+  static const routineRoute = '/add-goal-routine';
+  final bool inRoutine;
 
   @override
   _AddGoalPageState createState() => _AddGoalPageState();
@@ -25,21 +35,50 @@ class _AddGoalPageState extends State<AddGoalPage> {
     return Skeleton(
         child: Column(
       children: [
-        Expanded(
-          child: IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              GoalsService.instance.saveGoal(goal);
-              Navigator.pop(context);
-            },
-          ),
-          flex: 1,
+        Row(
+          children: [
+            if (!widget.inRoutine)
+              IconButton(
+                icon: Icon(Icons.cancel),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            Expanded(
+              child: TextField(
+                onChanged: (val) => goal.title = val,
+                cursorColor: Colors.white,
+                style: TextStyle(fontSize: 24),
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
+                    hintText: widget.inRoutine
+                        ? "Tomorrow's Goal title"
+                        : "Goal Title"),
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.arrow_forward_ios),
+              onPressed: () {
+                GoalsService.instance.saveGoal(goal).then((value) {
+                  if (widget.inRoutine) {
+                    Provider.of<RoutineService>(context, listen: false)
+                        .goingOnRoutine!
+                        .morningGoalId = value;
+                    Navigator.pushNamed(context, Grateful.displayRoute);
+                  } else
+                    Navigator.pop(context);
+                });
+              },
+            ),
+          ],
         ),
-        Expanded(
-          child: TextField(
-            onChanged: (val) => goal.title = val,
-          ),
-          flex: 1,
+        SizedBox(
+          height: 4,
         ),
         Expanded(
           child: Column(
@@ -48,19 +87,54 @@ class _AddGoalPageState extends State<AddGoalPage> {
                       .map((e) => CheckboxListTile(
                           title: TextField(
                             onChanged: (val) => e.text = val,
+                            cursorColor: Colors.white,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedErrorBorder: InputBorder.none,
+                                hintText: "Task"),
                           ),
-                          value: goal.done,
-                          onChanged: (value) => goal.done = value) as Widget)
+                          value: e.done,
+                          onChanged: (value) => setState(() {
+                                e.done = value;
+                              })) as Widget)
                       .toList() +
                   [
                     GestureDetector(
-                        child: Text("Add"),
-                        onTap: () {
-                          setState(() {
-                            goal.tasks.add(Task(
-                                date: DateTime.now(), done: false, text: ""));
-                          });
-                        }),
+                      onTap: () {
+                        setState(() {
+                          goal.tasks.add(Task(
+                              date: DateTime.now(),
+                              done: false,
+                              text: "",
+                              goalId: 0));
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          width: double.infinity,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Add",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
                   ]),
         )
       ],

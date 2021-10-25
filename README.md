@@ -26,6 +26,9 @@ Design Your Life
 <br>
 
 <p align='center'>
+    <a href="https://codemagic.io/apps/6171a494996b0056d63e95bc/6171a494996b0056d63e95bb/latest_build">
+        <img src="https://api.codemagic.io/apps/6171a494996b0056d63e95bc/6171a494996b0056d63e95bb/status_badge.svg" alt="build"/> 
+    </a>
     <img src="https://img.shields.io/github/license/abhinavmarwaha/lifehq-app?color=black"/>
     <img src="https://img.shields.io/github/v/release/abhinavmarwaha/lifehq-app?include_prereleases&color=black"/>
 </p>
@@ -54,4 +57,14 @@ Design Your Life
 
 You can add an issue [here](https://github.com/abhinavmarwaha/lifehq/issues) or fill up a google form [here](https://docs.google.com/forms/d/e/1FAIpQLSdcVAl64UwJg6U6xZ3YnDc8inIsk1WO7-jHpTpRLcl6t4XP7g/viewform?usp=sf_link).
 
-You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@protonmail.com)
+# IOS
+
+I don't have an ios dev account so you can download the runner.app.zip [here](https://github.com/abhinavmarwaha/LifeHQ/releases) and you can sign and install using [AltStore](https://altstore.io/) 
+
+# ToDo
+
+[Roadmap](https://github.com/abhinavmarwaha/LifeHQ/projects/1)
+
+# Contact
+
+You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@protonmail.com) or [discord](https://discord.gg/wjAsZGD83T), you can support me on [Patreon](https://www.patreon.com/abhinavmarwaha) to enter LifeHQ's channels.

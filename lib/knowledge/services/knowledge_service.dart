@@ -14,10 +14,10 @@ class KnowledgeService with ChangeNotifier {
   bool initilised = false;
   late KnowledgeDB _db;
 
-  List<Principle>? _principles;
-  List<Principle>? get principles => _principles;
-  List<Quote>? _quotes;
-  List<Quote>? get quotes => _quotes;
+  List<Principle> _principles = [];
+  List<Principle> get principles => _principles;
+  List<Quote> _quotes = [];
+  List<Quote> get quotes => _quotes;
 
   Future _init() async {
     if (!initilised) {
@@ -27,5 +27,19 @@ class KnowledgeService with ChangeNotifier {
       initilised = true;
       notifyListeners();
     }
+  }
+
+  Future<void> savePrinciple(String principle) async {
+    final prin = Principle(title: principle, added: DateTime.now());
+    int id = await _db.insertPrinciple(prin);
+    prin.principleId = id;
+    _principles.add(prin);
+    notifyListeners();
+  }
+
+  Future<void> deletePrinciple(Principle principle) async {
+    await _db.deletePrinciple(principle.principleId!);
+    _principles.remove(principle);
+    notifyListeners();
   }
 }

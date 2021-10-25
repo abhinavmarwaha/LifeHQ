@@ -6,7 +6,7 @@ import 'package:lifehq/goals/models/task.dart';
 
 class Goal {
   int? goalId;
-  String? title;
+  String title;
   DateTime? added;
   DateTime? deadline;
   int? goalType;
@@ -15,7 +15,7 @@ class Goal {
 
   Goal({
     this.goalId,
-    this.title,
+    required this.title,
     this.added,
     this.deadline,
     this.goalType,
@@ -61,7 +61,7 @@ class Goal {
       added: DateTime.fromMillisecondsSinceEpoch(map['added']),
       deadline: DateTime.fromMillisecondsSinceEpoch(map['deadline']),
       goalType: map['goalType'],
-      done: map['done'],
+      done: map['done'] == 1,
       tasks: [],
     );
   }

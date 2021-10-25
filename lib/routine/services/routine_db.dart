@@ -18,10 +18,12 @@ class RoutineDB {
               routineId INTEGER PRIMARY KEY AUTOINCREMENT,
               routineType INTEGER,
               feel TEXT,
-              rested INTEGER,
+              restedProductive INTEGER,
               quote TEXT,
               dateTime INTEGER,
-              restedString TEXT);
+              restedProdString TEXT,
+              morningGoalId INTEGER
+              );
             """);
         db.execute("""
             CREATE TABLE routineTreasures(
@@ -60,7 +62,7 @@ class RoutineDB {
       routine.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-    for (String? treasure in routine.treasures!) {
+    for (String? treasure in routine.treasures) {
       await db.insert(
         RoutineConstants.ROUTINETREASURES,
         {
@@ -74,21 +76,21 @@ class RoutineDB {
     return id;
   }
 
-  Future<List<Routine?>> getRoutines() async {
+  Future<List<Routine>> getRoutines() async {
     final Database db = await getdb;
     List<Map<String, dynamic>> maps = await db.query(RoutineConstants.ROUTINES);
-    List<Routine?> routines = maps.map((map) => Routine.fromMap(map)).toList();
+    List<Routine> routines = maps.map((map) => Routine.fromMap(map)).toList();
     for (Routine? routine in routines) {
       routine!.treasures = [];
-      List<String?> treasures = (await db.query(
+      List<String> treasures = (await db.query(
         RoutineConstants.ROUTINETREASURES,
         columns: ["treasure"],
         where: "routineId = ?",
         whereArgs: [routine.routineId],
       ))
-          .map<String?>((e) => e["treasure"] as String?)
+          .map<String>((e) => e["treasure"] as String)
           .toList();
-      routine.treasures!.addAll(treasures);
+      routine.treasures.addAll(treasures);
     }
 
     return routines;

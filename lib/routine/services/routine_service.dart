@@ -13,8 +13,8 @@ class RoutineService with ChangeNotifier {
   bool initilised = false;
   late RoutineDB _db;
 
-  List<Routine?>? _routines;
-  List<Routine?>? get routines => _routines;
+  List<Routine> _routines = [];
+  List<Routine> get routines => _routines;
 
   Routine? goingOnRoutine;
 
@@ -37,20 +37,20 @@ class RoutineService with ChangeNotifier {
     final evenEnd =
         DateTime(now.year, now.month, now.day + 1).millisecondsSinceEpoch;
     if (now.millisecondsSinceEpoch < mornEnd) {
-      for (Routine? routine in _routines!) {
+      for (Routine? routine in _routines) {
         if (routine!.routineType == 0 &&
-            routine.dateTime!.millisecondsSinceEpoch > mornStart &&
-            routine.dateTime!.millisecondsSinceEpoch < mornEnd) {
+            routine.dateTime.millisecondsSinceEpoch > mornStart &&
+            routine.dateTime.millisecondsSinceEpoch < mornEnd) {
           return -1;
         }
       }
 
       return 0;
     } else {
-      for (Routine? routine in _routines!) {
+      for (Routine? routine in _routines) {
         if (routine!.routineType == 1 &&
-            routine.dateTime!.millisecondsSinceEpoch > mornEnd &&
-            routine.dateTime!.millisecondsSinceEpoch < evenEnd) {
+            routine.dateTime.millisecondsSinceEpoch > mornEnd &&
+            routine.dateTime.millisecondsSinceEpoch < evenEnd) {
           return -1;
         }
       }
@@ -60,13 +60,17 @@ class RoutineService with ChangeNotifier {
   }
 
   void startRoutine(int type) {
-    goingOnRoutine = Routine(dateTime: DateTime.now(), routineType: type);
+    goingOnRoutine = Routine(
+        dateTime: DateTime.now(),
+        routineType: type,
+        treasures: [],
+        morningGoalId: null);
   }
 
   Future<int> saveRoutine() async {
     int index = await _db.insertRoutine(goingOnRoutine!);
     goingOnRoutine!.routineId = index;
-    _routines!.add(goingOnRoutine);
+    _routines.add(goingOnRoutine!);
     goingOnRoutine = null;
 
     return index;

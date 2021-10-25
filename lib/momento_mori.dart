@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/principles.dart';
+import 'package:lifehq/services/onboarding_provider.dart';
+import 'package:lifehq/skeleton.dart';
+import 'package:provider/provider.dart';
 
 class MomentoMori extends StatefulWidget {
   MomentoMori({Key? key}) : super(key: key);
+
+  static const routeName = '/momento-mori';
 
   @override
   _MomentoMoriState createState() => _MomentoMoriState();
 }
 
 class _MomentoMoriState extends State<MomentoMori> {
-  int weekCompleted = 160;
   final whichBar = 2;
   double nextOpacity = 0.0;
 
@@ -25,10 +29,13 @@ class _MomentoMoriState extends State<MomentoMori> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Column(
+    final _today = DateTime.now();
+    final _yearStart = DateTime(_today.year);
+    final _yearEnd = DateTime(_today.year + 1);
+
+    return Skeleton(
+      child: Consumer<OnboardingProvider>(
+        builder: (context, value, child) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -45,8 +52,7 @@ class _MomentoMoriState extends State<MomentoMori> {
                   opacity: nextOpacity,
                   child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (ctx) => Principles()));
+                        Navigator.pushNamed(context, Principles.routeName);
                       },
                       child: Icon(Icons.arrow_forward_ios)),
                 )
@@ -57,7 +63,9 @@ class _MomentoMoriState extends State<MomentoMori> {
             ),
             Expanded(
                 child: MoriCal(
-              weekGoingOn: weekCompleted,
+              weekGoingOn: (_today.millisecondsSinceEpoch -
+                      DateTime(value.year).millisecondsSinceEpoch) ~/
+                  6.048e+8,
             )),
             SizedBox(
               height: 6,
@@ -67,7 +75,10 @@ class _MomentoMoriState extends State<MomentoMori> {
               height: 6,
             ),
             ProgressBar(
-              progress: 10 / 100,
+              progress: (_today.millisecondsSinceEpoch -
+                      _yearStart.millisecondsSinceEpoch) /
+                  (_yearEnd.millisecondsSinceEpoch -
+                      _yearStart.millisecondsSinceEpoch),
             ),
             SizedBox(
               height: 12,
@@ -87,9 +98,9 @@ class MoriCal extends StatelessWidget {
     required this.weekGoingOn,
   }) : super(key: key);
 
-  final weekGoingOn;
+  final int weekGoingOn;
 
-  final colCount = 11;
+  final colCount = 10;
   final totalWeeks = 4160;
 
   @override
@@ -104,8 +115,8 @@ class MoriCal extends StatelessWidget {
               (colIn) => Week(
                     key: Key((rowIn * colCount + colIn).toString()),
                     index: rowIn * colCount + colIn,
-                    color: (rowIn * colCount + colIn) >= 160
-                        ? (rowIn * colCount + colIn) == 160
+                    color: (rowIn * colCount + colIn) >= weekGoingOn
+                        ? (rowIn * colCount + colIn) == weekGoingOn
                             ? Colors.red
                             : Colors.white
                         : Colors.grey[900],

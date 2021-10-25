@@ -3,7 +3,7 @@ description: Design your life.
 
 publish_to: 'none'
 
-version: 0.5.0+1
+version: 0.5.1+2
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -20,6 +20,7 @@ dependencies:
   provider: ^6.0.1
 
   # utils
+  url_launcher: ^6.0.12
   intl: ^0.17.0
   flutter_local_notifications: ^9.0.0
 
@@ -33,7 +34,7 @@ dependencies:
   flutter_html: ^2.1.5
   fluttertoast: ^8.0.8
 
-  # maps
+  # location
   flutter_map: ^0.14.0
   osm_nominatim: ^2.0.1
   # gps: ^0.1.1 # non-null safe

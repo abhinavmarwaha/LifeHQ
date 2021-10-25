@@ -10,7 +10,7 @@ class NominatimService {
     print('Response body: ${response.body}');
     List addresses = jsonDecode(response.body);
     List<Map> share = [];
-    for (Map ad in addresses as Iterable<Map<dynamic, dynamic>>) {
+    for (Map ad in addresses) {
       share.add({
         'lat': ad['lat'],
         'lng': ad['lon'],
