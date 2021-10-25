@@ -358,7 +358,6 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = SV6BW2SBVA;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/abhinav/Desktop/flutter;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -490,7 +489,6 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = SV6BW2SBVA;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/abhinav/Desktop/flutter;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -514,7 +512,6 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = SV6BW2SBVA;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/abhinav/Desktop/flutter;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -27,6 +27,7 @@ class RoutineService with ChangeNotifier {
     }
   }
 
+  // TODO confusion between day and night
   // 0 => morn, 1 => even, -1 => nothing
   int checkIfRoutined() {
     final now = DateTime.now();
