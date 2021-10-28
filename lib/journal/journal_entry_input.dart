@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
+// import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lifehq/journal/models/journal_entry.dart';
 import 'package:lifehq/journal/services/journal_service.dart';
@@ -19,7 +22,9 @@ class JournalEntryInput extends StatefulWidget {
 }
 
 class _JournalEntryInputState extends State<JournalEntryInput> {
-  HtmlEditorController controller = HtmlEditorController();
+  // HtmlEditorController controller = HtmlEditorController();
+  quill.QuillController _controller = quill.QuillController.basic();
+  final FocusNode _focusNode = FocusNode();
 
   // String _bodytext = "";
   String title = "";
@@ -207,7 +212,7 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                                 focusedBorder: InputBorder.none,
                                 disabledBorder: InputBorder.none,
                                 focusedErrorBorder: InputBorder.none,
-                                hintText: "Type"),
+                                hintText: "Title"),
                           ),
                         ),
                         GestureDetector(
@@ -223,7 +228,10 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                                       longitude:
                                           _pickedLocation!["latlng"]?.longitude,
                                       locationDisplayName: _displayLocationName,
-                                      text: await controller.getText(),
+                                      text: jsonEncode(_controller.document
+                                          .toDelta()
+                                          .toJson()),
+                                      // await controller.getText(),
                                       title: title))
                                   .then((value) => Navigator.pop(context));
                             },
@@ -233,36 +241,64 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                     SizedBox(
                       height: 12,
                     ),
+                    // TODO HTML EDITOR NOT WORKING.
+                    SizedBox(
+                      height: 50,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child:
+                            quill.QuillToolbar.basic(controller: _controller),
+                      ),
+                    ),
+
                     Expanded(
-                      child: HtmlEditor(
-                          controller: controller,
-                          htmlEditorOptions: HtmlEditorOptions(
-                              darkMode: true,
-                              hint: "body",
-                              inputType: HtmlInputType.text,
-                              shouldEnsureVisible: true,
-                              adjustHeightForKeyboard: true,
-                              autoAdjustHeight: true),
-                          htmlToolbarOptions: HtmlToolbarOptions(
-                              toolbarPosition: ToolbarPosition.belowEditor,
-                              defaultToolbarButtons: const [
-                                StyleButtons(),
-                                FontSettingButtons(fontSizeUnit: false),
-                                FontButtons(clearAll: false),
-                                ColorButtons(),
-                                ListButtons(listStyles: false),
-                                ParagraphButtons(
-                                    textDirection: false,
-                                    lineHeight: false,
-                                    caseConverter: false),
-                                InsertButtons(
-                                    video: true,
-                                    audio: true,
-                                    table: true,
-                                    hr: true,
-                                    otherFile: true)
-                              ])),
+                      child: Container(
+                        child: quill.QuillEditor(
+                          scrollController: ScrollController(),
+                          scrollable: true,
+                          focusNode: _focusNode,
+                          autoFocus: false,
+                          readOnly: false,
+                          placeholder: 'Add content',
+                          expands: false,
+                          padding: EdgeInsets.zero,
+                          controller: _controller,
+                          
+                        ),
+                      ),
                     )
+                    // Expanded(
+                    //   child: HtmlEditor(
+                    //       callbacks: Callbacks(
+                    //           onInit: () => controller.setFullScreen()),
+                    //       controller: controller,
+                    //       htmlEditorOptions: HtmlEditorOptions(
+                    //           darkMode: true,
+                    //           hint: "body",
+                    //           inputType: HtmlInputType.text,
+                    //           shouldEnsureVisible: true,
+                    //           adjustHeightForKeyboard: true,
+                    //           autoAdjustHeight: true),
+                    //       htmlToolbarOptions: HtmlToolbarOptions(
+                    //           toolbarPosition: ToolbarPosition.belowEditor,
+                    //           defaultToolbarButtons: const [
+                    //             StyleButtons(),
+                    //             FontSettingButtons(fontSizeUnit: false),
+                    //             FontButtons(clearAll: false),
+                    //             ColorButtons(),
+                    //             ListButtons(listStyles: false),
+                    //             ParagraphButtons(
+                    //                 textDirection: false,
+                    //                 lineHeight: false,
+                    //                 caseConverter: false),
+                    //             InsertButtons(
+                    //                 video: true,
+                    //                 audio: true,
+                    //                 table: true,
+                    //                 hr: true,
+                    //                 otherFile: true)
+                    //           ])),
+                    // )
                   ],
                 ))));
   }

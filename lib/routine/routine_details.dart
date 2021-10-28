@@ -4,6 +4,7 @@ import 'package:lifehq/goals/models/task.dart';
 import 'package:lifehq/routine/models/routine.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/utils/utils.dart';
+import 'package:lifehq/widgets/back_button.dart';
 import 'package:lifehq/widgets/checkbox.dart' as myCheckBox;
 
 class RoutineDetails extends StatelessWidget {
@@ -26,6 +27,7 @@ class RoutineDetails extends StatelessWidget {
         children: [
           Row(
             children: [
+              MyBackButton(),
               SizedBox(
                 width: 12,
               ),

@@ -34,6 +34,7 @@ void main() {
   runApp(MyApp());
 }
 
+// TODO flow a little bit confusing
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

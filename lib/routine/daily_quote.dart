@@ -48,9 +48,14 @@ class _DailyQuoteState extends State<DailyQuote> {
           SizedBox(height: 16),
           if (widget.display)
             Text(Provider.of<RoutineService>(context, listen: false)
-                        .routines
-                        .length >
-                    0
+                            .routines
+                            .length >
+                        0 &&
+                    Provider.of<RoutineService>(context, listen: false)
+                            .routines
+                            .first
+                            .quote !=
+                        null
                 ? Provider.of<RoutineService>(context, listen: false)
                     .routines
                     .first

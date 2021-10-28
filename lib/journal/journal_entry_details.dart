@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:lifehq/journal/models/journal_entry.dart';
 import 'package:lifehq/journal/services/journal_service.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/utils/utils.dart';
+import 'package:lifehq/widgets/back_button.dart';
 import 'package:provider/provider.dart';
 
 class JournalEntryDetails extends StatelessWidget {
@@ -18,12 +21,17 @@ class JournalEntryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _controller = quill.QuillController(
+        document: quill.Document.fromJson(jsonDecode(entry.text)),
+        selection: TextSelection.collapsed(offset: 0));
+
     return Skeleton(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
+              MyBackButton(),
               Spacer(),
               GestureDetector(
                   onTap: () {
@@ -84,10 +92,14 @@ class JournalEntryDetails extends StatelessWidget {
             entry.title,
             style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
           ),
-          Html(
-            data: entry.text,
+          Expanded(
+            child: Container(
+              child: quill.QuillEditor.basic(
+                controller: _controller,
+                readOnly: true, // true for view only mode
+              ),
+            ),
           ),
-          Spacer(),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

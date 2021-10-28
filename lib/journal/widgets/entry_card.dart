@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:lifehq/journal/journal_entry_details.dart';
 import 'package:lifehq/journal/models/journal_entry.dart';
-import 'package:flutter_html/flutter_html.dart';
 
 class EntryCard extends StatelessWidget {
   const EntryCard({
@@ -13,6 +15,10 @@ class EntryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _controller = quill.QuillController(
+        document: quill.Document.fromJson(jsonDecode(journalEntry.text)),
+        selection: TextSelection.collapsed(offset: 0));
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -41,8 +47,9 @@ class EntryCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(5)),
-                child: Html(
-                  data: journalEntry.text,
+                child: quill.QuillEditor.basic(
+                  controller: _controller,
+                  readOnly: true, // true for view only mode
                 ),
               )
             ],

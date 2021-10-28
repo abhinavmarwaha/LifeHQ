@@ -30,8 +30,8 @@ dependencies:
     git:
       url: https://github.com/daviresio/awesome_emojis.git
       ref: master
-  html_editor_enhanced: ^2.3.0
-  flutter_html: ^2.1.5
+  flutter_quill: ^2.0.13
+  # flutter_html: ^2.1.5
   fluttertoast: ^8.0.8
 
   # location
