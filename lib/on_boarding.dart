@@ -33,6 +33,18 @@ class _OnBoardingState extends State<OnBoarding> {
                 borderRadius: BorderRadius.circular(15)),
             height: 160,
             // TODO Year Picker bug
+
+            // child: CupertinoDatePicker(
+            //   mode: CupertinoDatePickerMode.date,
+            //   backgroundColor: Colors.white,
+            //   initialDateTime: DateTime.now(),
+            //   onDateTimeChanged: (DateTime value) {
+            //     setState(() {
+            //       _selectedYear = value.year;
+            //     });
+            //   },
+            // ),
+
             child: YearPicker(
               firstDate: DateTime.fromMillisecondsSinceEpoch(0),
               lastDate: DateTime.now(),

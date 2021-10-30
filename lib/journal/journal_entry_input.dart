@@ -241,7 +241,6 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                     SizedBox(
                       height: 12,
                     ),
-                    // TODO HTML EDITOR NOT WORKING.
                     SizedBox(
                       height: 50,
                       child: SingleChildScrollView(

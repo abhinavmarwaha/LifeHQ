@@ -24,6 +24,8 @@ class JournalEntryDetails extends StatelessWidget {
     final _controller = quill.QuillController(
         document: quill.Document.fromJson(jsonDecode(entry.text)),
         selection: TextSelection.collapsed(offset: 0));
+        
+  final FocusNode _focusNode = FocusNode();
 
     return Skeleton(
       child: Column(
@@ -94,9 +96,16 @@ class JournalEntryDetails extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              child: quill.QuillEditor.basic(
+              child: quill.QuillEditor(
+                scrollController: ScrollController(),
+                showCursor: false,
+                scrollable: true,
+                focusNode: _focusNode,
+                autoFocus: false,
+                readOnly: true,
+                expands: false,
+                padding: EdgeInsets.zero,
                 controller: _controller,
-                readOnly: true, // true for view only mode
               ),
             ),
           ),

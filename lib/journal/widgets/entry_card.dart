@@ -19,6 +19,8 @@ class EntryCard extends StatelessWidget {
         document: quill.Document.fromJson(jsonDecode(journalEntry.text)),
         selection: TextSelection.collapsed(offset: 0));
 
+    final FocusNode _focusNode = FocusNode();
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -47,9 +49,19 @@ class EntryCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(5)),
-                child: quill.QuillEditor.basic(
-                  controller: _controller,
-                  readOnly: true, // true for view only mode
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: quill.QuillEditor(
+                    scrollController: ScrollController(),
+                    showCursor: false,
+                    scrollable: true,
+                    focusNode: _focusNode,
+                    autoFocus: false,
+                    readOnly: true,
+                    expands: false,
+                    padding: EdgeInsets.zero,
+                    controller: _controller,
+                  ),
                 ),
               )
             ],

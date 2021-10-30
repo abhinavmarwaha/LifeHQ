@@ -3,7 +3,7 @@ description: Design your life.
 
 publish_to: 'none'
 
-version: 0.5.2+3
+version: 0.5.3+4
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

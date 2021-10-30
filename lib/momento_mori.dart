@@ -63,9 +63,9 @@ class _MomentoMoriState extends State<MomentoMori> {
             ),
             Expanded(
                 child: MoriCal(
-              weekGoingOn: (_today.millisecondsSinceEpoch -
+              yearGoingOn: (_today.millisecondsSinceEpoch -
                       DateTime(value.year).millisecondsSinceEpoch) ~/
-                  6.048e+8,
+                  3.154e+10,
             )),
             SizedBox(
               height: 6,
@@ -92,32 +92,31 @@ class _MomentoMoriState extends State<MomentoMori> {
   }
 }
 
-// TODO Slow UI
 class MoriCal extends StatelessWidget {
   const MoriCal({
     Key? key,
-    required this.weekGoingOn,
+    required this.yearGoingOn,
   }) : super(key: key);
 
-  final int weekGoingOn;
+  final int yearGoingOn;
 
   final colCount = 10;
-  final totalWeeks = 4160;
+  final totalyears = 80;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
           children: List.generate(
-        totalWeeks ~/ colCount,
+        totalyears ~/ colCount,
         (rowIn) => Row(
           children: List.generate(
               colCount,
               (colIn) => Week(
                     key: Key((rowIn * colCount + colIn).toString()),
                     index: rowIn * colCount + colIn,
-                    color: (rowIn * colCount + colIn) >= weekGoingOn
-                        ? (rowIn * colCount + colIn) == weekGoingOn
+                    color: (rowIn * colCount + colIn) >= yearGoingOn
+                        ? (rowIn * colCount + colIn) == yearGoingOn
                             ? Colors.red
                             : Colors.white
                         : Colors.grey[900],
