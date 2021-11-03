@@ -42,7 +42,6 @@ Design Your Life
     <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" width="308" height="548"/>
 </p>
 
-
 # Features:
 
 * Routine
@@ -70,3 +69,7 @@ I don't have an ios dev account so you can download the runner.app.zip [here](ht
 # Contact
 
 You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@protonmail.com) or [discord](https://discord.gg/wjAsZGD83T), you can support me on [Patreon](https://www.patreon.com/abhinavmarwaha) to enter LifeHQ's channels.
+
+A random guy on the internet:
+
+<img src="assets/external/social-proof.png>
