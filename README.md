@@ -70,6 +70,6 @@ I don't have an ios dev account so you can download the runner.app.zip [here](ht
 
 You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@protonmail.com) or [discord](https://discord.gg/wjAsZGD83T), you can support me on [Patreon](https://www.patreon.com/abhinavmarwaha) to enter LifeHQ's channels.
 
-A random guy on the internet:
+Feedback like these: ❤️
 
-<img src="assets/external/social-proof.png>
+<img src="assets/external/social-proof.png"/>
