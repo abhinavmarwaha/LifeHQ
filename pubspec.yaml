@@ -50,6 +50,11 @@ dependencies:
   webfeed: ^0.7.0
   feed_finder: ^1.0.9
 
+  # Security & Privacy
+  flutter_screen_lock: ^4.0.4+2
+  flutter_secure_storage: ^4.2.1
+  # local_auth: ^1.1.8
+
 dependency_overrides:
   flutter_colorpicker: ^0.6.0
 

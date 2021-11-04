@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lifehq/goals/add_goal_page.dart';
@@ -40,6 +42,14 @@ void main() {
 
 // TODO flow a little bit confusing
 class MyApp extends StatelessWidget {
+  final StreamController<bool> _verificationNotifier =
+      StreamController<bool>.broadcast();
+
+  _onPasscodeEntered(String enteredPasscode) {
+    bool isValid = '123456' == enteredPasscode;
+    _verificationNotifier.add(isValid);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -64,10 +74,10 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: Builder(builder: (context) {
-          return Consumer5<RoutineService, GoalsService, JournalService,
-              KnowledgeService, OnboardingProvider>(
+          return Consumer6<RoutineService, GoalsService, JournalService,
+              KnowledgeService, OnboardingProvider, SettingsProvider>(
             builder: (context, routineService, goalsService, journalService,
-                knowledgeService, onboardingService, child) {
+                knowledgeService, onboardingService, settingsService, child) {
               return MaterialApp(
                   title: 'LifeHQ',
                   debugShowCheckedModeBanner: false,
@@ -130,7 +140,8 @@ class MyApp extends StatelessWidget {
                           goalsService.initilised &&
                           journalService.initilised &&
                           knowledgeService.initilised &&
-                          onboardingService.initilised)
+                          onboardingService.initilised &&
+                          settingsService.initilised)
                       ? onboardingService.firstTime
                           ? OnBoarding()
                           : MomentoMori()

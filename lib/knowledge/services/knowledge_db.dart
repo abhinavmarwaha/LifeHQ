@@ -352,7 +352,6 @@ class KnowledgeDB {
   Future<List<NewsItem>> getUnreadRssItems(String cat) async {
     final Database db = await getdb;
     List<Map<String, dynamic>> maps;
-    print(cat);
     maps = cat.compareTo("All") == 0
         ? await db.query(KnowledgeConstants.RSSITEMS,
             where: "read == ?", whereArgs: [0])

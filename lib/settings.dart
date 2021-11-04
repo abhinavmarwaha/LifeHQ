@@ -1,102 +1,235 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screen_lock/functions.dart';
 import 'package:lifehq/constants/strings.dart';
 import 'package:lifehq/services/settings_provider.dart';
 import 'package:lifehq/skeleton.dart';
+import 'package:lifehq/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Settings extends StatefulWidget {
+class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
 
   static const routeName = '/settings';
 
-  @override
-  State<Settings> createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
-  bool _zenReader = false;
+  // Future<void> localAuth(BuildContext context) async {
+  //   final localAuth = LocalAuthentication();
+  //   final didAuthenticate = await localAuth.authenticate(
+  //     localizedReason: 'Please authenticate',
+  //     biometricOnly: true,
+  //   );
+  //   if (didAuthenticate) {
+  //     Navigator.pop(context);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Skeleton(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(Icons.cancel)),
-          SizedBox(
-            height: 16,
-          ),
-          Consumer<SettingsProvider>(
-            builder: (context, value, child) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.horizontal_split,
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("Zen Reader (Experimental)",
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 16)),
-                        Spacer(),
-                        Switch(
-                          activeColor: Colors.black,
-                          inactiveThumbColor: Colors.black,
-                          inactiveTrackColor: Colors.grey,
-                          onChanged: (val) {
-                            setState(() {
-                              _zenReader = val;
-                              value.setZenBool(val);
-                            });
-                          },
-                          value: _zenReader,
-                        )
-                      ],
-                    ),
+      child: Consumer<SettingsProvider>(
+        builder: (context, value, child) => Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.cancel)),
+            SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.horizontal_split,
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("Zen Reader (Experimental)",
+                          style: TextStyle(color: Colors.black, fontSize: 16)),
+                      Spacer(),
+                      Switch(
+                        activeColor: Colors.black,
+                        inactiveThumbColor: Colors.black,
+                        inactiveTrackColor: Colors.grey,
+                        onChanged: (val) {
+                          value.setZenBool(val);
+                        },
+                        value: value.zenBool,
+                      )
+                    ],
                   ),
-                )),
-          ),
-          SettingsCard(
-              icon: Icons.bug_report,
-              url: StringConstants.FEATUREFORMURL,
-              title: "Bug/Feature request"),
-          SettingsCard(
-              icon: Icons.rate_review,
-              url: StringConstants.RATEAPPURL,
-              title: "Rate App"),
-          SettingsCard(
-              icon: Icons.code,
-              url: StringConstants.GITHUBREPO,
-              title: "Github Repo"),
-          SettingsCard(
-              icon: Icons.coffee,
-              url: StringConstants.COFFEE,
-              title: "Buy Me a Coffee"),
-          SettingsCard(
-              icon: Icons.people,
-              url: StringConstants.PATREON,
-              title: "Patreon"),
-          SettingsCard(
-              icon: Icons.message,
-              url: StringConstants.DISCORD,
-              title: "Discord"),
-        ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.horizontal_split,
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("Lock",
+                          style: TextStyle(color: Colors.black, fontSize: 16)),
+                      Spacer(),
+                      Switch(
+                        activeColor: Colors.black,
+                        inactiveThumbColor: Colors.black,
+                        inactiveTrackColor: Colors.grey,
+                        onChanged: (val) {
+                          if (!val) {
+                            screenLock<void>(
+                              context: context,
+                              correctString: value.lockString,
+                              canCancel: true,
+                              didUnlocked: () => value
+                                  .setLockBool(val, '')
+                                  .then((val) => Navigator.pop(context)),
+                            );
+                          } else {
+                            final tagText = TextEditingController();
+
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return StatefulBuilder(
+                                      builder: (context, setState) {
+                                    return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0)),
+                                        child: Container(
+                                            height: 140,
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(12.0),
+                                                child: Column(
+                                                  children: [
+                                                    TextField(
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      controller: tagText,
+                                                      maxLength: 5,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      cursorColor: Colors.white,
+                                                      decoration: InputDecoration(
+                                                          border:
+                                                              InputBorder.none,
+                                                          hintText:
+                                                              'password (5 digits)'),
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        if (tagText
+                                                                .text.length ==
+                                                            4) {
+                                                          screenLock<void>(
+                                                            context: context,
+                                                            correctString:
+                                                                tagText.text,
+                                                            canCancel: true,
+                                                            // customizedButtonChild: const Icon(
+                                                            //   Icons.fingerprint,
+                                                            // ),
+                                                            // customizedButtonTap: () async {
+                                                            //   await localAuth(context);
+                                                            // },
+                                                            // didOpened: () async {
+                                                            //   await localAuth(context);
+                                                            // },
+                                                            didUnlocked: () => value
+                                                                .setLockBool(
+                                                                    val,
+                                                                    tagText
+                                                                        .text)
+                                                                .then((val) =>
+                                                                    Navigator.pop(
+                                                                        context)),
+                                                          );
+                                                        } else {
+                                                          Utilities.showToast(
+                                                              "Should be of length 5");
+                                                        }
+                                                      },
+                                                      child: Card(
+                                                          color: Colors.white,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Text(
+                                                              "Ok",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          )),
+                                                    )
+                                                  ],
+                                                ))));
+                                  });
+                                });
+                          }
+                        },
+                        value: value.lockBool,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SettingsCard(
+                icon: Icons.bug_report,
+                url: StringConstants.FEATUREFORMURL,
+                title: "Bug/Feature request"),
+            SettingsCard(
+                icon: Icons.rate_review,
+                url: StringConstants.RATEAPPURL,
+                title: "Rate App"),
+            SettingsCard(
+                icon: Icons.code,
+                url: StringConstants.GITHUBREPO,
+                title: "Github Repo"),
+            SettingsCard(
+                icon: Icons.coffee,
+                url: StringConstants.COFFEE,
+                title: "Buy Me a Coffee"),
+            SettingsCard(
+                icon: Icons.people,
+                url: StringConstants.PATREON,
+                title: "Patreon"),
+            SettingsCard(
+                icon: Icons.message,
+                url: StringConstants.DISCORD,
+                title: "Discord"),
+          ],
+        ),
       ),
     );
   }

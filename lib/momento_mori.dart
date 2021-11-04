@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screen_lock/functions.dart';
 import 'package:lifehq/principles.dart';
 import 'package:lifehq/services/onboarding_provider.dart';
+import 'package:lifehq/services/settings_provider.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:provider/provider.dart';
 
@@ -34,8 +36,8 @@ class _MomentoMoriState extends State<MomentoMori> {
     final _yearEnd = DateTime(_today.year + 1);
 
     return Skeleton(
-      child: Consumer<OnboardingProvider>(
-        builder: (context, value, child) => Column(
+      child: Consumer2<OnboardingProvider, SettingsProvider>(
+        builder: (context, value, settings, child) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -52,7 +54,16 @@ class _MomentoMoriState extends State<MomentoMori> {
                   opacity: nextOpacity,
                   child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, Principles.routeName);
+                        settings.lockBool
+                            ? screenLock<void>(
+                                context: context,
+                                correctString: settings.lockString,
+                                canCancel: false,
+                                didUnlocked: () => Navigator.pushNamed(
+                                    context, Principles.routeName),
+                              )
+                            : Navigator.pushNamed(
+                                context, Principles.routeName);
                       },
                       child: Icon(Icons.arrow_forward_ios)),
                 )
