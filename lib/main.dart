@@ -11,6 +11,7 @@ import 'package:lifehq/knowledge/knowledge.dart';
 import 'package:lifehq/knowledge/knowledge_bits_list.dart';
 import 'package:lifehq/knowledge/models/para/knowledge_cat.dart';
 import 'package:lifehq/knowledge/principles_crud.dart';
+import 'package:lifehq/knowledge/quotes.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/loading.dart';
 import 'package:lifehq/momento_mori.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
                   routes: {
                     MomentoMori.routeName: (ctx) => MomentoMori(),
                     Principles.routeName: (ctx) => Principles(),
+                    Quotes.routeName: (ctx) => Quotes(),
                     Home.routeName: (ctx) => Home(),
                     Settings.routeName: (ctx) => Settings(),
                     RoutineHome.routeName: (ctx) => RoutineHome(),
@@ -110,8 +112,6 @@ class MyApp extends StatelessWidget {
                         KnowledgeBitsList(cat: KnowledgeCat.reasearch),
                     KnowledgeBitsList.archive: (ctx) =>
                         KnowledgeBitsList(cat: KnowledgeCat.archive),
-                        
-                    
                   },
                   theme: ThemeData.dark().copyWith(
                       colorScheme:

@@ -34,14 +34,14 @@ class Settings extends StatelessWidget {
               icon: Icons.code,
               url: StringConstants.GITHUBREPO,
               title: "Github Repo"),
-          // SettingsCard(
-          //     icon: Icons.coffee,
-          //     url: StringConstants.COFFEE,
-          //     title: "Buy Me a Coffee"),
-          // SettingsCard(
-          //     icon: Icons.people,
-          //     url: StringConstants.PATREON,
-          //     title: "Patreon"),
+          SettingsCard(
+              icon: Icons.coffee,
+              url: StringConstants.COFFEE,
+              title: "Buy Me a Coffee"),
+          SettingsCard(
+              icon: Icons.people,
+              url: StringConstants.PATREON,
+              title: "Patreon"),
           SettingsCard(
               icon: Icons.message,
               url: StringConstants.DISCORD,

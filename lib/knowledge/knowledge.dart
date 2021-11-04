@@ -3,6 +3,7 @@ import 'package:lifehq/custom_icons.dart';
 import 'package:lifehq/knowledge/feeds.dart';
 import 'package:lifehq/knowledge/knowledge_bits_list.dart';
 import 'package:lifehq/knowledge/principles_crud.dart';
+import 'package:lifehq/knowledge/quotes.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/widgets/back_button.dart';
 
@@ -27,6 +28,15 @@ class Knowledge extends StatelessWidget {
                   fontSize: 26,
                 ),
               ),
+              Spacer(),
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => _openInfoDialog(context),
+                child: Icon(
+                  Icons.info_outline,
+                  size: 30,
+                ),
+              )
             ],
           ),
           Row(children: [
@@ -157,16 +167,21 @@ class Knowledge extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      CustomIcons.left_quote,
-                      color: Colors.black,
-                      size: 64,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, Quotes.routeName);
+                  },
+                  child: Card(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        CustomIcons.left_quote,
+                        color: Colors.black,
+                        size: 64,
+                      ),
                     ),
                   ),
                 ),
@@ -195,7 +210,7 @@ class Knowledge extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 60,
+            height: 40,
           ),
           Center(
             child: GestureDetector(
@@ -212,6 +227,7 @@ class Knowledge extends StatelessWidget {
                   child: Icon(
                     Icons.rss_feed,
                     color: Colors.black,
+                    size: 30,
                   ),
                 ),
               ),
@@ -273,5 +289,84 @@ class Knowledge extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _openInfoDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => Dialog(
+            child: Container(
+                height: 220,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    InfoPoint(
+                        name: 'Project',
+                        text:
+                            'a series of tasks linked to a goal, with a deadline.'),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    InfoPoint(
+                        name: 'Area of responsibility',
+                        text:
+                            'a sphere of activity with a standard to be maintained over time.'),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    InfoPoint(
+                        name: 'Resource',
+                        text: 'a topic or theme of ongoing interest.'),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    InfoPoint(
+                        name: 'Archives',
+                        text:
+                            'inactive items from the other three categories.'),
+                  ],
+                ))));
+  }
+}
+
+class InfoPoint extends StatelessWidget {
+  const InfoPoint({
+    Key? key,
+    required this.name,
+    required this.text,
+  }) : super(key: key);
+
+  final String name;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: [
+      Flexible(
+        flex: 3,
+        child: Text(
+          name,
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      Flexible(
+        flex: 1,
+        child: Container(),
+      ),
+      Flexible(
+        flex: 6,
+        child: Text(
+          '"' + text + '"',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+    ]);
   }
 }

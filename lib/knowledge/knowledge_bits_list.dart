@@ -4,6 +4,7 @@ import 'package:lifehq/knowledge/models/para/knowledge_cat.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/page_title.dart';
 import 'package:lifehq/skeleton.dart';
+import 'package:lifehq/widgets/back_button.dart';
 import 'package:provider/provider.dart';
 
 class KnowledgeBitsList extends StatelessWidget {
@@ -24,8 +25,13 @@ class KnowledgeBitsList extends StatelessWidget {
     return Skeleton(
         child: Column(
       children: [
-        PageTitle(
-          text: cat.title(),
+        Row(
+          children: [
+            MyBackButton(),
+            PageTitle(
+              text: cat.title(),
+            ),
+          ],
         ),
         Expanded(
           child: Consumer<KnowledgeService>(

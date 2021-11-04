@@ -81,7 +81,7 @@ class KnowledgeService with ChangeNotifier {
     notifyListeners();
   }
 
-  // Priciple
+  // Principle
 
   Future<void> savePrinciple(String principle) async {
     final prin = Principle(title: principle, added: DateTime.now());
@@ -100,6 +100,34 @@ class KnowledgeService with ChangeNotifier {
   addPrincipleToList(Principle prin, int id) {
     prin.principleId = id;
     _principles.add(prin);
+
+    notifyListeners();
+  }
+
+  // Quote
+
+  Future<void> saveQuote(String quote) async {
+    final _quote = Quote(
+      added: DateTime.now(),
+      text: quote,
+    );
+    int id = await _db.insertQuote(_quote);
+    _quote.quoteId = id;
+    _quotes.add(_quote);
+
+    notifyListeners();
+  }
+
+  Future<void> deleteQuote(Quote quote) async {
+    await _db.deleteQuote(quote.quoteId!);
+    _quotes.remove(quote);
+
+    notifyListeners();
+  }
+
+  addQuoteToList(Quote quote, int id) {
+    quote.quoteId = id;
+    _quotes.add(quote);
 
     notifyListeners();
   }
