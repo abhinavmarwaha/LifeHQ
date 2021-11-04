@@ -74,6 +74,10 @@ I don't have an ios dev account so you can download the runner.app.zip [here](ht
 
 You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@protonmail.com) or [discord](https://discord.gg/wjAsZGD83T), you can support me on [Patreon](https://www.patreon.com/abhinavmarwaha) to enter LifeHQ's channels.
 
+<a href="https://twitter.com/_LifeHQ">
+   <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white"/>  
+</a>
+
 Feedback like these: ❤️
 
 <img src="assets/external/social-proof.png"/>
