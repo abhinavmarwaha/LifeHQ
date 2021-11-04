@@ -1,6 +1,7 @@
 import 'package:lifehq/knowledge/constants/strings.dart';
 import 'package:lifehq/knowledge/models/news/news_item.dart';
 import 'package:lifehq/knowledge/models/news/news_rss_feed.dart';
+import 'package:lifehq/knowledge/models/para/knowledge_bit.dart';
 import 'package:lifehq/knowledge/models/principle.dart';
 import 'package:lifehq/knowledge/models/quote.dart';
 import 'package:path/path.dart';
@@ -16,6 +17,17 @@ class KnowledgeDB {
     var database = openDatabase(
       join(await getDatabasesPath(), 'knowledge.db'),
       onCreate: (db, version) async {
+        await db.execute("""
+            CREATE TABLE bits(
+              knowledgenBitId INTEGER PRIMARY KEY, 
+              title TEXT, 
+              text TEXT,
+              lastModified INTEGER, 
+              added INTEGER, 
+              tags TEXT, 
+              knowledgenBitType INTEGER);
+            """);
+
         await db.execute("""
             CREATE TABLE principles(
               principleId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -82,6 +94,48 @@ class KnowledgeDB {
     );
 
     return database;
+  }
+
+  // Knowledge Bits
+
+  Future<int> insertBit(KnowledgenBit bit) async {
+    final Database db = await getdb;
+
+    return await db.insert(
+      KnowledgeConstants.BITS,
+      bit.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<KnowledgenBit>> getBits() async {
+    final Database db = await getdb;
+
+    return (await db.query(KnowledgeConstants.BITS))
+        .map((e) => KnowledgenBit.fromMap(e))
+        .toList();
+  }
+
+  Future<void> editBit(KnowledgenBit bit) async {
+    final db = await getdb;
+
+    await db.update(
+      KnowledgeConstants.BITS,
+      bit.toMap(),
+      where: "knowledgenBitId = ?",
+      whereArgs: [bit.knowledgenBitId],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> deleteBit(int bitId) async {
+    final db = await getdb;
+
+    await db.delete(
+      KnowledgeConstants.BITS,
+      where: "knowledgenBitId = ?",
+      whereArgs: [bitId],
+    );
   }
 
   // Princicples

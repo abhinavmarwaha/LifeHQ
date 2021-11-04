@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lifehq/constants/dimensions.dart';
 import 'package:lifehq/custom_icons.dart';
 import 'package:lifehq/knowledge/feeds.dart';
 import 'package:lifehq/knowledge/principles_crud.dart';
@@ -123,7 +122,7 @@ class Knowledge extends StatelessWidget {
                 color: Colors.white,
                 child: Center(
                   child: Text(
-                    "Fun",
+                    "Misc",
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -178,59 +177,79 @@ class Knowledge extends StatelessWidget {
           SizedBox(
             height: 60,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (ctx) => Feeds()));
-                },
-                child: Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.rss_feed,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 6,
-              ),
-              Card(
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (ctx) => Feeds()));
+              },
+              child: Card(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
-                    CustomIcons.flash_cards,
+                    Icons.rss_feed,
                     color: Colors.black,
                   ),
                 ),
               ),
-              SizedBox(
-                width: 6,
-              ),
-              Card(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    CustomIcons.reminder,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ],
-          )
+            ),
+          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     GestureDetector(
+          //       onTap: () {
+          //         Navigator.push(
+          //             context, MaterialPageRoute(builder: (ctx) => Feeds()));
+          //       },
+          //       child: Card(
+          //         color: Colors.white,
+          //         shape: RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.circular(30)),
+          //         child: Padding(
+          //           padding: const EdgeInsets.all(8.0),
+          //           child: Icon(
+          //             Icons.rss_feed,
+          //             color: Colors.black,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 6,
+          //     ),
+          //     Card(
+          //       color: Colors.white,
+          //       shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(30)),
+          //       child: Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: Icon(
+          //           CustomIcons.flash_cards,
+          //           color: Colors.black,
+          //         ),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 6,
+          //     ),
+          //     Card(
+          //       color: Colors.white,
+          //       shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(30)),
+          //       child: Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: Icon(
+          //           CustomIcons.reminder,
+          //           color: Colors.black,
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // )
         ],
       ),
     );

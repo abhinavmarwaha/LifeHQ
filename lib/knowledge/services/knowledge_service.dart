@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/knowledge/models/news/news_item.dart';
 import 'package:lifehq/knowledge/models/news/news_rss_feed.dart';
+import 'package:lifehq/knowledge/models/para/knowledge_bit.dart';
 import 'package:lifehq/knowledge/models/principle.dart';
 import 'package:lifehq/knowledge/models/quote.dart';
 import 'package:lifehq/knowledge/services/knowledge_db.dart';
@@ -17,6 +18,9 @@ class KnowledgeService with ChangeNotifier {
   }
   bool initilised = false;
   late KnowledgeDB _db;
+
+  List<KnowledgenBit> _bits = [];
+  List<KnowledgenBit> get bits => _bits;
 
   List<Principle> _principles = [];
   List<Principle> get principles => _principles;
@@ -43,10 +47,33 @@ class KnowledgeService with ChangeNotifier {
       _readFeedItems = await _db.getUnreadRssItems("All");
       _unreadFeedItems = await _db.getReadRssItems("All");
       _bookmarks = await _db.getReadRssItems("All");
+      _bits = await _db.getBits();
 
       initilised = true;
       notifyListeners();
     }
+  }
+
+  // Knowledge Bit
+
+  Future<void> saveBit(KnowledgenBit bit) async {
+    int id = await _db.insertBit(bit);
+    bit.knowledgenBitId = id;
+    _bits.add(bit);
+    notifyListeners();
+  }
+
+  Future<void> editBit(KnowledgenBit bit) async {
+    // TODO
+    await _db.editBit(bit);
+
+    notifyListeners();
+  }
+
+  Future<void> deleteBit(KnowledgenBit bit) async {
+    await _db.deleteBit(bit.knowledgenBitId);
+    _principles.remove(bit);
+    notifyListeners();
   }
 
   // Priciple
