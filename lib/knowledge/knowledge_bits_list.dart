@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lifehq/knowledge/models/knowledge_cat.dart';
+import 'package:lifehq/knowledge/models/para/knowledge_cat.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/page_title.dart';
 import 'package:lifehq/skeleton.dart';

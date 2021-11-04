@@ -56,4 +56,17 @@ class Utilities {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(StringConstants.FIRSTTIME, val);
   }
+
+  static Future<bool> getZenBool() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool zenBool;
+    if (prefs.containsKey('zenBool'))
+      zenBool = prefs.getBool('zenBool')!;
+    else {
+      await prefs.setBool('zenBool', false);
+      zenBool = false;
+    }
+
+    return zenBool;
+  }
 }

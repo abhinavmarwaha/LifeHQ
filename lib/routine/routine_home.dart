@@ -8,6 +8,8 @@ import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/utils/utils.dart';
 import 'package:lifehq/widgets/back_button.dart';
+import 'package:lifehq/widgets/selected_heading.dart';
+import 'package:lifehq/widgets/unselected_handing.dart';
 import 'package:provider/provider.dart';
 
 class RoutineHome extends StatefulWidget {
@@ -147,43 +149,5 @@ class RoutineCard extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class SelectedHeading extends StatelessWidget {
-  const SelectedHeading({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            text,
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-        ));
-  }
-}
-
-class UnselectedHeading extends StatelessWidget {
-  const UnselectedHeading({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(text,
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold));
   }
 }

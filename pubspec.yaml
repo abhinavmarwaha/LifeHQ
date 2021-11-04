@@ -25,28 +25,32 @@ dependencies:
   flutter_local_notifications: ^9.0.0
 
   # UI
-  # emojis: ^0.9.3 # non-null safe
   awesome_emojis:
     git:
       url: https://github.com/daviresio/awesome_emojis.git
       ref: master
   flutter_quill: ^2.0.13
-  # flutter_html: ^2.1.5
   fluttertoast: ^8.0.8
+  cached_network_image: ^3.1.0
 
   # location
   flutter_map: ^0.14.0
   osm_nominatim: ^2.0.1
-  # gps: ^0.1.1 # non-null safe
   gps:
     git:
       url: https://github.com/bishtmanish739/flutter_gps.git
       ref: master
   latlong2: ^0.8.1
-  cached_network_image: ^3.1.0
+
+
+  # Rss
+  opmlparser: ^1.0.0
+  flutter_html: ^2.1.5
+  html_main_element: ^2.1.0
+  webfeed: ^0.7.0
+  feed_finder: ^1.0.9
 
 dependency_overrides:
-  #  flutter_colorpicker: ^0.4.0
   flutter_colorpicker: ^0.6.0
 
 dev_dependencies:
