@@ -20,7 +20,7 @@ class _ZenState extends State<Zen> {
   void initState() {
     http.Client().get(Uri.parse(widget.url)).then((response) {
       var doc = html_parser.parse(response.bodyBytes);
-      final scoreMapReadability = readabilityScore(doc.documentElement!);
+      // final scoreMapReadability = readabilityScore(doc.documentElement!);
       setState(() {
         _bestElemReadability =
             readabilityMainElement(doc.documentElement!).innerHtml.toString();

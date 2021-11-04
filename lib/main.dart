@@ -25,6 +25,7 @@ import 'package:lifehq/routine/rested.dart';
 import 'package:lifehq/routine/routine_home.dart';
 import 'package:lifehq/routine/services/routine_service.dart';
 import 'package:lifehq/services/onboarding_provider.dart';
+import 'package:lifehq/services/settings_provider.dart';
 import 'package:lifehq/settings.dart';
 import 'package:lifehq/utils/removed_glow_behavior.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(
+            create: (ctx) => SettingsProvider(),
+          ),
           ChangeNotifierProvider(
             create: (ctx) => RoutineService(),
           ),

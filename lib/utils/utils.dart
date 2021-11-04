@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:lifehq/constants/strings.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class Utilities {
   static String formatedDate(DateTime dateTime) {
@@ -45,28 +45,15 @@ class Utilities {
         date.minute.toString();
   }
 
-  static Future<bool> getPrefBool(String name) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final _firstTime = prefs.getBool(StringConstants.FIRSTTIME) ?? true;
+  // static Future<bool> getPrefBool(String name) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final _firstTime = prefs.getBool(StringConstants.FIRSTTIME) ?? true;
 
-    return _firstTime;
-  }
+  //   return _firstTime;
+  // }
 
-  static Future<void> setPrefBool(String name, bool val) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(StringConstants.FIRSTTIME, val);
-  }
-
-  static Future<bool> getZenBool() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool zenBool;
-    if (prefs.containsKey('zenBool'))
-      zenBool = prefs.getBool('zenBool')!;
-    else {
-      await prefs.setBool('zenBool', false);
-      zenBool = false;
-    }
-
-    return zenBool;
-  }
+  // static Future<void> setPrefBool(String name, bool val) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool(StringConstants.FIRSTTIME, val);
+  // }
 }
