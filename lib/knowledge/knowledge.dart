@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/custom_icons.dart';
 import 'package:lifehq/knowledge/feeds.dart';
+import 'package:lifehq/knowledge/knowledge_bits_list.dart';
 import 'package:lifehq/knowledge/principles_crud.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/widgets/back_button.dart';
@@ -31,18 +32,23 @@ class Knowledge extends StatelessWidget {
           Row(children: [
             Expanded(
               flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 120,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    color: Colors.white,
-                    child: Center(
-                      child: Text(
-                        "Project",
-                        style: TextStyle(color: Colors.black),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, KnowledgeBitsList.project);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 120,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      color: Colors.white,
+                      child: Center(
+                        child: Text(
+                          "Project",
+                          style: TextStyle(color: Colors.black),
+                        ),
                       ),
                     ),
                   ),
@@ -50,41 +56,50 @@ class Knowledge extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 120,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    color: Colors.white,
-                    child: Center(
-                      child: Text(
-                        "Area",
-                        style: TextStyle(color: Colors.black),
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, KnowledgeBitsList.area);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: 120,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        color: Colors.white,
+                        child: Center(
+                          child: Text(
+                            "Area",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
+                )),
           ]),
           Row(children: [
             Expanded(
               flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 120,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    color: Colors.white,
-                    child: Center(
-                      child: Text(
-                        "Research",
-                        style: TextStyle(color: Colors.black),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, KnowledgeBitsList.research);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 120,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      color: Colors.white,
+                      child: Center(
+                        child: Text(
+                          "Research",
+                          style: TextStyle(color: Colors.black),
+                        ),
                       ),
                     ),
                   ),
@@ -93,18 +108,23 @@ class Knowledge extends StatelessWidget {
             ),
             Expanded(
               flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 120,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    color: Colors.white,
-                    child: Center(
-                      child: Text(
-                        "Archive",
-                        style: TextStyle(color: Colors.black),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, KnowledgeBitsList.archive);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 120,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      color: Colors.white,
+                      child: Center(
+                        child: Text(
+                          "Archive",
+                          style: TextStyle(color: Colors.black),
+                        ),
                       ),
                     ),
                   ),

@@ -19,13 +19,13 @@ class KnowledgeDB {
       onCreate: (db, version) async {
         await db.execute("""
             CREATE TABLE bits(
-              knowledgenBitId INTEGER PRIMARY KEY, 
+              knowledgeBitId INTEGER PRIMARY KEY, 
               title TEXT, 
               text TEXT,
               lastModified INTEGER, 
               added INTEGER, 
               tags TEXT, 
-              knowledgenBitType INTEGER);
+              knowledgeBitType INTEGER);
             """);
 
         await db.execute("""
@@ -98,7 +98,7 @@ class KnowledgeDB {
 
   // Knowledge Bits
 
-  Future<int> insertBit(KnowledgenBit bit) async {
+  Future<int> insertBit(KnowledgeBit bit) async {
     final Database db = await getdb;
 
     return await db.insert(
@@ -108,22 +108,22 @@ class KnowledgeDB {
     );
   }
 
-  Future<List<KnowledgenBit>> getBits() async {
+  Future<List<KnowledgeBit>> getBits() async {
     final Database db = await getdb;
 
     return (await db.query(KnowledgeConstants.BITS))
-        .map((e) => KnowledgenBit.fromMap(e))
+        .map((e) => KnowledgeBit.fromMap(e))
         .toList();
   }
 
-  Future<void> editBit(KnowledgenBit bit) async {
+  Future<void> editBit(KnowledgeBit bit) async {
     final db = await getdb;
 
     await db.update(
       KnowledgeConstants.BITS,
       bit.toMap(),
       where: "knowledgenBitId = ?",
-      whereArgs: [bit.knowledgenBitId],
+      whereArgs: [bit.knowledgeBitId],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }

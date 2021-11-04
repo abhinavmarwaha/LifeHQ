@@ -2,18 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-class KnowledgenBit {
-  int knowledgenBitId;
-  final int knowledgenBitType;
+class KnowledgeBit {
+  int? knowledgeBitId;
+  final int knowledgeBitType;
   final String title;
   final String text;
   final DateTime added;
   final List<String> tags;
   final DateTime lastModified;
 
-  KnowledgenBit({
-    required this.knowledgenBitId,
-    required this.knowledgenBitType,
+  KnowledgeBit({
+    this.knowledgeBitId,
+    required this.knowledgeBitType,
     required this.title,
     required this.text,
     required this.added,
@@ -21,7 +21,7 @@ class KnowledgenBit {
     required this.lastModified,
   });
 
-  KnowledgenBit copyWith({
+  KnowledgeBit copyWith({
     int? knowledgenBitId,
     int? knowledgenBitType,
     String? title,
@@ -30,9 +30,9 @@ class KnowledgenBit {
     List<String>? tags,
     DateTime? lastModified,
   }) {
-    return KnowledgenBit(
-      knowledgenBitId: knowledgenBitId ?? this.knowledgenBitId,
-      knowledgenBitType: knowledgenBitType ?? this.knowledgenBitType,
+    return KnowledgeBit(
+      knowledgeBitId: knowledgenBitId ?? this.knowledgeBitId,
+      knowledgeBitType: knowledgenBitType ?? this.knowledgeBitType,
       title: title ?? this.title,
       text: text ?? this.text,
       added: added ?? this.added,
@@ -43,8 +43,8 @@ class KnowledgenBit {
 
   Map<String, dynamic> toMap() {
     return {
-      'knowledgenBitId': knowledgenBitId,
-      'knowledgenBitType': knowledgenBitType,
+      'knowledgeBitId': knowledgeBitId,
+      'knowledgeBitType': knowledgeBitType,
       'title': title,
       'text': text,
       'added': added.millisecondsSinceEpoch,
@@ -53,10 +53,10 @@ class KnowledgenBit {
     };
   }
 
-  factory KnowledgenBit.fromMap(Map<String, dynamic> map) {
-    return KnowledgenBit(
-      knowledgenBitId: map['knowledgenBitId'],
-      knowledgenBitType: map['knowledgenBitType'],
+  factory KnowledgeBit.fromMap(Map<String, dynamic> map) {
+    return KnowledgeBit(
+      knowledgeBitId: map['knowledgeBitId'],
+      knowledgeBitType: map['knowledgeBitType'],
       title: map['title'],
       text: map['text'],
       added: DateTime.fromMillisecondsSinceEpoch(map['added']),
@@ -67,21 +67,21 @@ class KnowledgenBit {
 
   String toJson() => json.encode(toMap());
 
-  factory KnowledgenBit.fromJson(String source) =>
-      KnowledgenBit.fromMap(json.decode(source));
+  factory KnowledgeBit.fromJson(String source) =>
+      KnowledgeBit.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'KnowledgenBit(knowledgenBitId: $knowledgenBitId, knowledgenBitType: $knowledgenBitType, title: $title, text: $text, added: $added, tags: $tags, lastModified: $lastModified)';
+    return 'KnowledgenBit(knowledgeBitId: $knowledgeBitId, knowledgeBitType: $knowledgeBitType, title: $title, text: $text, added: $added, tags: $tags, lastModified: $lastModified)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is KnowledgenBit &&
-        other.knowledgenBitId == knowledgenBitId &&
-        other.knowledgenBitType == knowledgenBitType &&
+    return other is KnowledgeBit &&
+        other.knowledgeBitId == knowledgeBitId &&
+        other.knowledgeBitType == knowledgeBitType &&
         other.title == title &&
         other.text == text &&
         other.added == added &&
@@ -91,8 +91,8 @@ class KnowledgenBit {
 
   @override
   int get hashCode {
-    return knowledgenBitId.hashCode ^
-        knowledgenBitType.hashCode ^
+    return knowledgeBitId.hashCode ^
+        knowledgeBitType.hashCode ^
         title.hashCode ^
         text.hashCode ^
         added.hashCode ^
