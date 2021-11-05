@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
@@ -103,15 +104,16 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                   children: [
                     Row(
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            getLocation();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(Icons.navigation),
+                        if (Platform.isAndroid || Platform.isIOS)
+                          GestureDetector(
+                            onTap: () {
+                              getLocation();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(Icons.navigation),
+                            ),
                           ),
-                        ),
                         _pickedLocation != null
                             ? Expanded(
                                 child: SizedBox(
@@ -262,7 +264,6 @@ class _JournalEntryInputState extends State<JournalEntryInput> {
                           expands: false,
                           padding: EdgeInsets.zero,
                           controller: _controller,
-                          
                         ),
                       ),
                     )

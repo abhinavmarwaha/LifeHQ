@@ -56,6 +56,7 @@ class GoalsDB {
 
   Future<int> insertGoal(Goal goal) async {
     final Database db = await getdb;
+    print(goal.toMap());
 
     int goalId = await db.insert(
       GoalsConstants.GOALS,

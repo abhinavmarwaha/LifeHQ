@@ -27,6 +27,9 @@ class GoalsService with ChangeNotifier {
     if (!initilised) {
       _db = GoalsDB();
       _goals = await _db.getGoals();
+      for (Goal goal in _goals) {
+        goal.tasks = await _db.getTasksByGoalId(goal.goalId!);
+      }
       final routines = RoutineService.instance.routines;
       if (routines.length > 0) {
         int goalId = routines.first.morningGoalId!;

@@ -51,6 +51,7 @@ class Goal {
       'deadline': deadline?.millisecondsSinceEpoch,
       'goalType': goalType,
       'done': done,
+      
     };
   }
 

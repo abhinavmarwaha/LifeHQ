@@ -1,5 +1,6 @@
-import 'dart:async';
+import 'dart:io';
 
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lifehq/goals/add_goal_page.dart';
@@ -33,23 +34,29 @@ import 'package:lifehq/utils/removed_glow_behavior.dart';
 import 'package:provider/provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite/sqflite.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  if (Platform.isWindows || Platform.isLinux) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+    setDesktopSize();
+  }
   runApp(MyApp());
+}
+
+setDesktopSize() async {
+  await DesktopWindow.setWindowSize(Size(500, 500));
+  await DesktopWindow.setMinWindowSize(Size(400, 400));
+  await DesktopWindow.setMaxWindowSize(Size(800, 800));
 }
 
 // TODO flow a little bit confusing
 class MyApp extends StatelessWidget {
-  final StreamController<bool> _verificationNotifier =
-      StreamController<bool>.broadcast();
-
-  _onPasscodeEntered(String enteredPasscode) {
-    bool isValid = '123456' == enteredPasscode;
-    _verificationNotifier.add(isValid);
-  }
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

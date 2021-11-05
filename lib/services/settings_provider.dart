@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -39,7 +41,8 @@ class SettingsProvider with ChangeNotifier {
       else {
         await prefs.setBool('lockBool', false);
         _lockBool = false;
-        _lockString = await storage.read(key: 'lockBoolKey') ?? "";
+        if (Platform.isAndroid || Platform.isIOS)
+          _lockString = await storage.read(key: 'lockBoolKey') ?? "";
       }
 
       _initilised = true;
