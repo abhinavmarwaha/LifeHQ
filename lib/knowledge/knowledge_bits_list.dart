@@ -60,9 +60,20 @@ class KnowledgeBitsList extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            bits[index].title,
-                            style: TextStyle(color: Colors.black, fontSize: 14),
+                          Row(
+                            children: [
+                              Text(
+                                bits[index].title,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 14),
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                  onTap: () {
+                                    knowledgeService.deleteBit(bits[index]);
+                                  },
+                                  child: Icon(Icons.delete, color: Colors.black,))
+                            ],
                           ),
                           SizedBox(
                             height: 12,

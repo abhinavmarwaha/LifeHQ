@@ -60,12 +60,26 @@ class KnowledgeBitsFolders extends StatelessWidget {
                         color: Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            folders(cat)[index].name,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w800),
+                          child: Row(
+                            children: [
+                              Text(
+                                folders(cat)[index].name,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                  onTap: () {
+                                    knowledgeService
+                                        .deleteFolder(folders(cat)[index]);
+                                  },
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.black,
+                                  ))
+                            ],
                           ),
                         ))),
                 itemCount: folders(cat).length),
