@@ -1,6 +1,7 @@
 import 'package:lifehq/journal/constants/strings.dart';
 import 'package:lifehq/journal/models/journal_entry.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class JournalDB {
@@ -11,7 +12,7 @@ class JournalDB {
 
   openDB() async {
     var database = openDatabase(
-      join(await getDatabasesPath(), 'journal.db'),
+      join((await getApplicationDocumentsDirectory()).path, 'journal.db'),
       onCreate: (db, version) {
         db.execute("""
             CREATE TABLE journalentries(

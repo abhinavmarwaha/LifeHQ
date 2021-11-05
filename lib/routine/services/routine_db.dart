@@ -1,6 +1,7 @@
 import 'package:lifehq/routine/constants/strings.dart';
 import 'package:lifehq/routine/models/routine.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class RoutineDB {
@@ -11,7 +12,7 @@ class RoutineDB {
 
   Future<Database> openDB() async {
     var database = openDatabase(
-      join(await getDatabasesPath(), 'routines.db'),
+      join((await getApplicationDocumentsDirectory()).path, 'routines.db'),
       onCreate: (db, version) {
         db.execute("""
             CREATE TABLE routines(

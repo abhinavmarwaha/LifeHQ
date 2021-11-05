@@ -22,6 +22,7 @@ dependencies:
   sqflite: ^2.0.0+4
   shared_preferences: ^2.0.8
   provider: ^6.0.1
+  path_provider: ^2.0.6
 
   # utils
   url_launcher: ^6.0.12
@@ -87,3 +88,13 @@ flutter:
     fonts:
       - asset: assets/fonts/CustomIcons.ttf
   uses-material-design: true
+
+msix_config:
+  display_name: LifeHQ
+  publisher_display_name: Abhinav Marwaha
+  identity_name: com.abhinavmarwaha.lifehq
+  msix_version: 1.0.0.0
+  # store: true
+  # logo_path: windows\runner\resources\app_icon.ico
+  capabilities: 'internetClient'
+  assets_directory_path: assets\windows

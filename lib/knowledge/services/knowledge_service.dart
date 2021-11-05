@@ -171,7 +171,7 @@ class KnowledgeService with ChangeNotifier {
     int id = await _db.insertRssFeed(feed);
     feed.id = id;
     _feeds.add(feed);
-    updateFeedItems();
+    await updateFeedItems();
 
     notifyListeners();
   }

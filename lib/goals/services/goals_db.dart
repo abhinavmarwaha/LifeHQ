@@ -2,6 +2,7 @@ import 'package:lifehq/goals/constants/strings.dart';
 import 'package:lifehq/goals/models/goal.dart';
 import 'package:lifehq/goals/models/task.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class GoalsDB {
@@ -12,7 +13,7 @@ class GoalsDB {
 
   Future<Database> openDB() async {
     var database = openDatabase(
-      join(await getDatabasesPath(), 'goals.db'),
+      join((await getApplicationDocumentsDirectory()).path, 'goals.db'),
       onCreate: (db, version) {
         db.execute("""
             CREATE TABLE goals(

@@ -6,6 +6,7 @@ import 'package:lifehq/knowledge/models/para/knowledge_folder.dart';
 import 'package:lifehq/knowledge/models/principle.dart';
 import 'package:lifehq/knowledge/models/quote.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class KnowledgeDB {
@@ -16,7 +17,7 @@ class KnowledgeDB {
 
   openDB() async {
     var database = openDatabase(
-      join(await getDatabasesPath(), 'knowledge.db'),
+      join((await getApplicationDocumentsDirectory()).path, 'knowledge.db'),
       onCreate: (db, version) async {
         await db.execute("""
             CREATE TABLE bits(
