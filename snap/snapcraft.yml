@@ -1,0 +1,34 @@
+name: lifehq
+version: 0.6.0
+summary: Design your Life
+description: Super Cool App that does everything!
+
+confinement: strict
+base: core18
+grade: stable
+
+slots:
+  dbus-lifehq:
+    interface: dbus
+    bus: session
+    name: com.abhinavmarwaha.lifehq
+    
+apps:
+  lifehq:
+    command: lifehq
+    extensions: [flutter-master]
+    plugs:
+    - network
+    slots:
+      - dbus-lifehq
+parts:
+  lifehq:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart 
+    build-packages:
+    - libsecret-1-dev
+    - libjsoncpp-dev
+    stage-packages:
+    - libsecret-1-dev
+    - libjsoncpp1-dev
