@@ -50,12 +50,12 @@ Design Your Life
 * Routine
 * Journal
 * Goals
+* Knowledge
 
 ### Coming Soon:
 
 * habits
 * decisions
-* Knowledge
 
 # Have Suggestions ?
 
