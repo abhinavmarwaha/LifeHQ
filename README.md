@@ -1,5 +1,4 @@
 <br>
-<img src="https://analytics-shynet.herokuapp.com/ingress/0dbdffe0-3c73-477b-a98c-82a688c946af/pixel.gif">
 <p align='center'>
 <img height="auto" width="100%" src="fastlane/metadata/android/en-US/images/featureGraphic.png"/>
 </p>
