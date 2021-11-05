@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/custom_icons.dart';
 import 'package:lifehq/knowledge/feeds.dart';
-import 'package:lifehq/knowledge/knowledge_bits_list.dart';
+import 'package:lifehq/knowledge/knowledge_bits_folders.dart';
 import 'package:lifehq/knowledge/principles_crud.dart';
 import 'package:lifehq/knowledge/quotes.dart';
 import 'package:lifehq/skeleton.dart';
@@ -44,7 +44,7 @@ class Knowledge extends StatelessWidget {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, KnowledgeBitsList.project);
+                  Navigator.pushNamed(context, KnowledgeBitsFolders.project);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -69,7 +69,7 @@ class Knowledge extends StatelessWidget {
                 flex: 1,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, KnowledgeBitsList.area);
+                    Navigator.pushNamed(context, KnowledgeBitsFolders.area);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -95,7 +95,7 @@ class Knowledge extends StatelessWidget {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, KnowledgeBitsList.research);
+                  Navigator.pushNamed(context, KnowledgeBitsFolders.research);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -120,7 +120,7 @@ class Knowledge extends StatelessWidget {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, KnowledgeBitsList.archive);
+                  Navigator.pushNamed(context, KnowledgeBitsFolders.archive);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

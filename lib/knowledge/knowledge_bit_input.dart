@@ -13,11 +13,13 @@ class KnowledgeBitInput extends StatefulWidget {
   const KnowledgeBitInput({
     Key? key,
     required this.cat,
+    required this.folder,
   }) : super(key: key);
 
   static const routeName = '/add-bit';
 
   final KnowledgeCat cat;
+  final String folder;
 
   @override
   _KnowledgeBitInputState createState() => _KnowledgeBitInputState();
@@ -135,6 +137,7 @@ class _KnowledgeBitInputState extends State<KnowledgeBitInput> {
                                           .toDelta()
                                           .toJson()),
                                       title: title,
+                                      folder: widget.folder,
                                       knowledgeBitType: widget.cat.toInt()))
                                   .then((value) => Navigator.pop(context));
                             },
@@ -152,7 +155,6 @@ class _KnowledgeBitInputState extends State<KnowledgeBitInput> {
                             quill.QuillToolbar.basic(controller: _controller),
                       ),
                     ),
-
                     Expanded(
                       child: Container(
                         child: quill.QuillEditor(

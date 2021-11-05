@@ -6,4 +6,5 @@ class KnowledgeConstants {
   static const String RSSCATEGORIES = "rssCategories";
   static const String RSSITEMS = "rssItems";
   static const String BITS = "bits";
+  static const String FOLDERS = "folders";
 }

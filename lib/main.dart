@@ -10,7 +10,7 @@ import 'package:lifehq/journal/journal.dart';
 import 'package:lifehq/journal/journal_entry_input.dart';
 import 'package:lifehq/journal/services/journal_service.dart';
 import 'package:lifehq/knowledge/knowledge.dart';
-import 'package:lifehq/knowledge/knowledge_bits_list.dart';
+import 'package:lifehq/knowledge/knowledge_bits_folders.dart';
 import 'package:lifehq/knowledge/models/para/knowledge_cat.dart';
 import 'package:lifehq/knowledge/principles_crud.dart';
 import 'package:lifehq/knowledge/quotes.dart';
@@ -118,14 +118,14 @@ class MyApp extends StatelessWidget {
                     Knowledge.routeName: (ctx) => Knowledge(),
                     PrinciplesCRUD.routeName: (ctx) => PrinciplesCRUD(),
 
-                    KnowledgeBitsList.project: (ctx) =>
-                        KnowledgeBitsList(cat: KnowledgeCat.project),
-                    KnowledgeBitsList.area: (ctx) =>
-                        KnowledgeBitsList(cat: KnowledgeCat.area),
-                    KnowledgeBitsList.research: (ctx) =>
-                        KnowledgeBitsList(cat: KnowledgeCat.reasearch),
-                    KnowledgeBitsList.archive: (ctx) =>
-                        KnowledgeBitsList(cat: KnowledgeCat.archive),
+                    KnowledgeBitsFolders.project: (ctx) =>
+                        KnowledgeBitsFolders(cat: KnowledgeCat.project),
+                    KnowledgeBitsFolders.area: (ctx) =>
+                        KnowledgeBitsFolders(cat: KnowledgeCat.area),
+                    KnowledgeBitsFolders.research: (ctx) =>
+                        KnowledgeBitsFolders(cat: KnowledgeCat.reasearch),
+                    KnowledgeBitsFolders.archive: (ctx) =>
+                        KnowledgeBitsFolders(cat: KnowledgeCat.archive),
                   },
                   theme: ThemeData.dark().copyWith(
                       colorScheme:

@@ -11,14 +11,11 @@ class KnowledgeBitsList extends StatelessWidget {
   const KnowledgeBitsList({
     Key? key,
     required this.cat,
+    required this.folder,
   }) : super(key: key);
 
   final KnowledgeCat cat;
-
-  static const project = '/project';
-  static const area = '/area';
-  static const research = '/research';
-  static const archive = '/archive';
+  final String folder;
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +33,18 @@ class KnowledgeBitsList extends StatelessWidget {
         Expanded(
           child: Consumer<KnowledgeService>(
               builder: (context, knowledgeService, child) {
-            final bits = knowledgeService.bits(cat);
+            final bits = knowledgeService.bits(cat, folder);
 
             return ListView.separated(
                 shrinkWrap: true,
-                itemBuilder: (context, index) => Container(
+                itemBuilder: (context, index) => Text(
+                      bits[index].text,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                separatorBuilder: (context, index) => Container(
                       width: double.infinity,
                       height: 1,
                       color: Colors.white,
-                    ),
-                separatorBuilder: (context, index) => Text(
-                      bits[index].text,
-                      style: TextStyle(color: Colors.white),
                     ),
                 itemCount: bits.length);
           }),
@@ -58,9 +55,8 @@ class KnowledgeBitsList extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (ctx) => KnowledgeBitInput(
-                            cat: cat,
-                          )));
+                      builder: (ctx) =>
+                          KnowledgeBitInput(cat: cat, folder: folder)));
             },
             child: SizedBox(
               width: 120,

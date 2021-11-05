@@ -54,16 +54,16 @@ class _MomentoMoriState extends State<MomentoMori> {
                   opacity: nextOpacity,
                   child: GestureDetector(
                       onTap: () {
-                        settings.lockBool
-                            ? screenLock<void>(
-                                context: context,
-                                correctString: settings.lockString,
-                                canCancel: false,
-                                didUnlocked: () => Navigator.pushNamed(
-                                    context, Principles.routeName),
-                              )
-                            : Navigator.pushNamed(
-                                context, Principles.routeName);
+                        // settings.lockBool
+                        //     ? screenLock<void>(
+                        //         context: context,
+                        //         correctString: settings.lockString,
+                        //         canCancel: false,
+                        //         didUnlocked: () => Navigator.pushNamed(
+                        //             context, Principles.routeName),
+                        //       )
+                        //     :
+                        Navigator.pushNamed(context, Principles.routeName);
                       },
                       child: Icon(Icons.arrow_forward_ios)),
                 )

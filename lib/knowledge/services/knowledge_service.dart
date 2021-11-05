@@ -21,11 +21,15 @@ class KnowledgeService with ChangeNotifier {
   late KnowledgeDB _db;
 
   List<KnowledgeBit> _bits = [];
-  List<KnowledgeBit> bits(KnowledgeCat cat) => _bits
-      .where((element) => element.knowledgeBitType == cat.toInt())
+  List<KnowledgeBit> bits(KnowledgeCat cat, String folder) => _bits
+      .where((element) =>
+          element.knowledgeBitType == cat.toInt() &&
+          element.folder.compareTo(folder) == 0)
       .toList();
   List<String> _bitTags = [];
   List<String> get bitTags => _bitTags;
+  List<String> _folders = [];
+  List<String> get folders => _folders;
 
   List<Principle> _principles = [];
   List<Principle> get principles => _principles;
@@ -78,6 +82,29 @@ class KnowledgeService with ChangeNotifier {
   Future<void> deleteBit(KnowledgeBit bit) async {
     await _db.deleteBit(bit.knowledgeBitType);
     _principles.remove(bit);
+    notifyListeners();
+  }
+
+  // Folder
+
+  Future<void> saveFolder(String folder) async {
+    await _db.insertFolder(folder);
+    _folders.add(folder);
+    notifyListeners();
+  }
+
+  Future<void> editFolder(String prev, String newone) async {
+    await _db.editFolder(prev, newone);
+    _folders.remove(prev);
+    _folders.add(newone);
+
+    notifyListeners();
+  }
+
+  Future<void> deleteFolder(String folder) async {
+    await _db.deleteFolder(folder);
+    _folders.remove(folder);
+
     notifyListeners();
   }
 

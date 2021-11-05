@@ -70,6 +70,11 @@ class KnowledgeDB {
               id INTEGER PRIMARY KEY,
               name TEXT); 
             """);
+        await db.execute("""
+            CREATE TABLE folders(
+              id INTEGER PRIMARY KEY,
+              name TEXT); 
+            """);
         await db.insert(
           'rssCategories',
           {'name': "All"},
@@ -248,6 +253,56 @@ class KnowledgeDB {
       where: "id = ?",
       whereArgs: [id],
     );
+  }
+
+  // Folders
+
+  Future<int> insertFolder(String folder) async {
+    final Database db = await getdb;
+
+    return db.insert(
+      KnowledgeConstants.FOLDERS,
+      {'name': folder},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<String>> getFolders() async {
+    final Database db = await getdb;
+
+    final List<Map<String, dynamic>> maps =
+        await db.query(KnowledgeConstants.FOLDERS);
+
+    return List.generate(maps.length, (i) {
+      return maps[i]['name'];
+    });
+  }
+
+  Future<int> editFolder(String prevFolder, String newFolder) async {
+    final Database db = await getdb;
+
+    return db.update(
+      KnowledgeConstants.RSSCATEGORIES,
+      {'name': newFolder},
+      where: "name = ?",
+      whereArgs: [prevFolder],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<Object?>> deleteFolder(String name) async {
+    // TODO
+    final db = await getdb;
+
+    Batch batch = db.batch();
+    batch.delete(KnowledgeConstants.FOLDERS,
+        where: "catgry == ?", whereArgs: [name]);
+    batch.delete(KnowledgeConstants.RSSITEMS,
+        where: "catgry = ?", whereArgs: [name]);
+    batch.delete(KnowledgeConstants.RSSCATEGORIES,
+        where: "name = ?", whereArgs: [name]);
+
+    return batch.commit();
   }
 
   // Categories
