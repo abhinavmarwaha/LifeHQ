@@ -59,6 +59,7 @@ class KnowledgeService with ChangeNotifier {
       _unreadFeedItems = await _db.getReadRssItems("All");
       _bookmarks = await _db.getReadRssItems("All");
       _folders = await _db.getFolders();
+      _feedTags = await _db.getCategories();
       _bits = await _db.getBits();
       await updateFeedItems();
 
