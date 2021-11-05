@@ -50,7 +50,7 @@ class KnowledgeBit {
       'title': title,
       'text': text,
       'added': added.millisecondsSinceEpoch,
-      'tags': tags,
+      'tags': tags.join(","),
       'lastModified': lastModified.millisecondsSinceEpoch,
       'folder': folder,
     };
@@ -63,7 +63,7 @@ class KnowledgeBit {
         title: map['title'],
         text: map['text'],
         added: DateTime.fromMillisecondsSinceEpoch(map['added']),
-        tags: List<String>.from(map['tags']),
+        tags: map['tags'].toString().split(","),
         lastModified: DateTime.fromMillisecondsSinceEpoch(map['lastModified']),
         folder: map['folder']);
   }

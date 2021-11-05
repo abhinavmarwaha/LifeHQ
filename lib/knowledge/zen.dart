@@ -3,11 +3,16 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as html_parser;
 import 'package:html_main_element/html_main_element.dart';
+import 'package:lifehq/widgets/back_button.dart';
 
 class Zen extends StatefulWidget {
-  Zen(this.url);
+  const Zen({
+    required this.url,
+    required this.title,
+  });
 
   final String url;
+  final String title;
 
   @override
   _ZenState createState() => _ZenState();
@@ -34,12 +39,30 @@ class _ZenState extends State<Zen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(8.0, 32.0, 8.0, 0),
-        child: Expanded(
-          child: SingleChildScrollView(
-            child: Html(
-              data: _bestElemReadability,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                MyBackButton(),
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                  ),
+                ),
+              ],
             ),
-          ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: _bestElemReadability == null
+                    ? Center(child: CircularProgressIndicator())
+                    : Html(
+                        data: _bestElemReadability,
+                      ),
+              ),
+            ),
+          ],
         ),
       ),
     );

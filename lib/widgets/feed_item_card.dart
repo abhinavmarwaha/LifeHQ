@@ -21,7 +21,12 @@ class FeedItemCard extends StatelessWidget {
               .changeItem(item, false, true);
         Provider.of<SettingsProvider>(context, listen: false).zenBool
             ? Navigator.push(
-                context, MaterialPageRoute(builder: (ctx) => Zen(item.url)))
+                context,
+                MaterialPageRoute(
+                    builder: (ctx) => Zen(
+                          title: item.title,
+                          url: item.url,
+                        )))
             : launch(item.url);
       },
       child: Card(

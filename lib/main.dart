@@ -50,9 +50,9 @@ void main() {
 }
 
 setDesktopSize() async {
-  await DesktopWindow.setWindowSize(Size(500, 500));
-  await DesktopWindow.setMinWindowSize(Size(400, 400));
-  await DesktopWindow.setMaxWindowSize(Size(800, 800));
+  await DesktopWindow.setWindowSize(Size(600, 800));
+  await DesktopWindow.setMinWindowSize(Size(600, 800));
+  await DesktopWindow.setMaxWindowSize(Size(600, 800));
 }
 
 // TODO flow a little bit confusing
