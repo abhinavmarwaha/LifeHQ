@@ -14,7 +14,7 @@ class Zen extends StatefulWidget {
 }
 
 class _ZenState extends State<Zen> {
-  late String _bestElemReadability;
+  String? _bestElemReadability;
 
   @override
   void initState() {

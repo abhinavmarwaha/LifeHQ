@@ -42,7 +42,7 @@ class KnowledgeBitsFolders extends StatelessWidget {
             height: 12,
           ),
           Expanded(
-            child: ListView.separated(
+            child: ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: (context, index) => GestureDetector(
                     onTap: () {
@@ -68,11 +68,6 @@ class KnowledgeBitsFolders extends StatelessWidget {
                                 fontWeight: FontWeight.w800),
                           ),
                         ))),
-                separatorBuilder: (context, index) => Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: Colors.white,
-                    ),
                 itemCount: folders(cat).length),
           ),
           Center(

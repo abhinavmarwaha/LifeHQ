@@ -42,7 +42,7 @@ class KnowledgeBitsList extends StatelessWidget {
               builder: (context, knowledgeService, child) {
             final bits = knowledgeService.bits(cat, folder.name);
 
-            return ListView.separated(
+            return ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   final _controller = quill.QuillController(
@@ -91,11 +91,6 @@ class KnowledgeBitsList extends StatelessWidget {
                     ),
                   );
                 },
-                separatorBuilder: (context, index) => Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: Colors.white,
-                    ),
                 itemCount: bits.length);
           }),
         ),

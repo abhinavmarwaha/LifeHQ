@@ -16,8 +16,9 @@ class FeedItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Provider.of<KnowledgeService>(context, listen: false)
-            .changeItem(item, false, true);
+        if (!item.read)
+          Provider.of<KnowledgeService>(context, listen: false)
+              .changeItem(item, false, true);
         Provider.of<SettingsProvider>(context, listen: false).zenBool
             ? Navigator.push(
                 context, MaterialPageRoute(builder: (ctx) => Zen(item.url)))

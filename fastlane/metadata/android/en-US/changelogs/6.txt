@@ -1,3 +1,4 @@
 Knowlege system
 fingerprint lock
 zen reader
+Bug fixes
