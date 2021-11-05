@@ -1,4 +1,4 @@
-Knowlege system
+Knowledge system
 fingerprint lock
 zen reader
 Bug fixes
