@@ -39,9 +39,10 @@ class StringConstants {
   static const String RATEAPPURL =
       "https://play.google.com/store/apps/details?id=com.abhinavmarwaha.lifehq";
   static const String GITHUBREPO = "https://github.com/abhinavmarwaha/lifehq";
-  
+
   static const String PATREON = "https://patreon.com/abhinavmarwaha";
   static const String COFFEE = "https://www.buymeacoffee.com/abhinavmarwaha";
-  
+
   static const String DISCORD = "https://discord.gg/wjAsZGD83T";
+  static const String TWITTER = "https://twitter.com/_LifeHQ";
 }

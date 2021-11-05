@@ -4,6 +4,7 @@ import 'package:lifehq/principles.dart';
 import 'package:lifehq/services/onboarding_provider.dart';
 import 'package:lifehq/services/settings_provider.dart';
 import 'package:lifehq/skeleton.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 
 class MomentoMori extends StatefulWidget {
@@ -35,6 +36,8 @@ class _MomentoMoriState extends State<MomentoMori> {
     final _yearStart = DateTime(_today.year);
     final _yearEnd = DateTime(_today.year + 1);
 
+    final LocalAuthentication _localAuthentication = LocalAuthentication();
+
     return Skeleton(
       child: Consumer2<OnboardingProvider, SettingsProvider>(
         builder: (context, value, settings, child) => Column(
@@ -54,16 +57,20 @@ class _MomentoMoriState extends State<MomentoMori> {
                   opacity: nextOpacity,
                   child: GestureDetector(
                       onTap: () {
-                        // settings.lockBool
-                        //     ? screenLock<void>(
-                        //         context: context,
-                        //         correctString: settings.lockString,
-                        //         canCancel: false,
-                        //         didUnlocked: () => Navigator.pushNamed(
-                        //             context, Principles.routeName),
-                        //       )
-                        //     :
-                        Navigator.pushNamed(context, Principles.routeName);
+                        settings.lockBool
+                            ? _localAuthentication
+                                .authenticate(localizedReason: "Unlock LifeHQ")
+                                .then((value) => Navigator.pushNamed(
+                                    context, Principles.routeName))
+                            // screenLock<void>(
+                            //     context: context,
+                            //     correctString: settings.lockString,
+                            //     canCancel: false,
+                            //     didUnlocked: () => Navigator.pushNamed(
+                            //         context, Principles.routeName),
+                            //   )
+                            : Navigator.pushNamed(
+                                context, Principles.routeName);
                       },
                       child: Icon(Icons.arrow_forward_ios)),
                 )

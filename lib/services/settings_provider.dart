@@ -59,10 +59,12 @@ class SettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setLockBool(bool lock, String pass) async {
+  Future<void> setLockBool(bool lock, 
+  // String pass
+  ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('lockBool', lock);
-    await storage.write(key: 'lockBoolKey', value: pass);
+    // await storage.write(key: 'lockBoolKey', value: pass);
     _lockBool = lock;
 
     notifyListeners();

@@ -3,6 +3,11 @@ import 'dart:io';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:timezone/data/latest.dart' as tz;
+
 import 'package:lifehq/goals/add_goal_page.dart';
 import 'package:lifehq/goals/goals.dart';
 import 'package:lifehq/goals/services/goals_service.dart';
@@ -31,11 +36,6 @@ import 'package:lifehq/services/onboarding_provider.dart';
 import 'package:lifehq/services/settings_provider.dart';
 import 'package:lifehq/settings.dart';
 import 'package:lifehq/utils/removed_glow_behavior.dart';
-import 'package:provider/provider.dart';
-import 'package:timezone/data/latest.dart' as tz;
-
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:sqflite/sqflite.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
