@@ -86,7 +86,7 @@ class KnowledgeService with ChangeNotifier {
 
   Future<void> deleteBit(KnowledgeBit bit) async {
     await _db.deleteBit(bit.knowledgeBitType);
-    _principles.remove(bit);
+    _bits.remove(bit);
     notifyListeners();
   }
 
