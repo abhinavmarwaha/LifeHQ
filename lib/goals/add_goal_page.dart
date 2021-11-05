@@ -99,7 +99,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
                           ),
                           value: e.done,
                           onChanged: (value) => setState(() {
-                                e.done = value;
+                                e.done = value!;
                               })) as Widget)
                       .toList() +
                   [
@@ -109,8 +109,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
                           goal.tasks.add(Task(
                               date: DateTime.now(),
                               done: false,
-                              text: "",
-                              goalId: 0));
+                              text: "",));
                         });
                       },
                       child: Padding(

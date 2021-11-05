@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/knowledge/knowledge_bits_list.dart';
 import 'package:lifehq/knowledge/models/para/knowledge_cat.dart';
+import 'package:lifehq/knowledge/models/para/knowledge_folder.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/page_title.dart';
 import 'package:lifehq/skeleton.dart';
@@ -50,7 +51,7 @@ class KnowledgeBitsFolders extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (ctx) => KnowledgeBitsList(
                                     cat: cat,
-                                    folder: folders[index],
+                                    folder: folders(cat)[index],
                                   )));
                     },
                     child: Card(
@@ -60,7 +61,7 @@ class KnowledgeBitsFolders extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            folders[index],
+                            folders(cat)[index].name,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.black,
@@ -72,7 +73,7 @@ class KnowledgeBitsFolders extends StatelessWidget {
                       height: 1,
                       color: Colors.white,
                     ),
-                itemCount: folders.length),
+                itemCount: folders(cat).length),
           ),
           Center(
             child: GestureDetector(
@@ -120,7 +121,8 @@ class KnowledgeBitsFolders extends StatelessWidget {
                             TextFormField(
                               onFieldSubmitted: (value) {
                                 if (_folder.isNotEmpty) {
-                                  knowledgeService.saveFolder(_folder);
+                                  knowledgeService.saveFolder(
+                                      KnowledgeFolder(cat: cat, name: _folder));
                                   Navigator.pop(context);
                                 } else {
                                   Utilities.showToast("Can't be empty");
@@ -135,7 +137,8 @@ class KnowledgeBitsFolders extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 if (_folder.isNotEmpty) {
-                                  knowledgeService.saveFolder(_folder);
+                                  knowledgeService.saveFolder(
+                                      KnowledgeFolder(cat: cat, name: _folder));
                                   Navigator.pop(context);
                                 } else {
                                   Utilities.showToast("Can't be empty");

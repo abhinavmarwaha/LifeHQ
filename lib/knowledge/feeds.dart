@@ -23,6 +23,7 @@ class _FeedsState extends State<Feeds> {
 
   String? selectedTag;
   bool read = false;
+  bool bookmark = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,43 +37,47 @@ class _FeedsState extends State<Feeds> {
             color: Colors.white,
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              children: knowledgeService.feedTags
-                      .map<Widget>((e) => GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedTag = selectedTag != null &&
-                                        selectedTag!.compareTo(e) == 0
-                                    ? null
-                                    : e;
-                              });
-                            },
-                            child: Card(
-                                color: selectedTag != null &&
-                                        selectedTag!.compareTo(e) == 0
-                                    ? Colors.red
-                                    : Colors.black,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    e,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                )),
-                          ))
-                      .toList() +
-                  [
-                    Spacer(),
-                    GestureDetector(
-                      onTap: () => showTagAddDialog(context, knowledgeService),
-                      child: Card(
-                        color: Colors.black,
-                        child: Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                  ],
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                        children: knowledgeService.feedTags
+                            .map<Widget>((e) => GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      selectedTag = selectedTag != null &&
+                                              selectedTag!.compareTo(e) == 0
+                                          ? null
+                                          : e;
+                                    });
+                                  },
+                                  child: Card(
+                                      color: selectedTag != null &&
+                                              selectedTag!.compareTo(e) == 0
+                                          ? Colors.red
+                                          : Colors.black,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          e,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      )),
+                                ))
+                            .toList()),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => showTagAddDialog(context, knowledgeService),
+                  child: Card(
+                    color: Colors.black,
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ),
@@ -99,11 +104,14 @@ class _FeedsState extends State<Feeds> {
                             onTap: () {
                               setState(() {
                                 read = true;
+                                bookmark = false;
                               });
                             },
-                            child: read
-                                ? SelectedHeading(text: "Read")
-                                : UnselectedHeading(text: "Read"),
+                            child: bookmark
+                                ? UnselectedHeading(text: "Read")
+                                : read
+                                    ? SelectedHeading(text: "Read")
+                                    : UnselectedHeading(text: "Read"),
                           ),
                           SizedBox(
                             width: 12,
@@ -112,14 +120,41 @@ class _FeedsState extends State<Feeds> {
                             onTap: () {
                               setState(() {
                                 read = false;
+                                bookmark = false;
                               });
                             },
-                            child: !read
-                                ? SelectedHeading(text: "Unread")
-                                : UnselectedHeading(text: "Unread"),
+                            child: bookmark
+                                ? UnselectedHeading(text: "Unread")
+                                : !read
+                                    ? SelectedHeading(text: "Unread")
+                                    : UnselectedHeading(text: "Unread"),
                           ),
                           Spacer(),
-                          Icon(Icons.bookmark),
+                          GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                setState(() {
+                                  bookmark = !bookmark;
+                                });
+                              },
+                              child: DecoratedBox(
+                                  decoration: bookmark
+                                      ? BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          border:
+                                              Border.all(color: Colors.white))
+                                      : BoxDecoration(),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Icon(
+                                      Icons.bookmark,
+                                      color: bookmark
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
+                                  ))),
                           SizedBox(
                             width: 28,
                           ),
@@ -138,9 +173,11 @@ class _FeedsState extends State<Feeds> {
                       ),
                       Expanded(
                         child: ListView(
-                          children: (read
-                                  ? knowledgeService.readFeedItems
-                                  : knowledgeService.unreadFeedItems)
+                          children: (bookmark
+                                  ? knowledgeService.bookmarks
+                                  : read
+                                      ? knowledgeService.readFeedItems
+                                      : knowledgeService.unreadFeedItems)
                               .where((element) => selectedTag == null
                                   ? true
                                   : element.catgry.compareTo(selectedTag!) == 0)
@@ -187,6 +224,7 @@ class _FeedsState extends State<Feeds> {
 
   showFeedAddDialog(BuildContext context, KnowledgeService provider) {
     final feedUrl = TextEditingController();
+    List<String> selectedTags = [];
 
     showDialog(
         context: context,
@@ -196,7 +234,7 @@ class _FeedsState extends State<Feeds> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 child: Container(
-                    height: 120,
+                    height: 160,
                     child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Column(
@@ -209,10 +247,65 @@ class _FeedsState extends State<Feeds> {
                                 hintText: 'FeedUrl',
                               ),
                             ),
+                            if (provider.feedTags.length != 0)
+                              SizedBox(
+                                height: 48,
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            if (selectedTags.contains(
+                                                provider.feedTags[index]))
+                                              selectedTags.remove(
+                                                  provider.feedTags[index]);
+                                            else
+                                              selectedTags.add(
+                                                  provider.feedTags[index]);
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: selectedTags
+                                                            .contains(provider
+                                                                    .feedTags[
+                                                                index])
+                                                        ? Colors.white
+                                                        : Colors.grey)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Center(
+                                                child: Text(
+                                                  provider.feedTags[index],
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: selectedTags
+                                                              .contains(provider
+                                                                      .feedTags[
+                                                                  index])
+                                                          ? Colors.white
+                                                          : Colors.grey),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ));
+                                  },
+                                  itemCount: provider.feedTags.length,
+                                  scrollDirection: Axis.horizontal,
+                                ),
+                              ),
                             GestureDetector(
                               onTap: () async {
                                 if (feedUrl.text.isNotEmpty) {
-                                  addFeed(feedUrl.text, "", false, false);
+                                  addFeed(
+                                      feedUrl.text, "", false, selectedTags);
                                 } else {
                                   Utilities.showToast("Can't be empty");
                                 }
@@ -233,46 +326,48 @@ class _FeedsState extends State<Feeds> {
         });
   }
 
-  addFeed(String url, String catgry, bool atom, bool second) async {
+  addFeed(String url, String catgry, bool second, List<String> tags) async {
+    if (catgry.compareTo("") == 0) catgry = "All";
+    final response = await http.Client().get(Uri.parse(url));
+    NewsRssFeed rss;
     try {
-      if (catgry.compareTo("") == 0) catgry = "All";
-      final response = await http.Client().get(Uri.parse(url));
-      NewsRssFeed rss;
-      if (atom) {
-        AtomFeed atomFeed = AtomFeed.parse(response.body);
-        rss = NewsRssFeed(
-            title: atomFeed.title ?? "",
-            desc: atomFeed.subtitle ?? "",
-            picURL: atomFeed.logo ?? "",
-            catgry: catgry,
-            url: url,
-            author: atomFeed.authors == null ? "" : atomFeed.authors![0].name!,
-            lastBuildDate: atomFeed.updated!.toIso8601String(),
-            atom: atom,
-            id: -1);
-      } else {
-        RssFeed rssFeed = RssFeed.parse(response.body);
-        rss = NewsRssFeed(
-            title: rssFeed.title ?? "",
-            desc: rssFeed.description ?? "",
-            picURL: rssFeed.image != null ? rssFeed.image!.url! : "",
-            catgry: catgry,
-            url: url,
-            author: rssFeed.author ?? "",
-            lastBuildDate: rssFeed.lastBuildDate ?? "",
-            atom: atom);
-      }
-
-      KnowledgeService.instance.saveFeed(rss).then((value) {
-        Navigator.of(context).pop();
-      });
+      RssFeed rssFeed = RssFeed.parse(response.body);
+      rss = NewsRssFeed(
+          title: rssFeed.title ?? "",
+          desc: rssFeed.description ?? "",
+          picURL: rssFeed.image != null ? rssFeed.image!.url! : "",
+          catgry: catgry,
+          url: url,
+          author: rssFeed.author ?? "",
+          lastBuildDate: rssFeed.lastBuildDate ?? "",
+          tags: tags,
+          atom: false);
     } catch (e) {
-      if (!second) {
-        String txt = (await FeedFinder.scrape(url))[0];
-        print(txt);
-        addFeed(txt, catgry, atom, true);
-      }
+      // try {
+      AtomFeed atomFeed = AtomFeed.parse(response.body);
+      rss = NewsRssFeed(
+          title: atomFeed.title ?? "",
+          desc: atomFeed.subtitle ?? "",
+          picURL: atomFeed.logo ?? "",
+          catgry: catgry,
+          url: url,
+          author: atomFeed.authors == null ? "" : atomFeed.authors![0].name!,
+          lastBuildDate: atomFeed.updated!.toIso8601String(),
+          atom: true,
+          tags: tags,
+          id: -1);
+      // } catch (e) {
+      //   if (!second) {
+      //     String txt = (await FeedFinder.scrape(url))[0];
+      //     print(txt);
+      //     addFeed(txt, catgry, atom, true, tags);
+      //   }
+      // }
     }
+
+    KnowledgeService.instance.saveFeed(rss).then((value) {
+      Navigator.of(context).pop();
+    });
   }
 
   showTagAddDialog(BuildContext context, KnowledgeService provider) {

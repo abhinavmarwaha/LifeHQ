@@ -62,21 +62,27 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
+            lazy: false,
             create: (ctx) => SettingsProvider(),
           ),
           ChangeNotifierProvider(
+            lazy: false,
             create: (ctx) => RoutineService(),
           ),
           ChangeNotifierProvider(
+            lazy: false,
             create: (ctx) => GoalsService(),
           ),
           ChangeNotifierProvider(
+            lazy: false,
             create: (ctx) => JournalService(),
           ),
           ChangeNotifierProvider(
+            lazy: false,
             create: (ctx) => KnowledgeService(),
           ),
           ChangeNotifierProvider(
+            lazy: false,
             create: (ctx) => OnboardingProvider(),
           ),
         ],
@@ -130,7 +136,7 @@ class MyApp extends StatelessWidget {
                     KnowledgeBitsFolders.area: (ctx) =>
                         KnowledgeBitsFolders(cat: KnowledgeCat.area),
                     KnowledgeBitsFolders.research: (ctx) =>
-                        KnowledgeBitsFolders(cat: KnowledgeCat.reasearch),
+                        KnowledgeBitsFolders(cat: KnowledgeCat.research),
                     KnowledgeBitsFolders.archive: (ctx) =>
                         KnowledgeBitsFolders(cat: KnowledgeCat.archive),
                   },

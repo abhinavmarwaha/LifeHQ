@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lifehq/knowledge/knowledge_bit_input.dart';
 import 'package:lifehq/knowledge/models/para/knowledge_cat.dart';
+import 'package:lifehq/knowledge/models/para/knowledge_folder.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/page_title.dart';
 import 'package:lifehq/skeleton.dart';
@@ -18,7 +19,7 @@ class KnowledgeBitsList extends StatelessWidget {
   }) : super(key: key);
 
   final KnowledgeCat cat;
-  final String folder;
+  final KnowledgeFolder folder;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class KnowledgeBitsList extends StatelessWidget {
           children: [
             MyBackButton(),
             PageTitle(
-              text: folder,
+              text: folder.name,
             ),
           ],
         ),
@@ -39,7 +40,7 @@ class KnowledgeBitsList extends StatelessWidget {
         Expanded(
           child: Consumer<KnowledgeService>(
               builder: (context, knowledgeService, child) {
-            final bits = knowledgeService.bits(cat, folder);
+            final bits = knowledgeService.bits(cat, folder.name);
 
             return ListView.separated(
                 shrinkWrap: true,

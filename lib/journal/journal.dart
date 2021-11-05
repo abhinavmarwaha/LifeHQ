@@ -32,44 +32,48 @@ class _JournalState extends State<Journal> {
                 color: Colors.white,
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  children: journalService.tags
-                          .map<Widget>((e) => GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedTag = selectedTag != null &&
-                                            selectedTag!.compareTo(e) == 0
-                                        ? null
-                                        : e;
-                                  });
-                                },
-                                child: Card(
-                                    color: selectedTag != null &&
-                                            selectedTag!.compareTo(e) == 0
-                                        ? Colors.red
-                                        : Colors.black,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        e,
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    )),
-                              ))
-                          .toList() +
-                      [
-                        Spacer(),
-                        GestureDetector(
-                          onTap: () =>
-                              showTagAddDialog(context, journalService),
-                          child: Card(
-                            color: Colors.black,
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      ],
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                            children: journalService.tags
+                                .map<Widget>((e) => GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          selectedTag = selectedTag != null &&
+                                                  selectedTag!.compareTo(e) == 0
+                                              ? null
+                                              : e;
+                                        });
+                                      },
+                                      child: Card(
+                                          color: selectedTag != null &&
+                                                  selectedTag!.compareTo(e) == 0
+                                              ? Colors.red
+                                              : Colors.black,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              e,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          )),
+                                    ))
+                                .toList()),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => showTagAddDialog(context, journalService),
+                      child: Card(
+                        color: Colors.black,
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

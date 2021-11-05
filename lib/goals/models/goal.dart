@@ -10,7 +10,7 @@ class Goal {
   DateTime? added;
   DateTime? deadline;
   int? goalType;
-  bool? done;
+  bool done;
   List<Task> tasks;
 
   Goal({
@@ -19,7 +19,7 @@ class Goal {
     this.added,
     this.deadline,
     this.goalType,
-    this.done,
+    required this.done,
     required this.tasks,
   });
 
@@ -50,7 +50,7 @@ class Goal {
       'added': added?.millisecondsSinceEpoch,
       'deadline': deadline?.millisecondsSinceEpoch,
       'goalType': goalType,
-      'done': done,
+      'done': done ? 1 : 0,
       
     };
   }

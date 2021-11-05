@@ -31,10 +31,12 @@ class GoalsService with ChangeNotifier {
         goal.tasks = await _db.getTasksByGoalId(goal.goalId!);
       }
       final routines = RoutineService.instance.routines;
-      if (routines.length > 0) {
+      if (routines.length > 0 && routines.first.morningGoalId != null) {
         int goalId = routines.first.morningGoalId!;
-        _goalTitle = (await _db.getGoal(goalId)).title;
-        _todayTasks = await _db.getTasksByGoalId(goalId);
+        try {
+          _goalTitle = (await _db.getGoal(goalId)).title;
+          _todayTasks = await _db.getTasksByGoalId(goalId);
+        } catch (e) {}
       }
       initilised = true;
       notifyListeners();
@@ -45,6 +47,12 @@ class GoalsService with ChangeNotifier {
     int index = await _db.insertGoal(goal);
     goal.goalId = index;
     _goals.add(goal);
+
+    for (Task task in goal.tasks) {
+      task.goalId = index;
+      await _db.insertTask(task);
+    }
+
     notifyListeners();
 
     return index;

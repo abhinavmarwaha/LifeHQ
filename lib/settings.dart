@@ -148,7 +148,7 @@ class Settings extends StatelessWidget {
                                                       onTap: () {
                                                         if (tagText
                                                                 .text.length ==
-                                                            4) {
+                                                            5) {
                                                           screenLock<void>(
                                                             context: context,
                                                             correctString:

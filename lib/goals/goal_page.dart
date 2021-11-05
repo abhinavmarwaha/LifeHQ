@@ -54,7 +54,7 @@ class _GoalPageState extends State<GoalPage> {
               title: Text(e.text),
               onChanged: (bool? value) {
                 setState(() {
-                  e.done = value;
+                  e.done = value!;
                 });
                 GoalsDB.instance.editTask(e);
               },

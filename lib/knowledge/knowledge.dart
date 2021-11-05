@@ -142,23 +142,23 @@ class Knowledge extends StatelessWidget {
               ),
             ),
           ]),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 120,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                color: Colors.white,
-                child: Center(
-                  child: Text(
-                    "Misc",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: SizedBox(
+          //     height: 120,
+          //     child: Card(
+          //       shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(15)),
+          //       color: Colors.white,
+          //       child: Center(
+          //         child: Text(
+          //           "Misc",
+          //           style: TextStyle(color: Colors.black),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: 20,
           ),

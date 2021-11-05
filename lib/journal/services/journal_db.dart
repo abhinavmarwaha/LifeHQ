@@ -33,7 +33,7 @@ class JournalDB {
               name TEXT);
             """);
       },
-      version: 1,
+      version: 2,
     );
 
     return database;

@@ -10,18 +10,19 @@ class NewsRssFeed {
   final String lastBuildDate;
   final String author;
   final bool atom;
+  final List<String> tags;
 
-  NewsRssFeed({
-    this.id,
-    required this.title,
-    required this.desc,
-    required this.catgry,
-    required this.picURL,
-    required this.url,
-    required this.lastBuildDate,
-    required this.author,
-    required this.atom,
-  });
+  NewsRssFeed(
+      {this.id,
+      required this.title,
+      required this.desc,
+      required this.catgry,
+      required this.picURL,
+      required this.url,
+      required this.lastBuildDate,
+      required this.author,
+      required this.atom,
+      required this.tags});
 
   NewsRssFeed copyWith({
     int? id,
@@ -34,18 +35,19 @@ class NewsRssFeed {
     String? author,
     bool? atom,
     int? feedId,
+    List<String>? tags,
   }) {
     return NewsRssFeed(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      desc: desc ?? this.desc,
-      catgry: catgry ?? this.catgry,
-      picURL: picURL ?? this.picURL,
-      url: url ?? this.url,
-      lastBuildDate: lastBuildDate ?? this.lastBuildDate,
-      author: author ?? this.author,
-      atom: atom ?? this.atom,
-    );
+        id: id ?? this.id,
+        title: title ?? this.title,
+        desc: desc ?? this.desc,
+        catgry: catgry ?? this.catgry,
+        picURL: picURL ?? this.picURL,
+        url: url ?? this.url,
+        lastBuildDate: lastBuildDate ?? this.lastBuildDate,
+        author: author ?? this.author,
+        atom: atom ?? this.atom,
+        tags: tags ?? this.tags);
   }
 
   Map<String, dynamic> toMap() {
@@ -58,22 +60,23 @@ class NewsRssFeed {
       'url': url,
       'lastBuildDate': lastBuildDate,
       'author': author,
-      'atom': atom,
+      'atom': atom ? 1 : 0,
+      'tags': tags.join(",")
     };
   }
 
   factory NewsRssFeed.fromMap(Map<String, dynamic> map) {
     return NewsRssFeed(
-      id: map['id'],
-      title: map['title'],
-      desc: map['desc'],
-      catgry: map['catgry'],
-      picURL: map['picURL'],
-      url: map['url'],
-      lastBuildDate: map['lastBuildDate'],
-      author: map['author'],
-      atom: map['atom'] == 0,
-    );
+        id: map['id'],
+        title: map['title'],
+        desc: map['desc'],
+        catgry: map['catgry'],
+        picURL: map['picURL'],
+        url: map['url'],
+        lastBuildDate: map['lastBuildDate'],
+        author: map['author'],
+        atom: map['atom'] == 1,
+        tags: map['tags'].toString().split(","));
   }
 
   String toJson() => json.encode(toMap());

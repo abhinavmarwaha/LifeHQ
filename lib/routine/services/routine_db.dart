@@ -33,7 +33,7 @@ class RoutineDB {
               FOREIGN KEY (routineId) REFERENCES routines (routineId) );
             """);
       },
-      version: 1,
+      version: 2,
     );
 
     return database;

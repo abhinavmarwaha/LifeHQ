@@ -34,7 +34,7 @@ class RoutineService with ChangeNotifier {
     final mornStart =
         DateTime(now.year, now.month, now.day).millisecondsSinceEpoch;
     final mornEnd =
-        DateTime(now.year, now.month, now.day, 12).millisecondsSinceEpoch;
+        DateTime(now.year, now.month, now.day, 15).millisecondsSinceEpoch;
     final evenEnd =
         DateTime(now.year, now.month, now.day + 1).millisecondsSinceEpoch;
     if (now.millisecondsSinceEpoch < mornEnd) {

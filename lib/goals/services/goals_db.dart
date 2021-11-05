@@ -33,7 +33,7 @@ class GoalsDB {
               FOREIGN KEY (goalId) REFERENCES goals (goalId) );
             """);
       },
-      version: 1,
+      version: 2,
     );
 
     return database;
@@ -56,18 +56,12 @@ class GoalsDB {
 
   Future<int> insertGoal(Goal goal) async {
     final Database db = await getdb;
-    print(goal.toMap());
 
     int goalId = await db.insert(
       GoalsConstants.GOALS,
       goal.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-
-    goal.tasks.map((e) {
-      e.goalId = goalId;
-      insertTask(e);
-    });
 
     return goalId;
   }

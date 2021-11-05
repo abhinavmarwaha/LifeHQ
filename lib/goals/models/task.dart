@@ -3,23 +3,23 @@ import 'dart:convert';
 class Task {
   int? taskId;
   String text;
-  bool? done;
+  bool done;
   DateTime? date;
-  int goalId;
+  int? goalId;
 
   Task({
     this.taskId,
     required this.text,
-    this.done,
+    required this.done,
     this.date,
-    required this.goalId,
+    this.goalId,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'taskId': taskId,
       'text': text,
-      'done': done! ? 1 : 0,
+      'done': done ? 1 : 0,
       'date': date!.millisecondsSinceEpoch,
       'goalId': goalId,
     };

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:lifehq/knowledge/models/para/knowledge_bit.dart';
 import 'package:lifehq/knowledge/models/para/knowledge_cat.dart';
+import 'package:lifehq/knowledge/models/para/knowledge_folder.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/utils/utils.dart';
@@ -19,7 +20,7 @@ class KnowledgeBitInput extends StatefulWidget {
   static const routeName = '/add-bit';
 
   final KnowledgeCat cat;
-  final String folder;
+  final KnowledgeFolder folder;
 
   @override
   _KnowledgeBitInputState createState() => _KnowledgeBitInputState();
@@ -137,7 +138,7 @@ class _KnowledgeBitInputState extends State<KnowledgeBitInput> {
                                           .toDelta()
                                           .toJson()),
                                       title: title,
-                                      folder: widget.folder,
+                                      folder: widget.folder.name,
                                       knowledgeBitType: widget.cat.toInt()))
                                   .then((value) => Navigator.pop(context));
                             },

@@ -3,6 +3,7 @@ import 'package:lifehq/knowledge/models/news/news_item.dart';
 import 'package:lifehq/knowledge/models/news/news_rss_feed.dart';
 import 'package:lifehq/knowledge/models/para/knowledge_bit.dart';
 import 'package:lifehq/knowledge/models/para/knowledge_cat.dart';
+import 'package:lifehq/knowledge/models/para/knowledge_folder.dart';
 import 'package:lifehq/knowledge/models/principle.dart';
 import 'package:lifehq/knowledge/models/quote.dart';
 import 'package:lifehq/knowledge/services/knowledge_db.dart';
@@ -28,8 +29,9 @@ class KnowledgeService with ChangeNotifier {
       .toList();
   List<String> _bitTags = [];
   List<String> get bitTags => _bitTags;
-  List<String> _folders = [];
-  List<String> get folders => _folders;
+  List<KnowledgeFolder> _folders = [];
+  List<KnowledgeFolder> folders(KnowledgeCat cat) =>
+      _folders.where((element) => element.cat == cat).toList();
 
   List<Principle> _principles = [];
   List<Principle> get principles => _principles;
@@ -57,6 +59,7 @@ class KnowledgeService with ChangeNotifier {
       _unreadFeedItems = await _db.getReadRssItems("All");
       _bookmarks = await _db.getReadRssItems("All");
       _bits = await _db.getBits();
+      await updateFeedItems();
 
       initilised = true;
       notifyListeners();
@@ -87,22 +90,20 @@ class KnowledgeService with ChangeNotifier {
 
   // Folder
 
-  Future<void> saveFolder(String folder) async {
+  Future<void> saveFolder(KnowledgeFolder folder) async {
     await _db.insertFolder(folder);
     _folders.add(folder);
     notifyListeners();
   }
 
-  Future<void> editFolder(String prev, String newone) async {
-    await _db.editFolder(prev, newone);
-    _folders.remove(prev);
-    _folders.add(newone);
+  Future<void> editFolder(KnowledgeFolder folder) async {
+    await _db.editFolder(folder);
 
     notifyListeners();
   }
 
-  Future<void> deleteFolder(String folder) async {
-    await _db.deleteFolder(folder);
+  Future<void> deleteFolder(KnowledgeFolder folder) async {
+    // await _db.deleteFolder(folder);
     _folders.remove(folder);
 
     notifyListeners();
@@ -164,9 +165,11 @@ class KnowledgeService with ChangeNotifier {
   // Feed
 
   Future<void> saveFeed(NewsRssFeed feed) async {
+    print(feed.url);
     int id = await _db.insertRssFeed(feed);
     feed.id = id;
     _feeds.add(feed);
+    updateFeedItems();
 
     notifyListeners();
   }
@@ -183,10 +186,21 @@ class KnowledgeService with ChangeNotifier {
   Future<void> changeItem(
       NewsItem item, bool changeBookmark, bool changeRead) async {
     if (changeBookmark) {
+      if (item.bookmarked) {
+        _bookmarks.remove(item);
+      } else {
+        _bookmarks.add(item);
+      }
       item.bookmarked = !item.bookmarked;
-      _bookmarks.add(item);
     }
     if (changeRead) {
+      if (item.read) {
+        _readFeedItems.remove(item);
+        _unreadFeedItems.add(item);
+      } else {
+        _readFeedItems.add(item);
+        _unreadFeedItems.remove(item);
+      }
       item.read = !item.read;
     }
     await _db.editRssFeedItem(item);
@@ -236,61 +250,68 @@ class KnowledgeService with ChangeNotifier {
 
   // Update Rss Items
 
-  // Future<void> updateFeedItems() async {
-  //   for (NewsRssFeed _feed in _feeds) {
-  //     print(_feed.url);
-  //     String FeedBody = (await http.Client().get(Uri.parse(_feed.url))).body;
-  //     if (_feed.atom) {
-  //       AtomFeed atomFeed = new AtomFeed.parse(FeedBody);
-  //       atomFeed.items.forEach((feedItem) {
-  //         if (cat.compareTo(_selectedCat) == 0 && !_readUI && !_bookmarkUI) {
-  //           CRssFeedItem item = new CRssFeedItem(
-  //               feedTitle: atomFeed.title,
-  //               feedID: feed.id.toString(),
-  //               title: feedItem.title,
-  //               desc: feedItem.summary == null ? "" : feedItem.summary,
-  //               url: feedItem.links[0].href,
-  //               read: false,
-  //               picURL: "",
-  //               pubDate: feedItem.updated.toIso8601String(),
-  //               author: feedItem.authors.length == 0
-  //                   ? ""
-  //                   : feedItem.authors[0].name,
-  //               catgry: cat,
-  //               bookmarked: false);
-  //           _dbHelper.hasFeeditem(item, rssItems).then((value) {
-  //             if (!value) {
-  //               _feeditems.add(item);
-  //               _dbHelper.insertRssFeedtem(item, rssItems);
-  //             }
-  //           });
-  //         }
-  //       });
-  //     } else {
-  //       RssFeed rssFeed = new RssFeed.parse(FeedBody);
+  Future<void> updateFeedItems() async {
+    for (NewsRssFeed _feed in _feeds) {
+      print(_feed.url);
+      String FeedBody = (await http.Client().get(Uri.parse(_feed.url))).body;
+      if (_feed.atom) {
+        AtomFeed atomFeed = new AtomFeed.parse(FeedBody);
+        atomFeed.items!.forEach((feedItem) {
+          NewsItem item = new NewsItem(
+              feedTitle: atomFeed.title ?? "",
+              feedID: _feed.id.toString(),
+              title: feedItem.title ?? "",
+              desc: feedItem.summary ?? "",
+              url: feedItem.links![0].href!,
+              read: false,
+              picURL: "",
+              pubDate: feedItem.updated!.toIso8601String(),
+              author: feedItem.authors != null
+                  ? feedItem.authors!.length == 0
+                      ? ""
+                      : feedItem.authors![0].name!
+                  : "",
+              catgry: _feed.tags.length > 0 ? _feed.tags[0] : "All",
+              bookmarked: false,
+              mediaURL: '');
+          _db.hasFeeditem(item).then((value) {
+            if (!value) {
+              _db.insertRssFeedtem(item);
+            }
+            _unreadFeedItems.add(item);
+          });
+        });
+      } else {
+        RssFeed rssFeed = new RssFeed.parse(FeedBody);
 
-  //       rssFeed.items!.forEach((feedItem) {
-  //         String url = "";
-  //         if (feedItem.enclosure != null &&
-  //             feedItem.enclosure.type.compareTo("image/jpg") == 0)
-  //           url = feedItem.enclosure.url;
-  //         String feedUrl;
-  //         feedUrl = feedItem.link;
+        rssFeed.items!.forEach((feedItem) {
+          String url = "";
+          if (feedItem.enclosure != null &&
+              feedItem.enclosure!.type!.compareTo("image/jpg") == 0)
+            url = feedItem.enclosure!.url!;
 
-  //         NewsItem item = new NewsItem(
-  //             feedTitle: rssFeed.title,
-  //             feedID: feed.id.toString(),
-  //             title: feedItem.title,
-  //             desc: feedItem.description,
-  //             url: feedUrl,
-  //             read: false,
-  //             picURL: url,
-  //             pubDate: feedItem.pubDate.toIso8601String(),
-  //             author: feedItem.author,
-  //             catgry: cat,
-  //             bookmarked: false);
-  //       });
-  //     }
-  //   }
-  // }
+          NewsItem item = new NewsItem(
+              feedTitle: rssFeed.title ?? "",
+              feedID: _feed.id.toString(),
+              title: feedItem.title ?? "",
+              desc: feedItem.description ?? "",
+              read: false,
+              picURL: url,
+              pubDate: feedItem.pubDate!.toIso8601String(),
+              author: feedItem.author ?? "",
+              catgry: _feed.tags.length > 0 ? _feed.tags[0] : "All",
+              bookmarked: false,
+              mediaURL: '',
+              url: feedItem.link!);
+
+          _db.hasFeeditem(item).then((value) {
+            if (!value) {
+              _db.insertRssFeedtem(item);
+            }
+            _unreadFeedItems.add(item);
+          });
+        });
+      }
+    }
+  }
 }

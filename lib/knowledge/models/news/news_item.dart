@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class NewsItem {
-  final int id;
+  int? id;
   final String title;
   final String desc;
   final String picURL;
@@ -16,7 +16,7 @@ class NewsItem {
   bool read;
 
   NewsItem({
-    required this.id,
+    this.id,
     required this.title,
     required this.desc,
     required this.picURL,
@@ -76,8 +76,8 @@ class NewsItem {
       'feedID': feedID,
       'mediaURL': mediaURL,
       'feedTitle': feedTitle,
-      'bookmarked': bookmarked,
-      'read': read,
+      'bookmarked': bookmarked ? 1 : 0,
+      'read': read ? 1 : 0,
     };
   }
 
@@ -94,8 +94,8 @@ class NewsItem {
       feedID: map['feedID'],
       mediaURL: map['mediaURL'],
       feedTitle: map['feedTitle'],
-      bookmarked: map['bookmarked'],
-      read: map['read'],
+      bookmarked: map['bookmarked'] == 1,
+      read: map['read'] == 1,
     );
   }
 

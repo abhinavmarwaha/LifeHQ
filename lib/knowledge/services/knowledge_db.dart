@@ -2,6 +2,7 @@ import 'package:lifehq/knowledge/constants/strings.dart';
 import 'package:lifehq/knowledge/models/news/news_item.dart';
 import 'package:lifehq/knowledge/models/news/news_rss_feed.dart';
 import 'package:lifehq/knowledge/models/para/knowledge_bit.dart';
+import 'package:lifehq/knowledge/models/para/knowledge_folder.dart';
 import 'package:lifehq/knowledge/models/principle.dart';
 import 'package:lifehq/knowledge/models/quote.dart';
 import 'package:path/path.dart';
@@ -74,6 +75,7 @@ class KnowledgeDB {
         await db.execute("""
             CREATE TABLE folders(
               id INTEGER PRIMARY KEY,
+              cat INTEGER,
               name TEXT); 
             """);
         await db.insert(
@@ -93,10 +95,11 @@ class KnowledgeDB {
               url TEXT, 
               lastBuildDate TEXT, 
               author TEXT, 
+              tags TEXT,
               atom INTEGER);
             """);
       },
-      version: 1,
+      version: 2,
     );
 
     return database;
@@ -258,53 +261,53 @@ class KnowledgeDB {
 
   // Folders
 
-  Future<int> insertFolder(String folder) async {
+  Future<int> insertFolder(KnowledgeFolder folder) async {
     final Database db = await getdb;
 
     return db.insert(
       KnowledgeConstants.FOLDERS,
-      {'name': folder},
+      folder.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<List<String>> getFolders() async {
+  Future<List<KnowledgeFolder>> getFolders() async {
     final Database db = await getdb;
 
     final List<Map<String, dynamic>> maps =
         await db.query(KnowledgeConstants.FOLDERS);
 
     return List.generate(maps.length, (i) {
-      return maps[i]['name'];
+      return KnowledgeFolder.fromMap(maps[i]);
     });
   }
 
-  Future<int> editFolder(String prevFolder, String newFolder) async {
+  Future<int> editFolder(KnowledgeFolder folder) async {
     final Database db = await getdb;
 
     return db.update(
       KnowledgeConstants.RSSCATEGORIES,
-      {'name': newFolder},
-      where: "name = ?",
-      whereArgs: [prevFolder],
+      folder.toMap(),
+      where: "id = ?",
+      whereArgs: [folder.id],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<List<Object?>> deleteFolder(String name) async {
-    // TODO
-    final db = await getdb;
+  // Future<List<Object?>> deleteFolder(KnowledgeFolder folder) async {
+  //   // TODO
+  //   final db = await getdb;
 
-    Batch batch = db.batch();
-    batch.delete(KnowledgeConstants.FOLDERS,
-        where: "catgry == ?", whereArgs: [name]);
-    batch.delete(KnowledgeConstants.RSSITEMS,
-        where: "catgry = ?", whereArgs: [name]);
-    batch.delete(KnowledgeConstants.RSSCATEGORIES,
-        where: "name = ?", whereArgs: [name]);
+  //   Batch batch = db.batch();
+  //   batch.delete(KnowledgeConstants.FOLDERS,
+  //       where: "catgry == ?", whereArgs: [name]);
+  //   batch.delete(KnowledgeConstants.RSSITEMS,
+  //       where: "catgry = ?", whereArgs: [name]);
+  //   batch.delete(KnowledgeConstants.RSSCATEGORIES,
+  //       where: "name = ?", whereArgs: [name]);
 
-    return batch.commit();
-  }
+  //   return batch.commit();
+  // }
 
   // Categories
 
