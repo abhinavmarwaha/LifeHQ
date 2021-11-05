@@ -21,6 +21,7 @@ class KnowledgeDB {
             CREATE TABLE bits(
               knowledgeBitId INTEGER PRIMARY KEY, 
               title TEXT, 
+              folder TEXT, 
               text TEXT,
               lastModified INTEGER, 
               added INTEGER, 

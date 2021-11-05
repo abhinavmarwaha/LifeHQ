@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lifehq/knowledge/knowledge_bit_input.dart';
+import 'package:lifehq/knowledge/knowledge_bits_list.dart';
 import 'package:lifehq/knowledge/models/para/knowledge_cat.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/page_title.dart';
@@ -37,24 +37,36 @@ class KnowledgeBitsFolders extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(
+            height: 12,
+          ),
           Expanded(
             child: ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (context, index) => GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (ctx) => KnowledgeBitInput(
-                                      cat: cat,
-                                      folder: folders[index],
-                                    )));
-                      },
-                      child: Text(
-                        folders[index],
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => KnowledgeBitsList(
+                                    cat: cat,
+                                    folder: folders[index],
+                                  )));
+                    },
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            folders[index],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800),
+                          ),
+                        ))),
                 separatorBuilder: (context, index) => Container(
                       width: double.infinity,
                       height: 1,
