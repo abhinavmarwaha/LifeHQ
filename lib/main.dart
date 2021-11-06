@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lifehq/habits/add_habit.dart';
+import 'package:lifehq/habits/habits.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sqflite/sqflite.dart';
@@ -165,6 +167,9 @@ class MyApp extends StatelessWidget {
                         KnowledgeBitsFolders(cat: KnowledgeCat.research),
                     KnowledgeBitsFolders.archive: (ctx) =>
                         KnowledgeBitsFolders(cat: KnowledgeCat.archive),
+
+                    Habits.routeName: (ctx) => Habits(),
+                    AddHabit.routeName: (ctx) => AddHabit(),
                   },
                   theme: ThemeData.dark().copyWith(
                       colorScheme:

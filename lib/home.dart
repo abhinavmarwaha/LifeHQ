@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/custom_icons.dart';
 import 'package:lifehq/goals/goals.dart';
+import 'package:lifehq/habits/habits.dart';
 import 'package:lifehq/journal/journal.dart';
 import 'package:lifehq/knowledge/knowledge.dart';
 import 'package:lifehq/routine/routine_home.dart';
@@ -62,6 +63,12 @@ class Home extends StatelessWidget {
               ),
               Spacer(),
             ],
+          ),
+          Spacer(),
+          HomeCard(
+            route: Habits.routeName,
+            title: "Habits",
+            icon: Icons.repeat,
           ),
           Spacer(),
         ],
