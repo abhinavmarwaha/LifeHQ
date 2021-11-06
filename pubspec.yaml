@@ -3,7 +3,7 @@ description: Design your life.
 
 publish_to: 'none'
 
-version: 0.6.0+6
+version: 0.6.1+7
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -60,10 +60,14 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   local_auth: ^1.1.8
 
+  # Crashlytics & performance
+  sentry_flutter: ^6.1.0
+
 dependency_overrides:
   flutter_colorpicker: ^0.6.0
 
 dev_dependencies:
+  sentry_dart_plugin: ^1.0.0-beta.1
   msix: ^2.6.2
   flutter_test:
     sdk: flutter

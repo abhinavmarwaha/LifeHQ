@@ -31,42 +31,16 @@ class Home extends StatelessWidget {
           Row(
             children: [
               Spacer(),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, RoutineHome.routeName);
-                },
-                child: Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Icon(
-                      CustomIcons.routine,
-                      color: Colors.black,
-                      size: 64,
-                    ),
-                  ),
-                ),
+              HomeCard(
+                route: RoutineHome.routeName,
+                title: "Routines",
+                icon: CustomIcons.routine,
               ),
               Spacer(),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, Journal.routeName);
-                },
-                child: Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Icon(
-                      CustomIcons.journal,
-                      color: Colors.black,
-                      size: 64,
-                    ),
-                  ),
-                ),
+              HomeCard(
+                route: Journal.routeName,
+                title: "Journal",
+                icon: CustomIcons.journal,
               ),
               Spacer(),
             ],
@@ -75,48 +49,70 @@ class Home extends StatelessWidget {
           Row(
             children: [
               Spacer(),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, Goals.routeName);
-                },
-                child: Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Icon(
-                      CustomIcons.goal,
-                      color: Colors.black,
-                      size: 64,
-                    ),
-                  ),
-                ),
+              HomeCard(
+                route: Goals.routeName,
+                title: "Goals",
+                icon: CustomIcons.goal,
               ),
               Spacer(),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, Knowledge.routeName);
-                },
-                child: Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Icon(
-                      CustomIcons.knowledge,
-                      color: Colors.black,
-                      size: 64,
-                    ),
-                  ),
-                ),
+              HomeCard(
+                route: Knowledge.routeName,
+                title: "Knowledge",
+                icon: CustomIcons.knowledge,
               ),
               Spacer(),
             ],
           ),
           Spacer(),
         ],
+      ),
+    );
+  }
+}
+
+class HomeCard extends StatelessWidget {
+  const HomeCard({
+    Key? key,
+    required this.route,
+    required this.title,
+    required this.icon,
+  }) : super(key: key);
+
+  final String route;
+  final String title;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, route);
+      },
+      child: Card(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Icon(
+                icon,
+                color: Colors.black,
+                size: 64,
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Text(
+                title,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: Colors.black),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

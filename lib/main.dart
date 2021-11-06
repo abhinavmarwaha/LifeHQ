@@ -4,6 +4,7 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -37,7 +38,7 @@ import 'package:lifehq/services/settings_provider.dart';
 import 'package:lifehq/settings.dart';
 import 'package:lifehq/utils/removed_glow_behavior.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
@@ -46,8 +47,32 @@ void main() {
     databaseFactory = databaseFactoryFfi;
     setDesktopSize();
   }
-  runApp(MyApp());
+  bool crashes = await SettingsProvider.getSendCrashes();
+  if (crashes)
+    await SentryFlutter.init(
+      (options) {
+        options.dsn =
+            'https://debc6d1f10af4477bd0b46562e6e61b1@o1061543.ingest.sentry.io/6051931';
+        // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+        // We recommend adjusting this value in production.
+        options.tracesSampleRate = 1.0;
+      },
+      appRunner: () => runApp(MyApp()),
+    );
+  else
+    runApp(MyApp());
 }
+
+// sentryInit() async {
+//   try {
+//     throw Exception();
+//   } catch (exception, stackTrace) {
+//     await Sentry.captureException(
+//       exception,
+//       stackTrace: stackTrace,
+//     );
+//   }
+// }
 
 setDesktopSize() async {
   await DesktopWindow.setWindowSize(Size(600, 800));
@@ -87,6 +112,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: Builder(builder: (context) {
+          // sentryInit();
           return Consumer6<RoutineService, GoalsService, JournalService,
               KnowledgeService, OnboardingProvider, SettingsProvider>(
             builder: (context, routineService, goalsService, journalService,

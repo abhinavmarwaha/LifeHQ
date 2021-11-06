@@ -22,6 +22,8 @@ class SettingsProvider with ChangeNotifier {
   bool get lockBool => _lockBool;
   String _lockString = "";
   String get lockString => _lockString;
+  bool _sendCrashes = false;
+  bool get sendCrashes => _sendCrashes;
 
   final storage = new FlutterSecureStorage();
 
@@ -45,6 +47,13 @@ class SettingsProvider with ChangeNotifier {
           _lockString = await storage.read(key: 'lockBoolKey') ?? "";
       }
 
+      if (prefs.containsKey('sendCrashes'))
+        _sendCrashes = prefs.getBool('sendCrashes')!;
+      else {
+        await prefs.setBool('sendCrashes', false);
+        _sendCrashes = false;
+      }
+
       _initilised = true;
 
       notifyListeners();
@@ -59,8 +68,9 @@ class SettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setLockBool(bool lock, 
-  // String pass
+  Future<void> setLockBool(
+    bool lock,
+    // String pass
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('lockBool', lock);
@@ -68,5 +78,26 @@ class SettingsProvider with ChangeNotifier {
     _lockBool = lock;
 
     notifyListeners();
+  }
+
+  Future<void> setSendCrash(bool _crash) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('sendCrashes', _crash);
+    _sendCrashes = _crash;
+
+    notifyListeners();
+  }
+
+  static Future<bool> getSendCrashes() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _send = false;
+    if (prefs.containsKey('sendCrashes'))
+      _send = prefs.getBool('sendCrashes')!;
+    else {
+      await prefs.setBool('sendCrashes', false);
+      _send = false;
+    }
+
+    return _send;
   }
 }
