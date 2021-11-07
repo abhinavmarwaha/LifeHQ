@@ -18,6 +18,7 @@ parts:
     - libsqlite3-dev
     stage-packages:
     - libsecret-1-dev
+    - libjsoncpp1-dev
 
 apps:
   lifehq:
