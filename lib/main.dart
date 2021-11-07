@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lifehq/habits/add_habit.dart';
 import 'package:lifehq/habits/habits.dart';
+import 'package:lifehq/habits/services/habits_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sqflite/sqflite.dart';
@@ -111,6 +112,10 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             lazy: false,
             create: (ctx) => OnboardingProvider(),
+          ),
+          ChangeNotifierProvider(
+            lazy: false,
+            create: (ctx) => HabitsProvider(),
           ),
         ],
         child: Builder(builder: (context) {

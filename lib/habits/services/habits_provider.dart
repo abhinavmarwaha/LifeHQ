@@ -35,6 +35,7 @@ class HabitsProvider with ChangeNotifier {
   Future<int> saveHabit(Habit habit) async {
     int index = await _db.insertHabit(habit);
     habit.habitId = index;
+    _habits.add(habit);
 
     notifyListeners();
 

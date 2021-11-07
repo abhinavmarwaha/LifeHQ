@@ -17,8 +17,14 @@ Design Your Life
 <!--     <a href='https://appdistribution.firebase.dev/i/2775ef0933970ecc'>
         <img height="56" alt='Download on the App Store' style="padding-right:8px;" src='assets/external/download_on_the_app_store.svg'/>
     </a> -->
+    <a href='https://github.com/abhinavmarwaha/LifeHQ/releases/download/v0.6.0/lifehq.msix'>
+        <img height="56" alt='Download on the Windows Store' style="padding-right:8px;" src='assets/external/windows.png'/>
+    </a>
     <a href='https://github.com/abhinavmarwaha/lifehq/releases/latest'>
-    <img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png" alt="Get it on Github" height="70">
+        <img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png" alt="Get it on Github" height="70">
+    </a>
+    <a href="https://snapcraft.io/lifehq">
+        <img alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" />
     </a>
 </p>
 
