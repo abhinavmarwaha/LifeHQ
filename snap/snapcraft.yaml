@@ -29,6 +29,7 @@ parts:
     build-packages:
     - libsecret-1-dev
     - libjsoncpp-dev
+    - libsqlite3-0 
+    - libsqlite3-dev
     stage-packages:
     - libsecret-1-dev
-    - libjsoncpp1-dev
