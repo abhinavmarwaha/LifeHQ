@@ -37,6 +37,7 @@ dependencies:
   flutter_quill: ^2.0.13
   fluttertoast: ^8.0.8
   cached_network_image: ^3.1.0
+  flutter_neat_and_clean_calendar: ^0.2.3+11
 
   # location
   flutter_map: ^0.14.0

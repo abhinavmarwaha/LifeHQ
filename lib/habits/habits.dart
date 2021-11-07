@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lifehq/constants/dimensions.dart';
 import 'package:lifehq/habits/add_habit.dart';
+import 'package:lifehq/habits/habit_details.dart';
 import 'package:lifehq/habits/models/habit_model.dart';
 import 'package:lifehq/habits/services/habits_provider.dart';
 import 'package:lifehq/skeleton.dart';
@@ -41,9 +42,8 @@ class Habits extends StatelessWidget {
         child: Consumer<HabitsProvider>(
           builder: (context, value, child) => ListView(
             children: value.habits
-                .map((e) => HabitCard(
-                      habit: e,
-                    ))
+                .map((e) =>
+                    HabitCard(habit: e, score: value.habitVal[e.habitId]!))
                 .toList(),
           ),
         ),
@@ -96,14 +96,72 @@ class HabitCard extends StatelessWidget {
   const HabitCard({
     Key? key,
     required this.habit,
+    required this.score,
   }) : super(key: key);
 
   final Habit habit;
+  final int score;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: null,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (ctx) => HabitDetails(
+                      habit: habit,
+                    )));
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    habit.title,
+                    style: TextStyle(
+                        color: habit.bad ? Colors.red : Colors.green,
+                        fontSize: 14),
+                  ),
+                  Spacer(),
+                  Text(
+                    score.toString(),
+                    style: TextStyle(
+                        color: habit.bad ? Colors.red : Colors.green,
+                        fontSize: 14),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Center(
+                child: TextButton(
+                    onPressed: () => _openAddDone(context),
+                    child: Text("Add Done")),
+              )
+            ],
+          ),
+        ),
+      ),
     );
+  }
+
+  void _openAddDone(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (ctx) => Dialog(
+              child: StatefulBuilder(builder: (context, setState) {
+                return Column(
+                  children: [],
+                );
+              }),
+            ));
   }
 }

@@ -377,6 +377,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.2+2"
+  flutter_neat_and_clean_calendar:
+    dependency: "direct main"
+    description:
+      name: flutter_neat_and_clean_calendar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3+11"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:

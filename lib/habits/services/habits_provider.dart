@@ -16,13 +16,16 @@ class HabitsProvider with ChangeNotifier {
 
   List<Habit> _habits = [];
   List<Habit> get habits => _habits;
+  Map<int, int> _habitVal = {};
+  Map<int, int> get habitVal => _habitVal;
 
   Future _init() async {
     if (!initilised) {
       _db = HabitsDB();
       _habits = await _db.getHabits();
       for (Habit habit in _habits) {
-        habit.doneAt = await _db.getDoneAtsofhabit(habit.habitId);
+        habit.doneAt = await _db.getDoneAtsofhabit(habit.habitId!);
+        _habitVal[habit.habitId!] = habit.calculateTrend();
       }
       initilised = true;
       notifyListeners();

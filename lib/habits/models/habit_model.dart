@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:lifehq/habits/models/done_at.dart';
 
 // TODO HABIT STACK
 
 class Habit {
-  int habitId;
+  int? habitId;
   final String title;
   final DateTime added;
   final String cue;
@@ -24,7 +23,7 @@ class Habit {
   final HabitFreq freq;
 
   Habit({
-    required this.habitId,
+    this.habitId,
     required this.title,
     required this.added,
     required this.cue,
@@ -129,6 +128,17 @@ class Habit {
   String toString() {
     return 'Habit(habitId: $habitId, title: $title, added: $added, cue: $cue, craving: $craving, response: $response, reward: $reward, behavior: $behavior, hour: $hour, min: $min, location: $location, doneAt: $doneAt, quantityString: $quantityString, quantity: $quantity, bad: $bad, freq: $freq)';
   }
+
+  int calculateTrend() {
+    int sum = 0;
+
+    int mul = this.bad ? -1 : 1;
+    this.doneAt.forEach((value) {
+      sum += value.done ? mul : -1 * mul;
+    });
+
+    return sum;
+  }
 }
 
 enum HabitFreq { daily, weekly, monthly }
@@ -146,7 +156,22 @@ HabitFreq HabitFreqFromInt(int freq) {
   }
 }
 
+HabitFreq HabitFreqFromString(String val) {
+  switch (val) {
+    case "daily":
+      return HabitFreq.daily;
+    case "weekly":
+      return HabitFreq.weekly;
+    case "monthly":
+      return HabitFreq.monthly;
+    default:
+      return HabitFreq.daily;
+  }
+}
+
 extension HabitFreqExtensions on HabitFreq {
+  String toShortString() => this.toString().split(".")[1];
+
   int toInt() {
     switch (this) {
       case HabitFreq.daily:
