@@ -1,7 +1,7 @@
 name: lifehq
 version: 0.6.0
 summary: Design your Life
-description: Super Cool App that does everything!
+description: Design your life journaling, routine and goals.
 
 confinement: strict
 base: core18
