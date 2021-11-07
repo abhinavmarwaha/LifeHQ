@@ -164,7 +164,7 @@ class _KnowledgeBitInputState extends State<KnowledgeBitInput> {
                           focusNode: _focusNode,
                           autoFocus: false,
                           readOnly: false,
-                          placeholder: 'Add content',
+                          // placeholder: 'Add content',
                           expands: false,
                           padding: EdgeInsets.zero,
                           controller: _controller,
