@@ -5,22 +5,7 @@ description: Design your life journaling, routine and goals.
 
 confinement: strict
 base: core18
-grade: stable
 
-slots:
-  dbus-lifehq:
-    interface: dbus
-    bus: session
-    name: com.abhinavmarwaha.lifehq
-    
-apps:
-  lifehq:
-    command: lifehq
-    extensions: [flutter-stable]
-    plugs:
-    - network
-    slots:
-      - dbus-lifehq
 parts:
   lifehq:
     source: .
@@ -33,3 +18,8 @@ parts:
     - libsqlite3-dev
     stage-packages:
     - libsecret-1-dev
+
+apps:
+  lifehq:
+    command: lifehq
+    extensions: [flutter-stable]
