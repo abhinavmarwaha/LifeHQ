@@ -2,7 +2,7 @@
 Name=LifeHQ
 Comment=Design your Life
 Exec=LifeHQ
-Icon=${SNAP}/meta/gui/LifeHQ.png
+Icon=${SNAP}/meta/gui/icon.png
 Terminal=false
 Type=Application
 Categories=Productivity
