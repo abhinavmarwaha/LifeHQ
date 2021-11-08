@@ -1,8 +1,8 @@
 [Desktop Entry]
-  Name=LifeHQ
-  Comment=Design your Life
-  Exec=LifeHQ
-  Icon=${SNAP}/meta/gui/LifeHQ.png
-  Terminal=false
-  Type=Application
-  Categories=Productivity;
+Name=LifeHQ
+Comment=Design your Life
+Exec=LifeHQ
+Icon=${SNAP}/meta/gui/LifeHQ.png
+Terminal=false
+Type=Application
+Categories=Productivity
