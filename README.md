@@ -71,6 +71,10 @@ You can add an issue [here](https://github.com/abhinavmarwaha/lifehq/issues) or 
 
 I don't have an ios dev account so you can download the runner.app.zip [here](https://github.com/abhinavmarwaha/LifeHQ/releases) and you can sign and install using [AltStore](https://altstore.io/) 
 
+# MacOs
+
+[LifeHQ dmg](https://github.com/abhinavmarwaha/LifeHQ/releases/download/v0.6.0/lifehq.dmg)
+
 # ToDo
 
 [Roadmap](https://github.com/abhinavmarwaha/LifeHQ/projects/1)

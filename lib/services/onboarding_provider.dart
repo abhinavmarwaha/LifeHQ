@@ -5,6 +5,7 @@ import 'package:lifehq/knowledge/services/knowledge_db.dart';
 import 'package:lifehq/knowledge/services/knowledge_service.dart';
 import 'package:lifehq/services/notifications_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
 
 class OnboardingProvider with ChangeNotifier {
   static final OnboardingProvider instance = OnboardingProvider._internal();
@@ -32,13 +33,15 @@ class OnboardingProvider with ChangeNotifier {
       _year = _prefs!.getInt(StringConstants.BIRTHYEAR) ?? 0;
 
       if (firstTime) {
+    if(Platform.isIOS || Platform.isAndroid){
+
         final _notifs = NotificationsService();
         await _notifs.serviceSetup();
         await _notifs.dailyNotif(
             0, "Morning Routine", "Lets prepare for the day ahead", 9, 0);
         await _notifs.dailyNotif(
             1, "Night Routine", "Lets analyse our day", 21, 0);
-
+}
         _initilised = true;
         notifyListeners();
       } else {

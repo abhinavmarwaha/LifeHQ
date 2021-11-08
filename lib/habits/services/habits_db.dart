@@ -43,7 +43,6 @@ class HabitsDB {
               done INTEGER,
               habitId INTEGER, 
               FOREIGN KEY (habitId) REFERENCES habits (habitId) );
-            );
             """);
       },
       version: 2,
