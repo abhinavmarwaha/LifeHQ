@@ -73,7 +73,7 @@ I don't have an ios dev account so you can download the runner.app.zip [here](ht
 
 # MacOs
 
-[LifeHQ dmg](https://github.com/abhinavmarwaha/LifeHQ/releases/download/v0.6.0/lifehq.0.6.1.dmg)
+[LifeHQ dmg](https://github.com/abhinavmarwaha/LifeHQ/releases/download/v0.6.0/lifehq.dmg)
 
 # ToDo
 
