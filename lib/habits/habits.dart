@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:lifehq/constants/dimensions.dart';
 import 'package:lifehq/habits/add_habit.dart';
 import 'package:lifehq/habits/habit_details.dart';
+import 'package:lifehq/habits/models/done_at.dart';
 import 'package:lifehq/habits/models/habit_model.dart';
 import 'package:lifehq/habits/services/habits_provider.dart';
 import 'package:lifehq/skeleton.dart';
 import 'package:lifehq/widgets/back_button.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Habits extends StatelessWidget {
   const Habits({Key? key}) : super(key: key);
@@ -77,18 +79,33 @@ class Habits extends StatelessWidget {
 
   void _openInfoDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) => Dialog(
-            child: Container(
-                height: 220,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                ),
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [],
-                ))));
+      context: context,
+      builder: (BuildContext context) => Dialog(
+        child: Container(
+          height: 240,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.white,
+          ),
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Text(
+                '(1) make it obvious, (2) make it attractive, (3) make it easy, and (4) make it satisfying. \n\n\n The habit stacking formula is: ‘After [CURRENT HABIT], I will [NEW HABIT]. \n\n\n The implementation intention formula is: I will [BEHAVIOR] at [TIME] in [LOCATION].',
+                style: TextStyle(color: Colors.black),
+              ),
+              TextButton(
+                  onPressed: () => launch(
+                      "https://www.nateliason.com/notes/atomic-habits-james-clear"),
+                  child: Text(
+                    "Click Me.",
+                    style: TextStyle(color: Colors.black),
+                  ))
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -123,18 +140,26 @@ class HabitCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text(
-                    habit.title,
-                    style: TextStyle(
-                        color: habit.bad ? Colors.red : Colors.green,
-                        fontSize: 14),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      habit.title,
+                      style: TextStyle(
+                          color: habit.bad ? Colors.red : Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
                   ),
                   Spacer(),
-                  Text(
-                    score.toString(),
-                    style: TextStyle(
-                        color: habit.bad ? Colors.red : Colors.green,
-                        fontSize: 14),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      score.toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: habit.bad ? Colors.red : Colors.green,
+                          fontSize: 14),
+                    ),
                   ),
                 ],
               ),
@@ -144,7 +169,8 @@ class HabitCard extends StatelessWidget {
               Center(
                 child: TextButton(
                     onPressed: () => _openAddDone(context),
-                    child: Text("Add Done")),
+                    child: Text("Add Done",
+                        style: TextStyle(color: Colors.black))),
               )
             ],
           ),
@@ -154,12 +180,33 @@ class HabitCard extends StatelessWidget {
   }
 
   void _openAddDone(BuildContext context) {
+    bool done = false;
     showDialog(
         context: context,
         builder: (ctx) => Dialog(
               child: StatefulBuilder(builder: (context, setState) {
-                return Column(
-                  children: [],
+                return SizedBox(
+                  height: 120,
+                  child: Column(
+                    children: [
+                      CheckboxListTile(
+                          title: Text("Done?"),
+                          value: done,
+                          onChanged: (val) => setState(() => done = val!)),
+                      TextButton(
+                          onPressed: () {
+                            Provider.of<HabitsProvider>(context, listen: false)
+                                .insertDoneAt(
+                                    DoneAt(
+                                        dateTime: DateTime.now(),
+                                        done: done,
+                                        habitId: habit.habitId!),
+                                    habit)
+                                .then((value) => Navigator.pop(context));
+                          },
+                          child: Text("Add"))
+                    ],
+                  ),
                 );
               }),
             ));

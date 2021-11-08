@@ -16,15 +16,18 @@ class AddHabit extends StatefulWidget {
 class _AddHabitState extends State<AddHabit> {
   final _formKey = GlobalKey<FormState>();
 
-  String _title = "";
-  String _cue = "";
-  String _craving = "";
-  String _response = "";
-  String _reward = "";
-  String _behavior = "";
-  int _hour = 0;
-  int _min = 0;
-  String _location = "";
+  Map<String, String> values = {
+    "Title": "",
+    "Cue": "",
+    "Craving": "",
+    "Response": "",
+    "Reward": "",
+    "Behavior": "",
+    "Location": "",
+  };
+
+  int _hour = 2;
+  int _min = 10;
   String _quantityString = "";
   HabitFreq _freq = HabitFreq.daily;
   bool _bad = false;
@@ -37,20 +40,10 @@ class _AddHabitState extends State<AddHabit> {
       child: Form(
         key: _formKey,
         child: Column(children: <Widget>[
-          ...[
-            "_title",
-            "_craving",
-            "_response",
-            "_reward",
-            "_behavior",
-            "_location"
-          ].map(
-            (e) => TextFormField(
+          ...values.entries.map(
+            (val) => TextFormField(
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                  hintText: e
-                      .replaceAll("_", "")
-                      .replaceAll(e[0], e[0].toUpperCase())),
+              decoration: InputDecoration(hintText: val.key),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter some text';
@@ -58,7 +51,7 @@ class _AddHabitState extends State<AddHabit> {
 
                 return null;
               },
-              onChanged: (value) => e = value,
+              onChanged: (value) => values[val.key] = value,
             ),
           ),
           TextButton(
@@ -67,15 +60,18 @@ class _AddHabitState extends State<AddHabit> {
           ),
           DropdownButton<String>(
             style: TextStyle(color: Colors.white),
+            hint: Text("Frequency"),
             items: HabitFreq.values
                 .map<DropdownMenuItem<String>>((HabitFreq freq) {
               return DropdownMenuItem<String>(
-                value: freq.toString(),
+                value: freq.toShortString(),
                 child: Text(freq.toShortString()),
               );
             }).toList(),
-            onChanged: (val) => _freq = HabitFreqFromString(val ?? ""),
-            // value: _freq.toShortString(),
+            onChanged: (val) => setState(() {
+              _freq = HabitFreqFromString(val ?? "");
+            }),
+            value: _freq.toShortString(),
           ),
           Row(
             children: [
@@ -115,16 +111,16 @@ class _AddHabitState extends State<AddHabit> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   final habit = Habit(
-                      title: _title,
+                      title: values['Title']!,
                       added: DateTime.now(),
-                      cue: _cue,
-                      craving: _craving,
-                      response: _response,
-                      reward: _reward,
-                      behavior: _behavior,
+                      cue: values['Cue']!,
+                      craving: values['Craving']!,
+                      response: values['Response']!,
+                      reward: values['Reward']!,
+                      behavior: values['Behavior']!,
                       hour: _hour,
                       min: _min,
-                      location: _location,
+                      location: values['Location']!,
                       doneAt: [],
                       quantityString: _quantityString,
                       quantity: 0,

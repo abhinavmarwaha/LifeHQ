@@ -52,6 +52,7 @@ class HabitsProvider with ChangeNotifier {
     int index = await _db.insertDoneAt(doneAt);
     doneAt.doneAtId = index;
     habit.doneAt.add(doneAt);
+    _habitVal[habit.habitId!] = habit.calculateTrend();
 
     notifyListeners();
 

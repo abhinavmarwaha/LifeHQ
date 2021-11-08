@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 class DoneAt {
-  int doneAtId;
+  int? doneAtId;
   final int habitId;
   final DateTime dateTime;
   final bool done;
 
   DoneAt({
-    required this.doneAtId,
+    this.doneAtId,
     required this.habitId,
     required this.dateTime,
     required this.done,

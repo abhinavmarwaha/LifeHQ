@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
 import 'package:lifehq/habits/models/habit_model.dart';
+import 'package:lifehq/habits/services/habits_provider.dart';
 import 'package:lifehq/habits/widgets/done_at_card.dart';
 import 'package:lifehq/skeleton.dart';
+import 'package:lifehq/widgets/back_button.dart';
+import 'package:provider/provider.dart';
 
 class HabitDetails extends StatelessWidget {
   const HabitDetails({
@@ -25,15 +28,31 @@ class HabitDetails extends StatelessWidget {
     return Skeleton(
         child: Column(
       children: [
-        Text(
-          habit.title,
-          style: TextStyle(
-              color: habit.bad ? Colors.red : Colors.green, fontSize: 14),
+        Row(
+          children: [
+            MyBackButton(),
+            Text(
+              habit.title,
+              style: TextStyle(
+                  color: habit.bad ? Colors.red : Colors.green, fontSize: 14),
+            ),
+            Spacer(),
+            GestureDetector(
+                onTap: () {
+                  Provider.of<HabitsProvider>(context, listen: false)
+                      .deleteHabit(habit)
+                      .then((value) => Navigator.pop(context));
+                },
+                child: Icon(Icons.delete))
+          ],
+        ),
+        SizedBox(
+          height: 12,
         ),
         Calendar(
           startOnMonday: true,
           events: _events,
-          isExpandable: true,
+          isExpanded: true,
           eventDoneColor: Colors.green,
           selectedColor: Colors.white,
           todayColor: Colors.black,
@@ -43,18 +62,26 @@ class HabitDetails extends StatelessWidget {
                 Text(
                   day.day.toString(),
                 ),
-                if (habit.doneAt.where((e) => e.dateTime == day).length > 0)
+                if (habit.doneAt
+                        .where((e) =>
+                            DateTime(e.dateTime.year, e.dateTime.month,
+                                e.dateTime.day) ==
+                            day)
+                        .length >
+                    0)
                   Text(habit.bad ? "X" : "✓")
               ],
             );
           },
           eventListBuilder: (BuildContext context,
               List<NeatCleanCalendarEvent> _selectesdEvents) {
-            return DoneAtCard(
-                doneAt: habit.doneAt
-                    .where((element) =>
-                        element.dateTime == _selectesdEvents.first.startTime)
-                    .first);
+            if (_selectesdEvents.length == 0) return Container();
+            final doneAt = habit.doneAt.where((element) =>
+                element.dateTime == _selectesdEvents.first.startTime);
+
+            return doneAt.length > 0
+                ? DoneAtCard(doneAt: doneAt.first)
+                : Container();
           },
           eventColor: Colors.white,
           expandableDateFormat: 'EEEE, dd/MM/yyyy',
