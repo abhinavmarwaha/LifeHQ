@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lifehq/constants/strings.dart';
 import 'package:lifehq/services/settings_provider.dart';
+import 'package:lifehq/services/sync.dart';
 import 'package:lifehq/skeleton.dart';
+import 'package:lifehq/utils/utils.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -49,6 +51,39 @@ class Settings extends StatelessWidget {
                 child: Icon(Icons.cancel)),
             SizedBox(
               height: 16,
+            ),
+            GestureDetector(
+              onTap: () {
+                Sync().sync().then((value) {
+                  Utilities.showInfoToast("Json exported to " + value);
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.backup,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text("Export to Folder",
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 16)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 8),

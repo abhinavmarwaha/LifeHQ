@@ -64,6 +64,12 @@ dependencies:
   # Crashlytics & performance
   sentry_flutter: ^6.1.0
 
+  # Sync
+  encrypt: ^5.0.1
+  nextcloud: ^3.0.1
+  crypto: ^3.0.1
+  permission_handler: ^8.2.6
+
 dependency_overrides:
   flutter_colorpicker: ^0.6.0
 
