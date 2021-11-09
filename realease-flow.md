@@ -3,6 +3,7 @@
 # Version, Screenshots and Description
 
 * version.txt
+* version in snapcraft.yml
 * pubspec
 * Changelog
 * fastlane
