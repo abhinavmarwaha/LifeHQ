@@ -4,6 +4,7 @@
 
 * version.txt
 * pubspec
+* Changelog
 * fastlane
 
 # F-droid
