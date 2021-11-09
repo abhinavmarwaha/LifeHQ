@@ -36,6 +36,7 @@ class HabitsProvider with ChangeNotifier {
     int index = await _db.insertHabit(habit);
     habit.habitId = index;
     _habits.add(habit);
+    _habitVal[habit.habitId!] = habit.calculateTrend();
 
     notifyListeners();
 

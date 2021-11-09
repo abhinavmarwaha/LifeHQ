@@ -29,6 +29,9 @@ class Habits extends StatelessWidget {
               fontSize: 26,
             ),
           ),
+          SizedBox(
+            width: 12,
+          ),
           Spacer(),
           GestureDetector(
             behavior: HitTestBehavior.opaque,
@@ -39,6 +42,9 @@ class Habits extends StatelessWidget {
             ),
           )
         ],
+      ),
+      SizedBox(
+        height: 24,
       ),
       Expanded(
         child: Consumer<HabitsProvider>(

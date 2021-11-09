@@ -57,20 +57,37 @@ class HabitDetails extends StatelessWidget {
           selectedColor: Colors.white,
           todayColor: Colors.black,
           dayBuilder: (BuildContext context, DateTime day) {
-            return Column(
-              children: [
-                Text(
-                  day.day.toString(),
+            return Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      day.day.toString(),
+                    ),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    if (habit.doneAt
+                            .where((e) =>
+                                DateTime(e.dateTime.year, e.dateTime.month,
+                                    e.dateTime.day) ==
+                                day)
+                            .length >
+                        0)
+                      Text(
+                        habit.bad ? "X" : "✓",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: habit.bad ? Colors.red : Colors.green,
+                            fontSize: 14),
+                      )
+                  ],
                 ),
-                if (habit.doneAt
-                        .where((e) =>
-                            DateTime(e.dateTime.year, e.dateTime.month,
-                                e.dateTime.day) ==
-                            day)
-                        .length >
-                    0)
-                  Text(habit.bad ? "X" : "✓")
-              ],
+              ),
             );
           },
           eventListBuilder: (BuildContext context,

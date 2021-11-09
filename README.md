@@ -17,7 +17,7 @@ Design Your Life
 <!--     <a href='https://appdistribution.firebase.dev/i/2775ef0933970ecc'>
         <img height="56" alt='Download on the App Store' style="padding-right:8px;" src='assets/external/download_on_the_app_store.svg'/>
     </a> -->
-    <a href='https://github.com/abhinavmarwaha/LifeHQ/releases/download/v0.6.0/lifehq.msix'>
+    <a href='https://github.com/abhinavmarwaha/LifeHQ/releases/download/v0.7.0/lifehq.msix'>
         <img height="56" alt='Download on the Windows Store' style="padding-right:8px;" src='assets/external/windows.png'/>
     </a>
     <a href='https://github.com/abhinavmarwaha/lifehq/releases/latest'>
@@ -57,10 +57,10 @@ Design Your Life
 * Journal
 * Goals
 * Knowledge
+* habits
 
 ### Coming Soon:
 
-* habits
 * decisions
 
 # Have Suggestions ?
@@ -73,7 +73,7 @@ I don't have an ios dev account so you can download the runner.app.zip [here](ht
 
 # MacOs
 
-[LifeHQ dmg](https://github.com/abhinavmarwaha/LifeHQ/releases/download/v0.6.0/lifehq.dmg)
+[LifeHQ dmg](https://github.com/abhinavmarwaha/LifeHQ/releases/download/v0.7.0/lifehq.dmg)
 
 # ToDo
 
@@ -90,3 +90,12 @@ You can contact me at [abhinavmarwaha@protonmail.com](mailto:abhinavmarwaha@prot
 Feedback like these: ❤️
 
 <img src="assets/external/social-proof.png"/>
+
+# Building
+
+```
+install flutter
+flutter build apk --flavor=fdroid --release
+```
+
+[Release Flow](realease-flow.md)

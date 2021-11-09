@@ -63,7 +63,7 @@ class Settings extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        Icons.send_and_archive,
+                        Icons.send_to_mobile,
                         color: Colors.black,
                       ),
                       SizedBox(
@@ -266,16 +266,16 @@ class Settings extends StatelessWidget {
                 icon: Icons.code,
                 url: StringConstants.GITHUBREPO,
                 title: "Github Repo"),
-            if (!PLAYSTORE)
-              SettingsCard(
-                  icon: Icons.coffee,
-                  url: StringConstants.COFFEE,
-                  title: "Buy Me a Coffee"),
-            if (!PLAYSTORE)
-              SettingsCard(
-                  icon: Icons.people,
-                  url: StringConstants.PATREON,
-                  title: "Patreon"),
+            // if (!PLAYSTORE)
+            //   SettingsCard(
+            //       icon: Icons.coffee,
+            //       url: StringConstants.COFFEE,
+            //       title: "Buy Me a Coffee"),
+            // if (!PLAYSTORE)
+            //   SettingsCard(
+            //       icon: Icons.people,
+            //       url: StringConstants.PATREON,
+            //       title: "Patreon"),
             SettingsCard(
                 icon: Icons.message,
                 url: StringConstants.DISCORD,
