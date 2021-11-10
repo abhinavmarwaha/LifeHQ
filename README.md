@@ -40,6 +40,7 @@ Design Your Life
     <a href="https://github.com/abhinavmarwaha/LifeHQ/releases">
         <img src="https://img.shields.io/github/downloads/abhinavmarwaha/LifeHQ/total?color=white"/>  
     </a>
+    <img src="https://img.shields.io/discord/894461670989103144?color=white&label=Discord&logo=Discord&logoColor=white&style=flat-square"/>
 </p>
 
 <p align='center'> 
