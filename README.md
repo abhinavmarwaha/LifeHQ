@@ -37,9 +37,10 @@ Design Your Life
     <img src="https://img.shields.io/github/license/abhinavmarwaha/LifeHQ?color=white"/>
     <img src="https://img.shields.io/github/v/release/abhinavmarwaha/LifeHQ?include_prereleases&color=white"/>
     <img src="https://img.shields.io/github/commits-since/abhinavmarwaha/LifeHQ/latest?color=white"/> 
-    <!-- <a href="https://github.com/abhinavmarwaha/LifeHQ/releases">
+    <a href="https://github.com/abhinavmarwaha/LifeHQ/releases">
         <img src="https://img.shields.io/github/downloads/abhinavmarwaha/LifeHQ/total?color=white"/>  
-    </a> -->
+    </a>
+    <img src="https://img.shields.io/discord/894461670989103144?color=white&label=Discord&logo=Discord&logoColor=white&style=flat-square"/>
 </p>
 
 <p align='center'> 
