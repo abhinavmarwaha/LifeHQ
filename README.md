@@ -100,3 +100,7 @@ flutter build apk --flavor=fdroid --release
 ```
 
 [Release Flow](realease-flow.md)
+
+# Support
+
+Best way is btc -> 35Tzo8hTsggF2YENmBUc4ZiMjCKNYjgmHH
